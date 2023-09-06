@@ -1,43 +1,45 @@
+import { Link } from "react-router-dom";
+
 export default function Header() {
   return (
     <header className="bg-black w-full h-[100px] px-[70px] text-gray200 flex flex-row justify-between items-center">
-      <ul className="content__list flex flex-row gap-x-14 text-xl">
+      <ul className="content__list flex flex-row gap-x-14 text-xl md:max-xl:gap-x-10">
         <li className="logo">
-          <a href="">
+          <Link to="#">
             <img src="/" alt="타잉" />
-          </a>
+          </Link>
         </li>
         <li className="home max-md:hidden">
-          <a href="/">
+          <Link href="#">
             홈
-          </a>
+          </Link>
         </li>
         <li className="program max-md:hidden">
-          <a href="program">
+          <Link to="program">
             TV 프로그램
-          </a>
+          </Link>
         </li>
         <li className="movie max-md:hidden">
-          <a href="movie">
+          <Link to="movie">
             영화
-          </a>
+          </Link>
         </li>
         <li className="live max-md:hidden">
-          <a href="live">
+          <Link to="live">
             실시간 LIVE
-          </a>
+          </Link>
         </li>
       </ul>
       <ul className="profile__list flex flex-row gap-10">
         <li>
-          <a href="">
+          <Link to="/">
             <img src="" alt="검색" />
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="profile">
+          <Link to="profile">
             <img src="" alt="프로필" />
-          </a>
+          </Link>
         </li>
       </ul>
     </header>
