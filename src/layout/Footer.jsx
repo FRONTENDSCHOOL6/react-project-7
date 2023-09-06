@@ -2,23 +2,23 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="w-full pt-[70px] px-10 pb-24 flex flex-col gap-6 bg-black text-xl text-gray500 md:max-lg:text-lg">
+    <footer className="w-full pt-[70px] px-10 pb-24 flex flex-col gap-6 bg-black text-xl text-gray500 md:max-lg:text-lg sm:max-md:gap-4">
       {/* 첫번째 줄 */}
       <div className="flex flex-row justify-between">
         <p className="inline-block">
           공지사항
-          <Link to="/" className="ml-5 hover:text-gray-400 duration-200 md:max-lg:ml-2">[안내] 합병보고 주주총회에 갈음하는 공고</Link>
+          <Link to="/" className="ml-5 xl:hover:text-gray200 duration-200 md:max-lg:ml-2 sm:max-md:text-gray200">[안내] 합병보고 주주총회에 갈음하는 공고</Link>
         </p>
         <div className="flex flex-row gap-7 items-center md:max-lg:gap-2 max-md:hidden">
           <p>
-            <Link to="/" className="flex flex-row gap-3 hover:text-gray-200 duration-200 md:max-lg:gap-2">
+            <Link to="/" className="flex flex-row gap-3 xl:hover:text-gray200 duration-200 md:max-lg:gap-2">
               브랜드 바로가기
               <span>+</span>
             </Link>
           </p>
-          <span className="w-[1px] bg-gray-500 h-3/4"></span>
+          <span className="w-[1px] bg-gray500 h-3/4"></span>
           <p>
-            <Link to="/" className="flex flex-row gap-3 hover:text-gray-200 duration-200 md:max-lg:gap-2">
+            <Link to="/" className="flex flex-row gap-3 xl:hover:text-gray200 duration-200 md:max-lg:gap-2">
               그룹 계열사 바로가기
               <span>+</span>
             </Link>
@@ -28,25 +28,25 @@ export default function Footer() {
       <hr className="border-[#212121] my-6" />
       {/* 두번째줄 */}
       <ul className="flex flex-row gap-9 text-gray400 md:max-lg:text-lg md:max-lg:gap-6 max-md:flex-col max-md:gap-1">
-        <li className="lg:hover:text-gray-200 duration-200">
+        <li className="xl:hover:text-gray200 duration-200 sm:max-md:text-gray200">
           <Link to="/">고객센터</Link>
         </li>
-        <li className="lg:hover:text-gray-200 duration-200">
+        <li className="xl:hover:text-gray200 duration-200 sm:max-md:text-gray200">
           <Link to="/">이용약관</Link>
         </li>
-        <li className="font-extrabold lg:hover:text-gray-200 duration-200 max-md:font-normal">
+        <li className="font-extrabold xl:hover:text-gray200 duration-200 sm:max-md:text-gray200 max-md:font-normal">
           <Link to="/">개인정보처리방침</Link>
         </li>
-        <li className="lg:hover:text-gray-200 duration-200">
+        <li className="xl:hover:text-gray200 sm:max-md:text-gray200 duration-200">
           <Link to="/">청소년 보호정책</Link>
         </li>
-        <li className="lg:hover:text-gray-200 duration-200">
+        <li className="xl:hover:text-gray200 sm:max-md:text-gray200 duration-200">
           <Link to="/">법적고지</Link>
         </li>
-        <li className="lg:hover:text-gray-200 duration-200">
+        <li className="xl:hover:text-gray200 sm:max-md:text-gray200 duration-200">
           <Link to="/">이벤트</Link>
         </li>
-        <li className="lg:hover:text-gray-200 duration-200">
+        <li className="xl:hover:text-gray200 sm:max-md:text-gray200 duration-200">
           <Link to="/">인재채용</Link>
         </li>
       </ul>
