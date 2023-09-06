@@ -8,7 +8,7 @@ const RootLayout = lazy(() => import('./../layout/RootLayout'));
 const Home = lazy(() => import('./../pages/Home'));
 const SignIn = lazy(() => import('./../pages/SignIn'));
 const SignUp = lazy(() => import('./../pages/SignUp'));
-const Detail = lazy(() => import('./../pages/Detail'));
+const Contents = lazy(() => import('../pages/Contents'));
 const Favorite = lazy(() => import('./../pages/Favorite'));
 const Live = lazy(() => import('./../pages/Live'));
 const Membership = lazy(() => import('./../pages/Membership'));
@@ -23,7 +23,7 @@ const router = createHashRouter(
     <Route index element={<Home />} />
     <Route path="/signin" element={<SignIn />} />
     <Route path="/signup" element={<SignUp />} />
-    <Route path="/detail" element={<Detail />} />
+    <Route path="/contents/:id" element={<Contents />} />
     <Route path="/favorite" element={<Favorite />} />
     <Route path="/live" element={<Live />} />
     <Route path="/membership" element={<Membership />} />
