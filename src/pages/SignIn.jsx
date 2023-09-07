@@ -6,55 +6,66 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import S from './../styles/Signin.css';
 
 function SignIn() {
-  
-  // const [showPswd, setShowPswd] = useState<boolean>(false);
-  const [formState, setFormState] = useState({
-    id: '',
-    password: '',
-  });
+		// const [showPswd, setShowPswd] = useState<boolean>(false);
+		const [formState, setFormState] = useState({
+			id: "",
+			password: "",
+		})
 
-  const [imageSrc, setImageSrc] = useState("/assets/gray-check.svg");
-  const [color, setColor] = useState("bg-gray600");
-  const [isLoginClicked, setIsLoginClicked] = useState(false);
-  const [showPassword, setShowPassword] = useState("/assets/");
-  const [isPasswordClicked, setPasswordClicked] = useState(false);
+		const [imageSrc, setImageSrc] = useState("/assets/gray-check.svg")
+		const [color, setColor] = useState("bg-gray600")
+		const [isLoginClicked, setIsLoginClicked] = useState(false)
+		const [showPassword, setShowPassword] = useState(
+			"/assets/password-hide.svg"
+		)
+		const [isPasswordClicked, setPasswordClicked] = useState(false)
 
-  const handleLoginClick = () => {
-      if (isLoginClicked) {
-        setImageSrc("/assets/gray-check.svg");
-        setColor("bg-gray600");
-        setIsLoginClicked(false); // 초기 상태 false 일 땐 초기 상태 이미지 src
-      } else {
-        setImageSrc("/assets/red-check.svg");
-        setColor("bg-primary");
-        setIsLoginClicked(true); // true일 땐 변경될 이미지 src
-      }
-  };
+		const handleLoginClick = () => {
+			if (isLoginClicked) {
+				setImageSrc("/assets/gray-check.svg")
+				setColor("bg-gray600")
+				setIsLoginClicked(false) // 초기 상태 false 일 땐 초기 상태 이미지 src
+			} else {
+				setImageSrc("/assets/red-check.svg")
+				setColor("bg-primary")
+				setIsLoginClicked(true) // true일 땐 변경될 이미지 src
+			}
+		}
 
- 
+		const handleShowPassword = () => {
+			if (isPasswordClicked) {
+				setShowPassword("/assets/password-hide.svg")
+				setPasswordClicked(false)
+			} else {
+				setShowPassword("/assets/show-password.svg")
+				setPasswordClicked(true)
+			}
+		}
 
+		const debounce = (callback, timeout = 300) => {
+			let cleanup
+			return (...args) => {
+				clearTimeout(cleanup)
+				cleanup = setTimeout(callback.bind(null, ...args), timeout)
+			}
+		}
+		const handleSignIn = async (e) => {
+			e.preventDefualt()
 
-  const debounce = (callback, timeout = 300)=>{
-    let cleanup;
-    return (...args)=>{
-      clearTimeout(cleanup);
-      cleanup=setTimeout(callback.bind(null, ...args), timeout);
+			const { id, password } = formState
+		}
+
+		const handleInput = debounce((e) => {
+			const { name, value } = e.target
+			setFormState({
+				...formState,
+				[name]: value,
+			})
+		}, 400)
+
+		const showPasswordButton = ({}) =>{
+      d
     }
-  }
-  const handleSignIn = async (e) => {
-    e.preventDefualt();
-
-    const { id, password } = formState;
-  }
-
-  const handleInput = debounce((e) => {
-    const {name, value} = e.target;
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
-  }, 400);
-
   
   return (
     < >
@@ -87,13 +98,17 @@ function SignIn() {
              />
            */}
            <input type="id" label="아이디" name="userID" className="h-14 bg-gray700 text-gray600 login-form px-4  w-full rounded-sm" placeholder="아이디"/>
-           <input type="password" label="비밀번호" name="password" 
+           
+           <label><input type="password" label="비밀번호" name="password" 
            className="h-14  bg-gray700 text-gray600 login-form px-4 w-full rounded-sm" placeholder="비밀번호"/>
+           <button type="button" alt="see password button" onClick={handleShowPassword}><show-password/></button>
+           </label>
+           
             <label className="flex text-left text-gray500 text-sm">
               {/* <input type="checkbox" name="자동로그인" className="pr-[10px]" /> */}
               <img src={imageSrc} alt="Taing logo" className="bg-gray600 rounded-full" onClick={handleLoginClick}/>
              자동로그인</label>
-            <button type="submit" className="h-14 bg-primary text-white login-button w-full rounded-sm ">로그인하기</button>
+            <button type="submit" className="h-14 bg-primary text-white login-button w-full rounded-sm">로그인하기</button>
             <span className="text-gray300 text-center pt-[20px] pb-[10px]">
               <Link to="/findid" className="text-gray400 dark:hover:text-zinc-300 pr-[13px]">아이디 찾기   </Link>
              | <Link to="/findpw" className="text-gray400 pl-[10px] dark:hover:text-zinc-300">비밀번호 찾기</Link></span>
