@@ -14,3 +14,7 @@
   @apply flex flex-row gap-10 ml-auto;
   @apply max-md:gap-x-4;
 }
+
+.profileImg {
+  @apply w-4/5 h-auto;
+}
