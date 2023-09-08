@@ -4,15 +4,13 @@ import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 // import pb from "@/api/pocketbase";
 import S from './../styles/Signin.css';
-import showPasswordIcon from "/assets/password-show.svg";
-import hidePasswordIcon from "/assets/password-hide.svg";
+import showPasswordIcon from "/assets/eye.svg";
+import hidePasswordIcon from "/assets/hide-password.svg";
 
 function SignIn() {
-		// const [showPswd, setShowPswd] = useState<boolean>(false);
     const navigate= useNavigate();
 
 		const [imageSrc, setImageSrc] = useState("/assets/unactive-check.svg")
-		// const [color, setColor] = useState("bg-gray600")
 		const [isLoginClicked, setIsLoginClicked] = useState(false)
 
 		const [isPasswordHidden, setIsPasswordHidden] = useState(true)
@@ -50,11 +48,9 @@ function SignIn() {
 		const handleLoginClick = () => {
 			if (isLoginClicked) {
 				setImageSrc("/assets/unactive-check.svg")
-				// setColor("bg-gray600")
 				setIsLoginClicked(false) // 초기 상태 false 일 땐 초기 상태 이미지 src
 			} else {
 				setImageSrc("/assets/red-check.svg")
-				// setColor("bg-primary")
 				setIsLoginClicked(true) // true일 땐 변경될 이미지 src
 			}
 		}
@@ -119,12 +115,15 @@ function SignIn() {
       <Helmet>
         <title>Sign In - Taing</title>
       </Helmet>
-      <header className="bg-black pl-[70px] pt-[15px]">
-        <Link to="/"><img src="\images\header-logo.svg" alt="Taing logo"/></Link>
+      <header className="bg-black  pl-10 md:pl-20 md:pt-10">
+      {/* <header className="bg-black pl-[70px] pt-[15px]"> */}
+        <Link to="/">
+          <img src="/assets/logo.svg" alt="Taing logo" className="w-[110px]"/>
+        </Link>
       </header>
-      <div className="bg-black h-screen">
-      <div className="pt-[70px] text-white login-title leading-10 container max-w-lg mx-auto align-middle">
-        <div className="pb-[60px] font-bold text-2xl flex justify-center">TVING ID 로그인</div>
+      <div className="bg-black min-h-screen flex items-center justify-center">
+      <div className="pt-10 pb-16 text-white login-title container max-w-lg mx-auto">
+        <div className="pb-[60px] font-bold text-[35px] flex justify-center">TVING ID 로그인</div>
         <form
           onSubmit={handleSignIn}
           className="flex flex-col gap-2"
@@ -144,27 +143,26 @@ function SignIn() {
              onChange={handleInput}
              />
            */}
-           <input type="text" label="아이디" name="id" className="h-14 bg-gray700 text-gray600 login-form px-4  w-full rounded-sm" 
+           <input type="text" label="아이디" name="id" className="font-light h-14 bg-[#212121] text-gray600 login-form px-4  w-full rounded-sm" 
            onChange={handleInput} placeholder="아이디"/>
           {loginValidation.id && <div style={{color: 'red'}}>올바른 아이디 형식을 입력하세요.</div>}
           
-           <label><input type={isPasswordHidden? "password" : "text"} 
+           <label className="relative"><input type={isPasswordHidden? "password" : "text"} 
            label="비밀번호" name="password" 
            onChange={handleInput}
-           className="h-14  bg-gray700 text-gray600 login-form px-4 w-full rounded-sm" placeholder="비밀번호"/>
-           {/* <button type="button" alt="see password button" onClick={handleShowPassword}><show-password/></button> */}
+           className="h-14  bg-[#212121] text-gray600 login-form px-4 w-full rounded-sm" placeholder="비밀번호"/>
            <img
               src={isPasswordHidden ? hidePasswordIcon : showPasswordIcon}
               alt="비밀번호 숨김/표시 아이콘"
               onClick={togglePasswordHidden}
-              className="cursor-pointer absolute right-[485px] top-[300px] transform-translate-y-[50%]"/>
+              className="cursor-pointer absolute right-6 top-1/2 first-line:transform -translate-y-1/2"/>
+              
            </label>
            {loginValidation.password && <div style={{color: 'red'}}>올바른 비밀번호 형식이 아닙니다.</div>}
-           
             <label className="flex text-left text-gray500 text-sm pt-[7px] pb-[10px]">
               <img src={imageSrc} alt="자동 로그인" onClick={handleLoginClick} className="pr-[7px]"/>
              자동로그인</label>
-            <button type="submit" className="h-14 bg-primary text-white login-button w-full rounded-sm">로그인하기</button>
+            <button type="submit" className="h-14 bg-[#FF153C] font-bold dark:hover:bg-[#cc1030] text-white login-button w-full rounded-sm">로그인하기</button>
             <span className="text-gray300 text-center pt-[20px] pb-[10px]">
               <Link to="/findid" className="text-gray400 dark:hover:text-zinc-300 pr-[13px]">아이디 찾기   </Link>
              | <Link to="/findpw" className="text-gray400 pl-[10px] dark:hover:text-zinc-300">비밀번호 찾기</Link></span>
