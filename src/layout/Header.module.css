@@ -1,0 +1,20 @@
+.header {
+  @apply bg-gradient-to-b from-gray800/95 w-full h-[88px] px-[70px] flex flex-row items-center fixed duration-300;
+  @apply text-gray-200;
+  @apply max-md:px-5 max-lg:px-7 max-lg:text-lg;
+}
+
+.content {
+  @apply flex flex-row justify-between gap-x-14;
+  @apply text-xl;
+  @apply md:max-xl:gap-x-10 max-lg:ml-7 max-md:ml-4 ml-11 max-md:gap-x-4 max-md:text-base;
+}
+
+.profile {
+  @apply flex flex-row gap-10 ml-auto;
+  @apply max-md:gap-x-4;
+}
+
+.profileImg {
+  @apply w-4/5 h-auto;
+}
