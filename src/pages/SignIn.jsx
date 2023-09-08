@@ -1,46 +1,64 @@
 
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+// import pb from "@/api/pocketbase";
 import S from './../styles/Signin.css';
+import showPasswordIcon from "/assets/password-show.svg";
+import hidePasswordIcon from "/assets/password-hide.svg";
 
 function SignIn() {
 		// const [showPswd, setShowPswd] = useState<boolean>(false);
-		const [formState, setFormState] = useState({
+    const navigate= useNavigate();
+
+		const [imageSrc, setImageSrc] = useState("/assets/unactive-check.svg")
+		// const [color, setColor] = useState("bg-gray600")
+		const [isLoginClicked, setIsLoginClicked] = useState(false)
+
+		const [isPasswordHidden, setIsPasswordHidden] = useState(true)
+    const [showPassword, setShowPassword] = useState(true);
+
+    //@정규표현식
+    const idRegex = /^.{3,15}$/; // 아이디 정규표현식 : 영문 3~15자
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/; // 비밀번호 정규표현식 : 영문+숫자 8~16자
+
+
+    const [formState, setFormState] = useState({
 			id: "",
 			password: "",
-		})
+		});
+    
+    //유효성 검사 상태 설정
+    const [loginValidation, setloginValidation] = useState({
+      id: false,
+      password: false
+    });
 
-		const [imageSrc, setImageSrc] = useState("/assets/gray-check.svg")
-		const [color, setColor] = useState("bg-gray600")
-		const [isLoginClicked, setIsLoginClicked] = useState(false)
-		const [showPassword, setShowPassword] = useState(
-			"/assets/password-hide.svg"
-		)
-		const [isPasswordClicked, setPasswordClicked] = useState(false)
+    const isFormValid=()=>{
+      return Object.values(validationErrors).every((error)=> error === false );
+    }
+    
+
+    //@비밀번호 보이기/숨기기
+    const togglePasswordHidden = () => {
+      setIsPasswordHidden(!isPasswordHidden);
+    };
+    const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
 		const handleLoginClick = () => {
 			if (isLoginClicked) {
-				setImageSrc("/assets/gray-check.svg")
-				setColor("bg-gray600")
+				setImageSrc("/assets/unactive-check.svg")
+				// setColor("bg-gray600")
 				setIsLoginClicked(false) // 초기 상태 false 일 땐 초기 상태 이미지 src
 			} else {
 				setImageSrc("/assets/red-check.svg")
-				setColor("bg-primary")
+				// setColor("bg-primary")
 				setIsLoginClicked(true) // true일 땐 변경될 이미지 src
 			}
 		}
 
-		const handleShowPassword = () => {
-			if (isPasswordClicked) {
-				setShowPassword("/assets/password-hide.svg")
-				setPasswordClicked(false)
-			} else {
-				setShowPassword("/assets/show-password.svg")
-				setPasswordClicked(true)
-			}
-		}
 
 		const debounce = (callback, timeout = 300) => {
 			let cleanup
@@ -49,24 +67,53 @@ function SignIn() {
 				cleanup = setTimeout(callback.bind(null, ...args), timeout)
 			}
 		}
+
 		const handleSignIn = async (e) => {
-			e.preventDefualt()
+			e.preventDefualt();
 
-			const { id, password } = formState
-		}
+			const { id, password } = formState;
 
-		const handleInput = debounce((e) => {
-			const { name, value } = e.target
-			setFormState({
-				...formState,
-				[name]: value,
-			})
-		}, 400)
+      await pb.collection("users").authWithPassword(id, password);
 
-		const showPasswordButton = ({}) =>{
-      d
-    }
-  
+      navigate("/");
+		};
+
+		// const handleInput = debounce((e) => {
+		// 	const { name, value } = e.target
+		// 	setFormState({
+		// 		...formState,
+		// 		[name]: value,
+		// 	})
+		// }, 400)
+
+    const handleInput = (e) => {
+      const {name , value} = e.target;
+
+      let isValid;
+
+      switch (name){
+        case "id":
+          isValid = idRegex.test(value);
+          break;
+        case "password":
+          isValid = passwordRegex.test(value);
+          break;
+        default:
+          return;
+      }
+
+      setloginValidation({
+        ...loginValidation,
+        [name]: !isValid,
+      });
+      if (isValid){
+        setFormState({
+          ...formState,
+          [name]:value,
+        });
+      }
+    };
+
   return (
     < >
       <Helmet>
@@ -97,16 +144,25 @@ function SignIn() {
              onChange={handleInput}
              />
            */}
-           <input type="id" label="아이디" name="userID" className="h-14 bg-gray700 text-gray600 login-form px-4  w-full rounded-sm" placeholder="아이디"/>
-           
-           <label><input type="password" label="비밀번호" name="password" 
+           <input type="text" label="아이디" name="id" className="h-14 bg-gray700 text-gray600 login-form px-4  w-full rounded-sm" 
+           onChange={handleInput} placeholder="아이디"/>
+          {loginValidation.id && <div style={{color: 'red'}}>올바른 아이디 형식을 입력하세요.</div>}
+          
+           <label><input type={isPasswordHidden? "password" : "text"} 
+           label="비밀번호" name="password" 
+           onChange={handleInput}
            className="h-14  bg-gray700 text-gray600 login-form px-4 w-full rounded-sm" placeholder="비밀번호"/>
-           <button type="button" alt="see password button" onClick={handleShowPassword}><show-password/></button>
+           {/* <button type="button" alt="see password button" onClick={handleShowPassword}><show-password/></button> */}
+           <img
+              src={isPasswordHidden ? hidePasswordIcon : showPasswordIcon}
+              alt="비밀번호 숨김/표시 아이콘"
+              onClick={togglePasswordHidden}
+              className="cursor-pointer absolute right-[485px] top-[300px] transform-translate-y-[50%]"/>
            </label>
+           {loginValidation.password && <div style={{color: 'red'}}>올바른 비밀번호 형식이 아닙니다.</div>}
            
-            <label className="flex text-left text-gray500 text-sm">
-              {/* <input type="checkbox" name="자동로그인" className="pr-[10px]" /> */}
-              <img src={imageSrc} alt="Taing logo" className="bg-gray600 rounded-full" onClick={handleLoginClick}/>
+            <label className="flex text-left text-gray500 text-sm pt-[7px] pb-[10px]">
+              <img src={imageSrc} alt="자동 로그인" onClick={handleLoginClick} className="pr-[7px]"/>
              자동로그인</label>
             <button type="submit" className="h-14 bg-primary text-white login-button w-full rounded-sm">로그인하기</button>
             <span className="text-gray300 text-center pt-[20px] pb-[10px]">
