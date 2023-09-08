@@ -3,6 +3,9 @@
 	"organizeImports": {
 		"enabled": true
 	},
+	"linter": {
+		"enabled": false
+	},
   "javascript": {
     "formatter": {
       "semicolons": "asNeeded",
