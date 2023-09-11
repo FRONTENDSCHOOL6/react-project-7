@@ -14,4 +14,5 @@ html {
     "Noto Color Emoji";
   font-feature-settings: normal;
   font-variation-settings: normal;
+  font-size: calc(5px + 0.5vw);
 }

@@ -1,0 +1,24 @@
+.container {
+ @apply bg-black min-h-screen w-full flex flex-col items-center pl-8 pr-8 md:pl-2 md:pr-16 lg:pl-4 lg:pr-20;
+}
+.main {
+    @apply min-w-[75%] w-full  pt-10 md:pt-24 lg:pt-28 max-w-screen-xl mx-auto px-10 flex flex-col justify-center items-center;
+}
+
+.searchWrapper {
+    @apply mx-auto my-0  pt-[3.75em] pb-[0.25rem] px-0 border-b-[0.0625rem] border-b-white  min-w-[95%] max-w-full md:pt-8 lg:pt-12 flex justify-between items-center;
+}
+
+.searchInput {
+    @apply text-white border-neutral-600 box-border w-[calc(100%_-_3rem)] border-solid outline-none bg-transparent placeholder-gray-600 py-2 rounded-md text-3xl placeholder:text-3xl flex-grow;
+}
+
+.listWrapper {
+    @apply mt-[5rem] w-full px-[0.5rem] min-w-[95%] max-w-full flex justify-between ml-[5rem];
+}
+.recentViewWrapper {
+    @apply w-1/2 md:w-auto flex-grow flex flex-col;
+}
+.popularViewWrapper {
+    @apply w-1/2 md:w-auto h-full flex-grow border-l border-gray500 pl-[3.35rem];
+}
