@@ -1,74 +1,74 @@
 // import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom"
-import YouTube from "react-youtube"
-import S from "./onboarding.module.css"
-import React, { useRef, useState } from "react"
-import { Swiper, SwiperSlide } from "swiper/react"
-import "swiper/css"
-import "swiper/css/pagination"
-import "swiper/css/navigation"
-import { Autoplay, Pagination, Navigation } from "swiper/modules"
+import { useNavigate } from "react-router-dom";
+import YouTube from "react-youtube";
+import S from "./onboarding.module.css";
+import React, { useRef, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { Autoplay } from "swiper/modules";
 
 function OnBoarding() {
-	// SwiperCore.use([Autoplay]) // Swiper
+	const mainImg = "/assets/onboarding/main.webp";
+
 	//@ 버튼 클릭 시 로그인 페이지로 이동
-	const navigate = useNavigate()
-
+	const navigate = useNavigate();
 	const navigateToLogin = () => {
-		navigate("/siginin")
-	}
+		navigate("/signin");
+	};
 
-	const [activeIndex, setActiveIndex] = useState(null)
-
+	//@ 자주찾는질문 accordion 함수와 변수
+	const [activeIndex, setActiveIndex] = useState(null);
 	const handleToggle = (index) => {
 		if (activeIndex === index) {
 			// 이미 열려있는 아코디언을 클릭한 경우 닫음
-			setActiveIndex(null)
+			setActiveIndex(null);
 		} else {
 			// 새로운 아코디언을 클릭한 경우 해당 인덱스로 설정하고 열림
-			setActiveIndex(index)
+			setActiveIndex(index);
 		}
-	}
+	};
 
 	return (
 		<>
 			{/* 재미를 플레이해보세요 */}
-			<section className="join relative bg-[url('/assets/onboarding/main.webp')] bg-cover pb-[calc(35%+20rem)] w-screen h-0 text-center">
-				<div className="absolute bg-black/70 brightness-50 w-full h-full bg-gradient-to-b from-transparent to-black"></div>
-				<div className="joinContent absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col gap-3 text-center">
-					<p className="text-white text-[2.75rem] font-semibold leading-[65px] tracking-wide">
-						티빙 오리지널 콘텐츠,
+			<section
+				className={S.join}
+				style={{
+					background: `url(${mainImg})`,
+					backgroundSize: "cover",
+				}}
+			>
+				<div className={S.joinGradient}></div>
+				<div className={S.joinContentWrapper}>
+					<p className={S.joinContent}>
+						타잉 오리지널 콘텐츠,
 						<br></br>
 						방송, 영화, 해외시리즈까지!
 						<br></br>
 						재미를 플레이해보세요.
 					</p>
-					<span className="text-gray400 text-2xl font-normal">
+					<span className={S.joinSubContent}>
 						간편하게 가입하고, 원하실 때 해지할 수 있어요.
 					</span>
 					<button
 						type="button"
 						onClick={navigateToLogin}
-						className="relative left-1/2 -translate-x-1/2 top-10 bg-primary w-[100%] py-5 rounded text-white text-2xl font-semibold before:bg-[url('/assets/onboarding/tving-symbol.svg')] before:bg-no-repeat before:absolute before:top-0 before:left-0 before:w-20 before:h-full"
+						className={S.joinButton}
 					>
-						지금 바로, 티빙을 플레이 하세요!
+						지금 바로, 타잉을 플레이 하세요!
 					</button>
 				</div>
 			</section>
 			{/* 티빙에만 있는 재미 */}
-			<section className="onlyTving w-full bg-black text-center text-white pb-36">
-				<div className="onlyContent flex flex-col gap-1 mb-14">
-					<p className="text-[3.3rem] font-semibold mb-2">티빙에만 있는 재미</p>
-					<p className="text-3xl text-gray-200">
-						오리지널 콘텐츠를 만나보세요!
-					</p>
-					<span className="text-gray-400 text-[1.4rem]">
-						차별화된 웰메이드 오리지널 콘텐츠
-					</span>
+			<section className={S.onlyTaing}>
+				<div className={S.onlyContentWrapper}>
+					<p className={S.textBig}>타잉에만 있는 재미</p>
+					<p className={S.textMedium}>오리지널 콘텐츠를 만나보세요!</p>
+					<span className={S.textSmall}>차별화된 웰메이드 오리지널 콘텐츠</span>
 				</div>
 				{/* //? 추후 랜덤으로 이미지가 나타날 수 있는 로직 필요 */}
-				<div className="onlyFig relative w-screen flex flex-row justify-evenly">
-					<figure className="absolute top-1/2 -translate-y-1/2 left-[7%] w-[36%] brightness-[40%]">
+				<div className={S.onlyFig}>
+					<figure className={`${S.darkImg} left-[7%]`}>
 						<img src="/assets/onboarding/hotel.webp" alt="" />
 						<figcaption></figcaption>
 					</figure>
@@ -76,80 +76,226 @@ function OnBoarding() {
 						<img src="/assets/onboarding/after-school.webp" alt="" />
 						<figcaption></figcaption>
 					</figure>
-					<figure className="absolute top-1/2 -translate-y-1/2 right-[7%] w-[36%] brightness-[40%]">
+					<figure className={`${S.darkImg} right-[7%]`}>
 						<img src="/assets/onboarding/dessert.webp" alt="" />
 						<figcaption></figcaption>
 					</figure>
 				</div>
 			</section>
 			{/* 내가 찾던 재미 */}
-			<section className="fun relative w-full bg-black text-center text-white pb-36">
-				<div className="onlyContent flex flex-col gap-2 mb-14">
-					<p className="text-[3.3rem] font-semibold mb-1">내가 찾던 재미</p>
-					<p className="text-3xl text-gray-200">
-						보고 싶은 콘텐츠를 발견하세요!
-					</p>
-					<span className="text-gray-400 text-[1.3rem]">
+			<section className={S.fun}>
+				<div className={S.onlyContentWrapper}>
+					<p className={S.textBig}>내가 찾던 재미</p>
+					<p className={S.textMedium}>보고 싶은 콘텐츠를 발견하세요!</p>
+					<span className={S.textSmall}>
 						최신, 인기 TV프로그램, 영화, 해외시리즈, 파라마운트+ 오리지널 및
 						독점
 					</span>
 				</div>
 				<div className="w-full">
+					{/* //! 추후 swiper의 이미지들을 배열로 순환하여 랜더링될 수 있는 로직으로
+					수정 예정. */}
 					<Swiper
-						className={`${S.swiperss} mySwiper`}
-						slidesPerView={4}
-						spaceBetween={30}
+						className="mySwiper swiperLoop mb-3"
+						slidesPerView={4.5}
+						spaceBetween={"1%"}
 						autoplay={{
 							delay: 0,
 							disableOnInteraction: true,
 						}}
 						loop={true}
 						modules={[Autoplay]}
-						speed={7000}
+						speed={9000}
 						freeMode={true}
 					>
 						<SwiperSlide>
-							<img src="/assets/onboarding/busan.jpeg" alt="" />
+							<img
+								src="/assets/onboarding/busan.jpeg"
+								alt=""
+								className="rounded"
+							/>
 						</SwiperSlide>
 						<SwiperSlide>
-							<img src="/assets/onboarding/dance-singer.jpeg" alt="" />
+							<img
+								src="/assets/onboarding/dance-singer.jpeg"
+								alt=""
+								className="rounded"
+							/>
 						</SwiperSlide>
 						<SwiperSlide>
-							<img src="/assets/onboarding/earth.jpeg" alt="" />
+							<img
+								src="/assets/onboarding/earth.jpeg"
+								alt=""
+								className="rounded"
+							/>
 						</SwiperSlide>
 						<SwiperSlide>
-							<img src="/assets/onboarding/fake.jpeg" alt="" />
+							<img
+								src="/assets/onboarding/fake.jpeg"
+								alt=""
+								className="rounded"
+							/>
 						</SwiperSlide>
 						<SwiperSlide>
-							<img src="/assets/onboarding/great2.jpeg" alt="" />
+							<img
+								src="/assets/onboarding/great2.jpeg"
+								alt=""
+								className="rounded"
+							/>
 						</SwiperSlide>
 						<SwiperSlide>
-							<img src="/assets/onboarding/king-the-land.jpeg" alt="" />
+							<img
+								src="/assets/onboarding/king-the-land.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/busan.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/dance-singer.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/earth.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/fake.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/great2.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/king-the-land.jpeg"
+								alt=""
+								className="rounded"
+							/>
 						</SwiperSlide>
 					</Swiper>
-					{/* <div className={S.swiperItem}>
-						<img src="/assets/onboarding/busan.jpeg" alt="" />
-					</div>
-					<div className={S.swiperItem1}>
-						<img src="/assets/onboarding/dance-singer.jpeg" alt="" />
-					</div>
-					<div className={S.swiperItem2}>
-						<img src="/assets/onboarding/earth.jpeg" alt="" />
-					</div>
-					<div className={S.swiperItem3}>
-						<img src="/assets/onboarding/fake.jpeg" alt="" />
-					</div>
-					<div className={S.swiperItem4}>
-						<img src="/assets/onboarding/great2.jpeg" alt="" />
-					</div>
-					<div className={S.swiperItem}>
-						<img src="/assets/onboarding/king-the-land.jpeg" alt="" />
-					</div> */}
+					<Swiper
+						className={`mySwiper swiperLoop mb-2`}
+						slidesPerView={4.5}
+						spaceBetween={"1%"}
+						autoplay={{
+							delay: 0,
+							disableOnInteraction: true,
+						}}
+						loop={true}
+						modules={[Autoplay]}
+						speed={6000}
+						freeMode={true}
+					>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/busan.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/dance-singer.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/earth.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/fake.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/great2.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/king-the-land.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/busan.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/dance-singer.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/earth.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/fake.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/great2.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src="/assets/onboarding/king-the-land.jpeg"
+								alt=""
+								className="rounded"
+							/>
+						</SwiperSlide>
+					</Swiper>
 				</div>
 			</section>
 			{/* 유튜브 섹션 */}
-			<section className="bg-black w-full relative">
-				<div className="video relative pb-[56.25%] pt-[25px] h-0">
+			<section className="bg-black w-full">
+				<div className={S.videoWrapper}>
 					{/* <YouTube
 						className="absolute top-1/2 left-1/2 -translate-x-1/2"
 						videoId="Lr8lSxMlp9Q"
@@ -168,19 +314,19 @@ function OnBoarding() {
 						}}
 					/> */}
 					<iframe
-						className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[60%] h-[60%]"
+						className={S.videoItem}
 						src={`https://www.youtube-nocookie.com/embed/Lr8lSxMlp9Q`}
 					/>
 				</div>
 			</section>
 			{/* 똑똑하게 보는 재미 */}
-			<section className="fun relative w-full bg-black text-center text-white pb-36">
-				<div className="onlyContent flex flex-col gap-2 mb-14">
-					<p className="text-[3.3rem] font-semibold mb-1">똑똑하게 보는 재미</p>
-					<p className="text-3xl text-gray-200">
+			<section className={S.onlyTaing}>
+				<div className={S.onlyContentWrapper}>
+					<p className={S.textBig}>똑똑하게 보는 재미</p>
+					<p className={S.textMedium}>
 						최신 방송을 가장 빠르고 간편하게 시청하세요!
 					</p>
-					<span className="text-gray-400 text-[1.3rem]">
+					<span className={S.textSmall}>
 						실시간TV, 퀵VOD, 타임머신 기능으로 기다리지 말고 편하게 시청
 					</span>
 				</div>
@@ -188,17 +334,17 @@ function OnBoarding() {
 					<video autoPlay loop muted className="mx-auto h-auto w-[30%]">
 						<source src="/assets/onboarding/mobile.mp4"></source>
 					</video>
-					<div className="absolute w-[38%] bottom-[-5%] left-1/2 -translate-x-1/2">
+					<div className={S.vodImg}>
 						<img src="/assets/onboarding/quick-vod.png" alt="" />
 					</div>
 				</div>
 			</section>
 			{/* 함께 즐기는 재미 */}
-			<section className="together w-full bg-black text-center text-white pb-36">
-				<div className="onlyContent flex flex-col gap-2 mb-14">
-					<p className="text-[3.3rem] font-semibold mb-1">함께 즐기는 재미</p>
-					<p className="text-3xl text-gray-200">다양한 기기로 즐겨보세요!</p>
-					<span className="text-gray-400 text-[1.3rem]">
+			<section className={S.onlyTaing}>
+				<div className={S.onlyContentWrapper}>
+					<p className={S.textBig}>함께 즐기는 재미</p>
+					<p className={S.textMedium}>다양한 기기로 즐겨보세요!</p>
+					<span className={S.textSmall}>
 						스마트폰, 태블릿, PC, TV, 크롬캐스트에서 시청
 						<br />
 						최대 4명의 지인들과 함께 구독
@@ -211,37 +357,34 @@ function OnBoarding() {
 				</div>
 			</section>
 			{/* 지금 시작해보세요 */}
-			<section className="no1 relative w-full bg-black text-center text-white pb-[calc(10%+20rem)]">
-				<div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-[1rem]">
+			<section className={S.no1}>
+				<div className={S.no1Wrapper}>
 					<img
 						className="inline-block w-[50%]"
 						src="/assets/onboarding/no1-tving.svg"
 						alt=""
 					/>
-					<p className="px-20 text-white text-[2.75rem] font-semibold leading-[65px] tracking-wide">
-						지금 시작해보세요
-					</p>
+					<p className={`${S.joinContent} px-20`}>지금 시작해보세요</p>
 					<button
 						type="button"
 						onClick={navigateToLogin}
-						className="relative w-[100%] left-0 top-0 bg-primary py-5 rounded text-white text-2xl font-semibold before:bg-[url('/assets/onboarding/tving-symbol.svg')] before:bg-no-repeat before:absolute before:top-0 before:left-0 before:w-[50%] before:h-full"
+						className={S.joinButton}
 					>
-						지금 바로, 티빙을 플레이 하세요!
+						지금 바로, 타잉을 플레이 하세요!
 					</button>
 				</div>
 			</section>
 			{/* 자주 찾는 질문 */}
-			<section className="qna w-full bg-black text-white px-[3%] select-none">
-				<h3 className="text-white text-[3rem] font-semibold tracking-wide text-center">
-					자주 찾는 질문
-				</h3>
+			<section className={S.qna}>
+				<h3 className={S.qnaTitle}>자주 찾는 질문</h3>
+				{/* //! 추후 map을 이용하여 배열 순환 로직 필수 */}
 				<ul className="flex flex-col">
-					<li className="border border-0 border-b border-gray800 py-7">
+					<li className={S.qnaItem}>
 						<input type="checkbox" className="hidden" id="chat" />
 						<label
 							htmlFor="chat"
 							onClick={() => handleToggle(0)}
-							className={`flex flex-row px-2 justify-between cursor-pointer text-2xl text-gray300 ${
+							className={`${S.question} ${
 								activeIndex === 0 ? "text-white font-semibold" : ""
 							}`}
 						>
@@ -258,7 +401,7 @@ function OnBoarding() {
 							</em>
 						</label>
 						{activeIndex === 0 && (
-							<div className="px-4 pt-4 overflow-hidden text-lg text-gray300 leading-6">
+							<div className={S.answer}>
 								<p>
 									새롭게 바뀐 '타잉 카카오 챗봇'에서 궁금한 점을 빠르게 해결해
 									보세요.
@@ -286,12 +429,12 @@ function OnBoarding() {
 							</div>
 						)}
 					</li>
-					<li className="border border-0 border-b border-gray800 py-7">
+					<li className={S.qnaItem}>
 						<input type="checkbox" className="hidden" id="chat" />
 						<label
 							htmlFor="chat"
 							onClick={() => handleToggle(1)}
-							className={`flex flex-row px-2 justify-between cursor-pointer text-2xl text-gray300 ${
+							className={`${S.question} ${
 								activeIndex === 1 ? "text-white font-semibold" : ""
 							}`}
 						>
@@ -308,7 +451,7 @@ function OnBoarding() {
 							</em>
 						</label>
 						{activeIndex === 1 && (
-							<div className="px-4 pt-4 overflow-hidden text-lg text-gray300 leading-6">
+							<div className={S.answer}>
 								<p>
 									2023년 9월 6일 영화 개별구매 서비스가 종료되었습니다.
 									<br />
@@ -321,12 +464,12 @@ function OnBoarding() {
 							</div>
 						)}
 					</li>
-					<li className="border border-0 border-b border-gray800 py-7">
+					<li className={S.qnaItem}>
 						<input type="checkbox" className="hidden" id="chat" />
 						<label
 							htmlFor="chat"
 							onClick={() => handleToggle(2)}
-							className={`flex flex-row px-2 justify-between cursor-pointer text-2xl text-gray300 ${
+							className={`${S.question} ${
 								activeIndex === 2 ? "text-white font-semibold" : ""
 							}`}
 						>
@@ -343,7 +486,7 @@ function OnBoarding() {
 							</em>
 						</label>
 						{activeIndex === 2 && (
-							<div className="px-4 pt-4 overflow-hidden text-lg text-gray300 leading-6">
+							<div className={S.answer}>
 								<p>
 									2023년 9월 6일 영화 VOD 개별구매 서비스가 종료되었습니다.
 									2022년 3월 31일 타잉캐시 충전 서비스 종료 이전 충전하여 계정
@@ -355,12 +498,12 @@ function OnBoarding() {
 							</div>
 						)}
 					</li>
-					<li className="border border-0 border-b border-gray800 py-7">
+					<li className={S.qnaItem}>
 						<input type="checkbox" className="hidden" id="chat" />
 						<label
 							htmlFor="chat"
 							onClick={() => handleToggle(3)}
-							className={`flex flex-row px-2 justify-between cursor-pointer text-2xl text-gray300 ${
+							className={`${S.question} ${
 								activeIndex === 3 ? "text-white font-semibold" : ""
 							}`}
 						>
@@ -377,7 +520,7 @@ function OnBoarding() {
 							</em>
 						</label>
 						{activeIndex === 3 && (
-							<div className="px-4 pt-4 overflow-hidden text-lg text-gray300 leading-6">
+							<div className={S.answer}>
 								<p>
 									2023년 9월 6일 영화 VOD 개별구매 서비스가 종료되었습니다.
 									<br />
@@ -398,12 +541,12 @@ function OnBoarding() {
 							</div>
 						)}
 					</li>
-					<li className="border border-0 border-b border-gray800 py-7">
+					<li className={S.qnaItem}>
 						<input type="checkbox" className="hidden" id="chat" />
 						<label
 							htmlFor="chat"
 							onClick={() => handleToggle(4)}
-							className={`flex flex-row px-2 justify-between cursor-pointer text-2xl text-gray300 ${
+							className={`${S.question} ${
 								activeIndex === 4 ? "text-white font-semibold" : ""
 							}`}
 						>
@@ -420,7 +563,7 @@ function OnBoarding() {
 							</em>
 						</label>
 						{activeIndex === 4 && (
-							<div className="px-4 pt-4 overflow-hidden text-lg text-gray300 leading-6">
+							<div className={S.answer}>
 								<p>
 									TAING 회원가입은 TAING 계정, SNS 연동 계정, CJ ONE 통합
 									계정으로 가입이 가능합니다.
@@ -452,12 +595,12 @@ function OnBoarding() {
 							</div>
 						)}
 					</li>
-					<li className="border border-0 border-b border-gray800 py-7">
+					<li className={S.qnaItem}>
 						<input type="checkbox" className="hidden" id="chat" />
 						<label
 							htmlFor="chat"
 							onClick={() => handleToggle(5)}
-							className={`flex flex-row px-2 justify-between cursor-pointer text-2xl text-gray300 ${
+							className={`${S.question} ${
 								activeIndex === 5 ? "text-white font-semibold" : ""
 							}`}
 						>
@@ -474,7 +617,7 @@ function OnBoarding() {
 							</em>
 						</label>
 						{activeIndex === 5 && (
-							<div className="px-4 pt-4 overflow-hidden text-lg text-gray300 leading-6">
+							<div className={S.answer}>
 								<p>
 									TAING WEB과 APP은 아래와 같은 방법으로 로그인이 가능합니다.
 									<br />
@@ -523,12 +666,12 @@ function OnBoarding() {
 							</div>
 						)}
 					</li>
-					<li className="border border-0 border-b border-gray800 py-7">
+					<li className={S.qnaItem}>
 						<input type="checkbox" className="hidden" id="chat" />
 						<label
 							htmlFor="chat"
 							onClick={() => handleToggle(6)}
-							className={`flex flex-row px-2 justify-between cursor-pointer text-2xl text-gray300 ${
+							className={`${S.question} ${
 								activeIndex === 6 ? "text-white font-semibold" : ""
 							}`}
 						>
@@ -545,7 +688,7 @@ function OnBoarding() {
 							</em>
 						</label>
 						{activeIndex === 6 && (
-							<div className="px-4 pt-4 overflow-hidden text-lg text-gray300 leading-6">
+							<div className={S.answer}>
 								<p>
 									APP과 PC WEB 계정 선택 화면에서 최근에 마지막으로 로그인하신
 									계정을 확인하실 수 있습니다.
@@ -586,12 +729,12 @@ function OnBoarding() {
 							</div>
 						)}
 					</li>
-					<li className="border border-0 border-b border-gray800 py-7">
+					<li className={S.qnaItem}>
 						<input type="checkbox" className="hidden" id="chat" />
 						<label
 							htmlFor="chat"
 							onClick={() => handleToggle(7)}
-							className={`flex flex-row px-2 justify-between cursor-pointer text-2xl text-gray300 ${
+							className={`${S.question} ${
 								activeIndex === 7 ? "text-white font-semibold" : ""
 							}`}
 						>
@@ -608,7 +751,7 @@ function OnBoarding() {
 							</em>
 						</label>
 						{activeIndex === 7 && (
-							<div className="px-4 pt-4 overflow-hidden text-lg text-gray300 leading-6">
+							<div className={S.answer}>
 								<p>
 									유료 가입한 계정을 찾고 싶을때,
 									<br />
@@ -647,12 +790,12 @@ function OnBoarding() {
 							</div>
 						)}
 					</li>
-					<li className="border border-0 border-b border-gray800 py-7">
+					<li className={S.qnaItem}>
 						<input type="checkbox" className="hidden" id="chat" />
 						<label
 							htmlFor="chat"
 							onClick={() => handleToggle(8)}
-							className={`flex flex-row px-2 justify-between cursor-pointer text-2xl text-gray300 ${
+							className={`${S.question} ${
 								activeIndex === 8 ? "text-white font-semibold" : ""
 							}`}
 						>
@@ -669,7 +812,7 @@ function OnBoarding() {
 							</em>
 						</label>
 						{activeIndex === 8 && (
-							<div className="px-4 pt-4 overflow-hidden text-lg text-gray300 leading-6">
+							<div className={S.answer}>
 								<p>
 									로그인이 되지 않으시는 경우 아래 타잉 대표메일로 이메일 문의를
 									남겨주시면 확인 후 답변드리겠습니다.
@@ -683,12 +826,12 @@ function OnBoarding() {
 							</div>
 						)}
 					</li>
-					<li className="border border-0 border-b border-gray800 py-7">
+					<li className={S.qnaItem}>
 						<input type="checkbox" className="hidden" id="chat" />
 						<label
 							htmlFor="chat"
 							onClick={() => handleToggle(9)}
-							className={`flex flex-row px-2 justify-between cursor-pointer text-2xl text-gray300 ${
+							className={`${S.question} ${
 								activeIndex === 9 ? "text-white font-semibold" : ""
 							}`}
 						>
@@ -705,7 +848,7 @@ function OnBoarding() {
 							</em>
 						</label>
 						{activeIndex === 9 && (
-							<div className="px-4 pt-4 overflow-hidden text-lg text-gray300 leading-6">
+							<div className={S.answer}>
 								<p>
 									만 19세 이상 시청 가능한 콘텐츠는 시청하시려는 프로필의
 									성인인증이 되어야만 시청 가능합니다.
@@ -754,7 +897,7 @@ function OnBoarding() {
 				</ul>
 			</section>
 		</>
-	)
+	);
 }
 
-export default OnBoarding
+export default OnBoarding;
