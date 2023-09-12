@@ -1,13 +1,17 @@
 .header {
-  @apply bg-gradient-to-b from-gray800/95 w-full h-[88px] px-[70px] flex flex-row items-center fixed duration-300;
+  @apply absolute left-0 top-0 bg-gradient-to-b from-gray800/95 w-full h-[5.5rem] px-[60px] flex flex-row items-center fixed duration-300 z-50;
   @apply text-gray-200;
-  @apply max-md:px-5 max-lg:px-7 max-lg:text-lg;
+  @apply max-lg:px-7 max-lg:text-lg max-lg:h-[5rem] max-md:px-5 max-md:h-[4.5rem];
 }
 
 .content {
   @apply flex flex-row justify-between gap-x-14;
   @apply text-xl;
-  @apply md:max-xl:gap-x-10 max-lg:ml-7 max-md:ml-4 ml-11 max-md:gap-x-4 max-md:text-base;
+  @apply md:max-xl:gap-x-10 max-lg:ml-7 max-md:ml-4 ml-11 max-md:gap-x-4 max-md:text-base max-sm:ml-0;
+}
+
+.home {
+  @apply max-sm:hidden
 }
 
 .profile {
@@ -16,5 +20,6 @@
 }
 
 .profileImg {
-  @apply w-4/5 h-auto;
+  @apply w-full h-auto;
+  @apply max-md:w-4/5;
 }
