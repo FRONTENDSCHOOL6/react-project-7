@@ -1,30 +1,45 @@
 import { Helmet } from "react-helmet-async";
 import { useState, useEffect } from "react";
-
+import { Swiper, SwiperSlide } from "swiper/react";
 import S from "./Search.module.css";
 import SearchIcon from "/assets/search.png";
 import XIcon from "/assets/x-icon.svg";
 import XCircleIcon from "/assets/x-circle-icon.svg";
 import { number } from "prop-types";
+import pb from "@/api/pocketbase";
+import { getPbImageURL } from "@/utils/getPbImageURL";
 
 //@ 검색창 부분 컴포넌트
-function SearchSection() {
+function SearchSection({ searchData, setSearchData, setIsSearching }) {
+	const handleInputChange = (e) => {
+		setSearchData(e.target.value);
+	};
+
+	const handleSearch = (e) => {
+		e.preventDefault();
+		setIsSearching(true);
+	};
 	return (
 		<div className={`${S.searchWrapper}`}>
-			<label htmlFor="search" className="sr-only">
-				컨텐츠 검색
-			</label>
-			<input
-				type="text"
-				id="search"
-				placeholder="제목, 인물명을 입력해보세요."
-				className={`${S.searchInput} `}
-			/>
-			<button
-				type="button"
-				className="w-9 h-9  bg-cover"
-				style={{ backgroundImage: SearchIcon && `url(${SearchIcon})` }}
-			/>
+			<form onSubmit={handleSearch} className="flex justify-between  w-full">
+				{" "}
+				<label htmlFor="search" className="sr-only">
+					컨텐츠 검색
+				</label>
+				<input
+					type="text"
+					id="search"
+					placeholder="제목, 인물명을 입력해보세요."
+					className={`${S.searchInput} flex-grow`}
+					value={searchData}
+					onChange={handleInputChange}
+				/>
+				<button
+					type="submit"
+					className="w-[2.375rem] h-[2.375rem] bg-cover self-center ml-2"
+					style={{ backgroundImage: SearchIcon && `url(${SearchIcon})` }}
+				></button>
+			</form>
 		</div>
 	);
 }
@@ -64,8 +79,8 @@ function ListSection() {
 				</div>
 				{recentView?.length > 0 ? (
 					<ul className="w-full mt-8">
-						{recentView.map((item) => (
-							<RecentView key={item.id} item={item} />
+						{recentView.map((view) => (
+							<RecentView key={view.id} view={view} />
 						))}
 					</ul>
 				) : (
@@ -154,7 +169,81 @@ function RealtimeSearch({ item }) {
 	);
 }
 
+//@ 검색결과 컴포넌트
+function SearchResult({ status, contents, error }) {
+	if (status === "loading") {
+		return <div>로딩중 입니다...</div>;
+	}
+	if (status === "error") {
+		return (
+			<div role="alert">
+				<h2>{error.type}</h2>
+				<p>{error.message}</p>
+			</div>
+		);
+	}
+	return (
+		<div className={`${S.searchResultWrapper}`}>
+			{contents.map(
+				(contentCategory) =>
+					contentCategory.data.length > 0 && (
+						<div
+							key={contentCategory.title}
+							className={`${S.searchResult} my-5 w-full h-full`}
+						>
+							<h3 className={`${S.resultTitle}`}>{contentCategory.title}</h3>
+							<Swiper slidesPerView={6}>
+								{contentCategory.data.map((content) => (
+									<SwiperSlide key={content.id} className="w-1/6">
+										<img
+											src={getPbImageURL(content, "poster")}
+											alt={content.title}
+											className="transition-opacity duration-100 ease-in-out"
+										/>
+										<p className="py-2 mt-2 text-white text-lg text-left">
+											{content.title}
+										</p>
+									</SwiperSlide>
+								))}
+							</Swiper>
+						</div>
+					)
+			)}
+		</div>
+	);
+}
+
 function Search() {
+	const [searchData, setSearchData] = useState("");
+	const [contents, setContents] = useState(null);
+	const [status, setStatus] = useState("pending");
+	const [error, setError] = useState(null);
+	const [isSearching, setIsSearching] = useState(false);
+	useEffect(() => {
+		if (!searchData) return; //? 검색어가 없을 경우 요청하지 않습니다.
+
+		setStatus("loading");
+
+		//@ program, movie 컬렉션에서 한 번에 데이터 요청
+		Promise.all([
+			pb
+				.collection("program")
+				.getFullList({ filter: `title ~ "${searchData}"` }),
+			pb.collection("movie").getFullList({ filter: `title ~ "${searchData}"` }),
+		])
+			.then(([programList, movieList]) => {
+				setContents([
+					{ title: "TV 프로그램", data: programList },
+					{ title: "영화", data: movieList },
+				]);
+				setStatus("success");
+			})
+			.catch((error) => {
+				setError(error);
+				setStatus("error");
+			});
+	}, [searchData]);
+
 	return (
 		<>
 			<Helmet>
@@ -162,26 +251,34 @@ function Search() {
 			</Helmet>
 			<div className={`${S.container}`}>
 				<div className={`${S.main} `}>
-					<SearchSection />
-					<ListSection />
+					<SearchSection
+						searchData={searchData}
+						setSearchData={setSearchData}
+						setIsSearching={setIsSearching}
+					/>
+					{isSearching ? (
+						<SearchResult status={status} contents={contents} error={error} />
+					) : (
+						<ListSection />
+					)}
 				</div>
 			</div>
 		</>
 	);
 }
 
-RecentView.propTypes = {
-	view: PropTypes.shape({
-		id: number.isRequired,
-		title: string.isRequired,
-	}),
-};
+//RecentView.propTypes = {
+//	view: propTypes.shape({
+//		id: number.isRequired,
+//		title: string.isRequired,
+//	}),
+//};
 
-RealtimeSearch.propTypes = {
-	item: PropTypes.shape({
-		id: number.isRequired,
-		title: string.isRequired,
-	}),
-};
+//RealtimeSearch.propTypes = {
+//	item: PropTypes.shape({
+//		id: number.isRequired,
+//		title: string.isRequired,
+//	}),
+//};
 
 export default Search;

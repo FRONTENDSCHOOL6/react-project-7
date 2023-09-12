@@ -6,7 +6,7 @@
 }
 
 .searchWrapper {
-    @apply mx-auto my-0  pt-[3.75em] pb-[0.25rem] px-0 border-b-[0.0625rem] border-b-white  min-w-[95%] max-w-full md:pt-8 lg:pt-12 flex justify-between items-center;
+    @apply mx-auto my-0  pt-[3.75em] pb-[0.25rem] px-0 border-b-[0.0625rem] border-b-white  min-w-[90%] max-w-full md:pt-8 lg:pt-12 flex justify-between items-center;
 }
 
 .searchInput {
@@ -21,4 +21,10 @@
 }
 .popularViewWrapper {
     @apply w-1/2 md:w-auto h-full flex-grow border-l border-gray500 pl-[3.35rem];
+}
+.searchResultWrapper {
+    @apply w-full mt-10 
+}
+.resultTitle{
+    @apply leading-[1.15] text-[1.375rem] font-semibold text-left text-white m-0 pt-0 pb-4 px-0;
 }
