@@ -1,7 +1,7 @@
 // import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import YouTube from "react-youtube";
-import S from "./onboarding.module.css";
+import S from "./OnBoarding.module.css";
 import React, { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
