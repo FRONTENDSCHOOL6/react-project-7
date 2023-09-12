@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="12.002" height="12.002" viewBox="0 0 12.002 12.002">
+    <defs>
+        <style>
+            .cls-2{fill:#fff}
+        </style>
+    </defs>
+    <g id="X" opacity="0.5" transform="translate(0.303 0.303)">
+        <path id="선_84" d="M10.956 11.5a.544.544 0 0 1-.386-.16L-.34.431A.546.546 0 0 1 .431-.34l10.911 10.911a.546.546 0 0 1-.386.931z" class="cls-2" transform="translate(0.197 0.197)"/>
+        <path id="선_105" d="M.046 11.5a.544.544 0 0 1-.386-.16.546.546 0 0 1 0-.772L10.571-.34a.546.546 0 0 1 .772.772L.431 11.342a.544.544 0 0 1-.385.158z" class="cls-2" transform="translate(0.197 0.197)"/>
+    </g>
+</svg>
