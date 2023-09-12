@@ -8,6 +8,7 @@ import XCircleIcon from "/assets/x-circle-icon.svg";
 import { number } from "prop-types";
 import pb from "@/api/pocketbase";
 import { getPbImageURL } from "@/utils/getPbImageURL";
+import "swiper/css";
 
 //@ 검색창 부분 컴포넌트
 function SearchSection({ searchData, setSearchData, setIsSearching }) {
@@ -192,13 +193,17 @@ function SearchResult({ status, contents, error }) {
 							className={`${S.searchResult} my-5 w-full h-full`}
 						>
 							<h3 className={`${S.resultTitle}`}>{contentCategory.title}</h3>
-							<Swiper slidesPerView={6}>
+							<Swiper
+								slidesPerView={6}
+								spaceBetween={10}
+								className="mySwiper w-full"
+							>
 								{contentCategory.data.map((content) => (
-									<SwiperSlide key={content.id} className="w-1/6">
+									<SwiperSlide key={content.id} className="inline-block h-1/4">
 										<img
 											src={getPbImageURL(content, "poster")}
 											alt={content.title}
-											className="transition-opacity duration-100 ease-in-out"
+											className="transition-opacity duration-100 ease-in-out inline-block"
 										/>
 										<p className="py-2 mt-2 text-white text-lg text-left">
 											{content.title}
