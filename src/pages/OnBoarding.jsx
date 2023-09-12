@@ -430,9 +430,9 @@ function OnBoarding() {
 						)}
 					</li>
 					<li className={S.qnaItem}>
-						<input type="checkbox" className="hidden" id="chat" />
+						<input type="checkbox" className="hidden" id="purchase" />
 						<label
-							htmlFor="chat"
+							htmlFor="purchase"
 							onClick={() => handleToggle(1)}
 							className={`${S.question} ${
 								activeIndex === 1 ? "text-white font-semibold" : ""
@@ -465,9 +465,9 @@ function OnBoarding() {
 						)}
 					</li>
 					<li className={S.qnaItem}>
-						<input type="checkbox" className="hidden" id="chat" />
+						<input type="checkbox" className="hidden" id="taingCash" />
 						<label
-							htmlFor="chat"
+							htmlFor="taingCash"
 							onClick={() => handleToggle(2)}
 							className={`${S.question} ${
 								activeIndex === 2 ? "text-white font-semibold" : ""
@@ -499,9 +499,9 @@ function OnBoarding() {
 						)}
 					</li>
 					<li className={S.qnaItem}>
-						<input type="checkbox" className="hidden" id="chat" />
+						<input type="checkbox" className="hidden" id="purchased" />
 						<label
-							htmlFor="chat"
+							htmlFor="purchased"
 							onClick={() => handleToggle(3)}
 							className={`${S.question} ${
 								activeIndex === 3 ? "text-white font-semibold" : ""
@@ -542,9 +542,9 @@ function OnBoarding() {
 						)}
 					</li>
 					<li className={S.qnaItem}>
-						<input type="checkbox" className="hidden" id="chat" />
+						<input type="checkbox" className="hidden" id="signUp" />
 						<label
-							htmlFor="chat"
+							htmlFor="signUp"
 							onClick={() => handleToggle(4)}
 							className={`${S.question} ${
 								activeIndex === 4 ? "text-white font-semibold" : ""
@@ -596,9 +596,9 @@ function OnBoarding() {
 						)}
 					</li>
 					<li className={S.qnaItem}>
-						<input type="checkbox" className="hidden" id="chat" />
+						<input type="checkbox" className="hidden" id="signIn" />
 						<label
-							htmlFor="chat"
+							htmlFor="signIn"
 							onClick={() => handleToggle(5)}
 							className={`${S.question} ${
 								activeIndex === 5 ? "text-white font-semibold" : ""
@@ -667,9 +667,9 @@ function OnBoarding() {
 						)}
 					</li>
 					<li className={S.qnaItem}>
-						<input type="checkbox" className="hidden" id="chat" />
+						<input type="checkbox" className="hidden" id="findId" />
 						<label
-							htmlFor="chat"
+							htmlFor="findId"
 							onClick={() => handleToggle(6)}
 							className={`${S.question} ${
 								activeIndex === 6 ? "text-white font-semibold" : ""
@@ -730,9 +730,9 @@ function OnBoarding() {
 						)}
 					</li>
 					<li className={S.qnaItem}>
-						<input type="checkbox" className="hidden" id="chat" />
+						<input type="checkbox" className="hidden" id="ticket" />
 						<label
-							htmlFor="chat"
+							htmlFor="ticket"
 							onClick={() => handleToggle(7)}
 							className={`${S.question} ${
 								activeIndex === 7 ? "text-white font-semibold" : ""
@@ -791,9 +791,9 @@ function OnBoarding() {
 						)}
 					</li>
 					<li className={S.qnaItem}>
-						<input type="checkbox" className="hidden" id="chat" />
+						<input type="checkbox" className="hidden" id="cs" />
 						<label
-							htmlFor="chat"
+							htmlFor="cs"
 							onClick={() => handleToggle(8)}
 							className={`${S.question} ${
 								activeIndex === 8 ? "text-white font-semibold" : ""
@@ -827,9 +827,9 @@ function OnBoarding() {
 						)}
 					</li>
 					<li className={S.qnaItem}>
-						<input type="checkbox" className="hidden" id="chat" />
+						<input type="checkbox" className="hidden" id="rating" />
 						<label
-							htmlFor="chat"
+							htmlFor="rating"
 							onClick={() => handleToggle(9)}
 							className={`${S.question} ${
 								activeIndex === 9 ? "text-white font-semibold" : ""
