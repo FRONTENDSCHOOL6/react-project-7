@@ -1,15 +1,30 @@
-import { Outlet } from 'react-router-dom';
-import Footer from './Footer';
-import Header from './Header';
+import { Outlet, useLocation } from "react-router-dom";
+import Footer from "./Footer";
+import Header from "./Header";
+import SimpleHeader from "./SimpleHeader";
 
 export default function RootLayout() {
-  return (
-    <>
-      <Header />
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
-    </>
-  );
+	const location = useLocation();
+	const simpleHeaderOn = [
+		"/signin",
+		"/onboarding",
+		"/signup",
+		"/findid",
+		"/findpw",
+	];
+	useLocation;
+
+	return (
+		<>
+			{!simpleHeaderOn.includes(location.pathname) ? (
+				<Header />
+			) : (
+				<SimpleHeader />
+			)}
+			<main>
+				<Outlet />
+			</main>
+			<Footer />
+		</>
+	);
 }
