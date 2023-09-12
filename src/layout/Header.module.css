@@ -1,5 +1,5 @@
 .header {
-  @apply absolute left-0 top-0 bg-gradient-to-b from-gray800/95 w-full h-[5.5rem] px-[60px] flex flex-row items-center fixed duration-300 z-50;
+  @apply bg-gradient-to-b from-gray800/95 w-full h-[5.5rem] px-[60px] flex flex-row items-center fixed duration-300 z-50;
   @apply text-gray-200;
   @apply max-lg:px-7 max-lg:text-lg max-lg:h-[5rem] max-md:px-5 max-md:h-[4.5rem];
 }
