@@ -2,7 +2,6 @@ import { useState } from "react"
 import { Helmet } from "react-helmet-async"
 import { Link, useNavigate } from "react-router-dom"
 // import pb from "@/api/pocketbase";
-import S from "./../styles/Signin.css"
 import showPasswordIcon from "/assets/eye.svg"
 import hidePasswordIcon from "/assets/hide-password.svg"
 import pb from "@/api/pocketbase"
@@ -20,16 +19,9 @@ function SignIn() {
 	const [showPassword, setShowPassword] = useState(true)
 
 
-  const autoLogin = "/assets/red-check.svg";
+	const autoLogin = "/assets/red-check.svg";
 	const unAutoLoin = "/assets/unactive-check.svg";
 
-	// {
-	// 		isLoginChecked === 0 ? (
-	// 			<img src="/assets/unactive-check.svg" alt="자동로그인 비활성화" />
-	// 		) : (
-	// 			<img src="/assets/active-check.svg" alt="자동로그인 활성화" />
-	// 		)
-	// 	}
 
 	//?pb 이용해서 로그인
 	// console.log(pb.authStore.isvalid);
@@ -125,13 +117,6 @@ function SignIn() {
 		}
 	}
 
-	// const handleInput = debounce((e) => {
-	// 	const { name, value } = e.target
-	// 	setFormState({
-	// 		...formState,
-	// 		[name]: value,
-	// 	})
-	// }, 400)
 
 	const handleInput = (e) => {
 		const { name, value } = e.target
