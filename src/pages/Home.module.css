@@ -1,0 +1,21 @@
+.mainBannerContent {
+  @apply absolute bottom-[27%] left-[4%];
+  @apply text-white text-6xl font-semibold tracking-wide;
+}
+
+.mainBannerDesc {
+  @apply absolute bottom-[22%] left-[4%];
+  @apply text-white text-2xl font-light;
+}
+
+.popularTitle {
+  @apply text-white text-2xl font-semibold ml-10 mb-3;
+}
+
+.popularButtonPrev {
+  @apply hover:opacity-80 hover:bg-gradient-to-l hover:from-transparent hover:to-black/80;
+}
+
+.popularButtonNext {
+  @apply hover:opacity-80 hover:bg-gradient-to-r hover:from-transparent hover:to-black/80;
+}
