@@ -19,6 +19,53 @@ html {
   transition-timing-function: linear !important;
 }
 
+/* detail 스와이퍼 css */
+.detailSwiper .swiper-button-prev {
+  position: absolute;
+  background: center / contain no-repeat url(/assets/contents/left-swiper.svg);
+  top: 50%;
+  left: 2%;
+  transform: translateY(-50%);
+  height: 100%;
+  opacity: 0.5;
+  padding-right: 1%;
+  z-index: 4;
+  transition: all 0.3s;
+  color: white;
+}
+
+.detailSwiper .swiper-button-prev:hover,
+.detailSwiper .swiper-button-next:hover {
+  opacity: 1;
+}
+
+.detailSwiper .swiper-button-next {
+  position: absolute;
+  background: center / contain no-repeat url(/assets/contents/right-swiper.svg);
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0%;
+  height: 100%;
+  opacity: 0.5;
+  padding-right: 1%;
+  z-index: 4;
+  transition: all 0.3s;
+  color: white;
+}
+
+.detailPagenation .swiper-pagination {
+  position: absolute;
+  top: -7% !important;
+  overflow-y: visible;
+  z-index: 10;
+  left: 81% !important;
+  width: 30% !important;
+  height: 10px;
+}
+
+.detailPagenation .swiper-pagination-bullet {
+  background-color: white;
+
 .homeMain .swiper-wrapper::before {
   position: absolute;
   content: "";
