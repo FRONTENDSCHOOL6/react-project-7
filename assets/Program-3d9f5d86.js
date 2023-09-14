@@ -1,0 +1,1 @@
+import{j as r}from"./index-c5a7e0cc.js";import"./react-7b82c02c.js";import"./reactRouter-7cbd2f1e.js";import"./extra-21235489.js";function p(){return r.jsx("div",{children:"Program"})}export{p as default};
