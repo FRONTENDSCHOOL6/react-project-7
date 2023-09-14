@@ -1,4 +1,4 @@
-import XIcon from "/assets/search/x-icon.svg";
+import XIcon from "/assets/x-icon.svg";
 import useSearchStore from "../../../store/useSearchStore";
 
 //@ 최근 검색어 컴포넌트

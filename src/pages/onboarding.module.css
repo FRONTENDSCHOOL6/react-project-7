@@ -33,7 +33,7 @@
 }
 
 .fun {
-  @apply relative w-full bg-black text-center text-white pb-36
+  @apply relative w-full bg-black text-center text-white pb-36;
 }
 
 .textBig {

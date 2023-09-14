@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import S from "./Search.module.css";
-import SearchIcon from "/assets/search/search.png";
-import XCircleIcon from "/assets/search/x-circle-icon.svg";
+import SearchIcon from "/assets/search.png";
+import XCircleIcon from "/assets/x-circle-icon.svg";
 import { getPbImageURL } from "@/utils/getPbImageURL";
 import useSearchStore from "../store/useSearchStore";
 import debounce from "../utils/debounce";
