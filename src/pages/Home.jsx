@@ -1,94 +1,17 @@
-import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
+import S from "./Home.module.css";
 import pb from "@/api/pocketbase";
 import { getPbImageURL } from "@/utils/getPbImageURL";
-import S from "./Home.module.css";
+import { Link } from "react-router-dom";
 import React, { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { MainList } from "./MainList";
-
-//@ 메인 배너 컴포넌트
-function MainBanner() {
-	const bannerContents = [
-		{
-			id: "q1pqyij1cmjidxh",
-			title: "스트릿우먼파이터",
-			img: "/assets/home/streetwoman.webp",
-			desc: "K-POP 데스 매치 미션",
-		},
-		{
-			id: "sjjmb2un0496h9z",
-			title: "유퀴즈 온 더 블럭",
-			img: "/assets/home/dongwon-uquiz.webp",
-			desc: "강동원, 20년만의 예능 출연!",
-		},
-		{
-			id: "7ew1rjbtkqfhwee",
-			title: "소용없어 거짓말",
-			img: "/assets/home/lie.webp",
-			desc: "김소현X황민현의 쌍방구원 로맨스",
-		},
-	];
-
-	return (
-		<Swiper
-			className={"mySwiper homeMain ${S.homeGradient}"}
-			loop="true"
-			navigation={{
-				nextEl: "#homeNextButton",
-				prevEl: "#homePrevButton",
-				keyboard: true,
-				onlyInViewport: false,
-			}}
-			autoplay={true}
-			effect={"fade"}
-			pagination={{ clickable: true }}
-			modules={[Navigation, EffectFade, Autoplay, Pagination]}
-			tabIndex={0}
-		>
-			{bannerContents &&
-				bannerContents.map((item) => (
-					<div key={item.id}>
-						<SwiperSlide key={item.id}>
-							<img src={item.img} alt={item.title} />
-							<span className={S.mainBannerDesc}>{item.desc}</span>
-							<Link
-								key={item.id}
-								to={`/contents/${item.id}`}
-								className={S.mainBannerMoreBtn}
-								alt={item.title}
-							>
-								<button>자세히 보기</button>
-							</Link>
-						</SwiperSlide>
-					</div>
-				))}
-			<div
-				className="swiper-button-prev"
-				id="homePrevButton"
-				onKeyDown={(e) => {
-					if (e.key === "Enter") e.currentTarget.click();
-				}}
-				role="button"
-				tabIndex={0}
-			/>
-			<div
-				className="swiper-button-next"
-				id="homeNextButton"
-				onKeyDown={(e) => {
-					if (e.key === "Enter") e.currentTarget.click();
-				}}
-				role="button"
-				tabIndex={0}
-			/>
-		</Swiper>
-	);
-}
+import { MainBanner } from "./MainBanner";
 
 function Home() {
 	const [contents, setContents] = useState([]);
@@ -117,9 +40,9 @@ function Home() {
 	}, []);
 
 	return (
-		<div className="bg-black w-screen overflow-hidden">
+		<div className="mainPage bg-black w-screen overflow-hidden">
 			<MainBanner></MainBanner>
-			{/* <section className="popular">
+			<section className="popular">
 				<h3 className={S.popularTitle}>타잉 인기 영화</h3>
 				{contents?.map(
 					(contentCategory) =>
@@ -163,7 +86,7 @@ function Home() {
 									</SwiperSlide>
 								))}
 								<div
-									className={`swiper-button-prev ${S.popularButtonPrev}`}
+									className={`swiper-button-prev ${S.mainButtonPrev}`}
 									id="popularPrevButton"
 									onKeyDown={(e) => {
 										if (e.key === "Enter") e.currentTarget.click();
@@ -172,7 +95,7 @@ function Home() {
 									tabIndex={0}
 								/>
 								<div
-									className={`swiper-button-next ${S.popularButtonNext}`}
+									className={`swiper-button-next ${S.mainButtonNext}`}
 									id="popularNextButton"
 									onKeyDown={(e) => {
 										if (e.key === "Enter") e.currentTarget.click();
@@ -206,8 +129,8 @@ function Home() {
 								slidesPerGroup={3}
 								spaceBetween={10}
 								navigation={{
-									nextEl: "#popularNextButton",
-									prevEl: "#popularPrevButton",
+									nextEl: "#popularTvNextButton",
+									prevEl: "#popularTvPrevButton",
 									keyboard: true,
 									onlyInViewport: false,
 								}}
@@ -228,8 +151,8 @@ function Home() {
 									</SwiperSlide>
 								))}
 								<div
-									className={`swiper-button-prev ${S.popularButtonPrev}`}
-									id="popularPrevButton"
+									className={`swiper-button-prev ${S.mainButtonPrev}`}
+									id="popularTvPrevButton"
 									onKeyDown={(e) => {
 										if (e.key === "Enter") e.currentTarget.click();
 									}}
@@ -238,7 +161,7 @@ function Home() {
 								/>
 								<div
 									className={`swiper-button-next ${S.popularButtonNext}`}
-									id="popularNextButton"
+									id="popularTvNextButton"
 									onKeyDown={(e) => {
 										if (e.key === "Enter") e.currentTarget.click();
 									}}
@@ -248,38 +171,21 @@ function Home() {
 							</Swiper>
 						)
 				)}
-			</section> */}
+			</section>
 			<MainList
-				classTitle={"horror"}
-				listTitle={"공포영화"}
+				classTitle={"romance"}
+				listTitle="사랑에 빠지는 순간, 로맨스 영화"
+				genreId={"n0ztxfbdj977ycx"}
 				startNum={0}
 				endNum={10}
 			/>
-
-			{/* <div>
-				{contents?.map(
-					(contentCategory) =>
-						contentCategory.data.length > 0 && (
-							<Swiper
-								key={contentCategory.title}
-								slidesPerView={7}
-								spaceBetween={10}
-								className="h-96"
-							>
-								{contentCategory.data.slice(0, itemCount).map((item) => (
-									<SwiperSlide key={item.id} className="overflow-hidden">
-										<img
-											src={getPbImageURL(item, "poster")}
-											alt={item.title}
-											className=" h-[250px] w-auto"
-										/>
-										<h2 className="text-gray200">{item.title}</h2>
-									</SwiperSlide>
-								))}
-							</Swiper>
-						)
-				)}
-			</div> */}
+			<MainList
+				classTitle={"horror"}
+				listTitle={"불 끄면 생각날걸 ? 공포영화"}
+				genreId={"cpcr28a1nvppyow"}
+				startNum={0}
+				endNum={10}
+			/>
 		</div>
 	);
 }
