@@ -1,16 +1,16 @@
-import { Link } from "react-router-dom"
-import { useNavigate, useParams } from "react-router-dom"
-import pb from "@/api/pocketbase"
-import { getPbImageURL } from "@/utils/getPbImageURL"
-import S from "./Home.module.css"
-import React, { useRef, useEffect, useState } from "react"
-import { Swiper, SwiperSlide } from "swiper/react"
-import "swiper/css"
-import "swiper/css/effect-fade"
-import "swiper/css/pagination"
-import "swiper/css/navigation"
-import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules"
-import { MainList } from "./MainList"
+import { Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import pb from "@/api/pocketbase";
+import { getPbImageURL } from "@/utils/getPbImageURL";
+import S from "./Home.module.css";
+import React, { useRef, useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
+import { MainList } from "./MainList";
 
 //@ 메인 배너 컴포넌트
 function MainBanner() {
@@ -33,7 +33,7 @@ function MainBanner() {
 			img: "/assets/home/lie.webp",
 			desc: "김소현X황민현의 쌍방구원 로맨스",
 		},
-	]
+	];
 
 	return (
 		<Swiper
@@ -45,7 +45,7 @@ function MainBanner() {
 				keyboard: true,
 				onlyInViewport: false,
 			}}
-			// autoplay={true}
+			autoplay={true}
 			effect={"fade"}
 			pagination={{ clickable: true }}
 			modules={[Navigation, EffectFade, Autoplay, Pagination]}
@@ -72,7 +72,7 @@ function MainBanner() {
 				className="swiper-button-prev"
 				id="homePrevButton"
 				onKeyDown={(e) => {
-					if (e.key === "Enter") e.currentTarget.click()
+					if (e.key === "Enter") e.currentTarget.click();
 				}}
 				role="button"
 				tabIndex={0}
@@ -81,23 +81,23 @@ function MainBanner() {
 				className="swiper-button-next"
 				id="homeNextButton"
 				onKeyDown={(e) => {
-					if (e.key === "Enter") e.currentTarget.click()
+					if (e.key === "Enter") e.currentTarget.click();
 				}}
 				role="button"
 				tabIndex={0}
 			/>
 		</Swiper>
-	)
+	);
 }
 
 function Home() {
-	const [contents, setContents] = useState([])
-	const [status, setStatus] = useState("pending")
-	const [error, setError] = useState(null)
-	const itemCount = 20
+	const [contents, setContents] = useState([]);
+	const [status, setStatus] = useState("pending");
+	const [error, setError] = useState(null);
+	const itemCount = 20;
 
 	useEffect(() => {
-		setStatus("loading")
+		setStatus("loading");
 
 		Promise.all([
 			pb.collection("program").getFullList(),
@@ -107,14 +107,14 @@ function Home() {
 				setContents([
 					{ title: "TV 프로그램", data: programList },
 					{ title: "영화", data: movieList },
-				])
-				setStatus("success")
+				]);
+				setStatus("success");
 			})
 			.catch((error) => {
-				setError(error)
-				setStatus("error")
-			})
-	}, [])
+				setError(error);
+				setStatus("error");
+			});
+	}, []);
 
 	return (
 		<div className="bg-black w-screen overflow-hidden">
@@ -281,7 +281,7 @@ function Home() {
 				)}
 			</div> */}
 		</div>
-	)
+	);
 }
 
-export default Home
+export default Home;
