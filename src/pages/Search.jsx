@@ -12,10 +12,10 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import HighlightedText from "../components/search/util/HighlightedText";
-import CurrentTime from "../components/search/util/CurrentTime";
-import RecentView from "../components/search/contents/RecentView";
-import RealtimeSearch from "../components/search/contents/RealtimeSearch";
+import HighlightedText from "../components/search/util/HighlightedText";
+import CurrentTime from "../components/search/util/CurrentTime";
+import RecentView from "../components/search/contents/RecentView";
+import RealtimeSearch from "../components/search/contents/RealtimeSearch";
 
 //@ 검색창 부분 컴포넌트
 function SearchSection() {
