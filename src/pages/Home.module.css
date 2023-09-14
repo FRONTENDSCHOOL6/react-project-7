@@ -1,0 +1,21 @@
+.mainBannerDesc {
+  @apply absolute bottom-[20%] left-[3.7%];
+  @apply text-white text-2xl font-light;
+}
+
+.mainBannerMoreBtn {
+  @apply absolute px-[2.7%] py-5 bottom-[17%] right-[5%] z-10 border border-white rounded bg-transparent saturate-100 backdrop-blur-3xl;
+  @apply text-gray-200 text-xl font-light;
+}
+
+.listTitle {
+  @apply text-white text-2xl font-semibold ml-10 mb-3;
+}
+
+.mainButtonPrev {
+  @apply hover:opacity-80 hover:bg-gradient-to-l hover:from-transparent hover:to-black/80;
+}
+
+.mainButtonNext {
+  @apply hover:opacity-80 hover:bg-gradient-to-r hover:from-transparent hover:to-black/80;
+}
