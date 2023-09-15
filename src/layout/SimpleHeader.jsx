@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import S from "./Header.module.css";
+import logo from "/assets/logo.svg";
 
 function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
@@ -31,7 +32,7 @@ function Header() {
 		>
 			<h1 className="w-[6.5%]">
 				<Link to="/">
-					<img src="/assets/logo.svg" alt="타잉" className="w-full" />
+					<img src={logo} alt="타잉" className="w-full" />
 				</Link>
 			</h1>
 		</header>
