@@ -1,0 +1,1 @@
+import{j as r}from"./index-98e0b301.js";import"./react-7b82c02c.js";import"./reactRouter-7cbd2f1e.js";import"prop-types";import"./extra-3c07f53d.js";function p(){return r.jsx("div",{children:"Membership"})}export{p as default};
