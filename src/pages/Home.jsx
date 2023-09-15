@@ -160,7 +160,7 @@ function Home() {
 									tabIndex={0}
 								/>
 								<div
-									className={`swiper-button-next ${S.popularButtonNext}`}
+									className={`swiper-button-next ${S.mainButtonNext}`}
 									id="popularTvNextButton"
 									onKeyDown={(e) => {
 										if (e.key === "Enter") e.currentTarget.click();
