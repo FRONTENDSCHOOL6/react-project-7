@@ -1,15 +1,23 @@
-// import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import YouTube from "react-youtube";
 import S from "./OnBoarding.module.css";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Autoplay } from "swiper/modules";
+import YouTube from "react-youtube";
+import { useRef } from "react";
+import { LoopSlide } from "./LoopSlide";
+import mainImg from "/assets/main.webp";
+import hotel from "/assets/hotel.webp";
+import afterschool from "/assets/after-school.webp";
+import dessert from "/assets/dessert.webp";
+import mobile from "/assets/mobile.mp4";
+import quickVod from "/assets/quick-vod.png";
+import devices from "/assets/devices.mp4";
+import arrowUp from "/assets/arrow-up.svg";
+import arrowDown from "/assets/arrow-down.svg";
 
-function OnBoarding() {
-	const mainImg = "/assets/onboarding/main.webp";
-
+export default function OnBoarding() {
 	//@ 버튼 클릭 시 로그인 페이지로 이동
 	const navigate = useNavigate();
 	const navigateToLogin = () => {
@@ -69,15 +77,15 @@ function OnBoarding() {
 				{/* //? 추후 랜덤으로 이미지가 나타날 수 있는 로직 필요 */}
 				<div className={S.onlyFig}>
 					<figure className={`${S.darkImg} left-[7%]`}>
-						<img src="/assets/onboarding/hotel.webp" alt="" />
+						<img src={hotel} alt="" />
 						<figcaption></figcaption>
 					</figure>
 					<figure className="w-1/2 z-10">
-						<img src="/assets/onboarding/after-school.webp" alt="" />
+						<img src={afterschool} alt="" />
 						<figcaption></figcaption>
 					</figure>
 					<figure className={`${S.darkImg} right-[7%]`}>
-						<img src="/assets/onboarding/dessert.webp" alt="" />
+						<img src={dessert} alt="" />
 						<figcaption></figcaption>
 					</figure>
 				</div>
@@ -94,7 +102,7 @@ function OnBoarding() {
 				</div>
 				<div className="w-full">
 					{/* //! 추후 swiper의 이미지들을 배열로 순환하여 랜더링될 수 있는 로직으로
-					수정 예정. */}
+            수정 예정. */}
 					<Swiper
 						className="mySwiper swiperLoop mb-3"
 						slidesPerView={4.5}
@@ -291,28 +299,29 @@ function OnBoarding() {
 							/>
 						</SwiperSlide>
 					</Swiper>
+					<LoopSlide />
 				</div>
 			</section>
 			{/* 유튜브 섹션 */}
 			<section className="bg-black w-full">
 				<div className={S.videoWrapper}>
 					{/* <YouTube
-						className="absolute top-1/2 left-1/2 -translate-x-1/2"
-						videoId="Lr8lSxMlp9Q"
-						opts={{
-							width: "100%",
-							height: "100%",
-							playerVars: {
-								autoplay: 0,
-								rel: 0,
-								modestbranding: 1, // 컨트롤 바에 youtube 로고를 표시하지 않음
-							},
-						}}
-						//이벤트 리스너
-						onEnd={(e) => {
-							e.target.stopVideo(0)
-						}}
-					/> */}
+                className="absolute top-1/2 left-1/2 -translate-x-1/2"
+                videoId="Lr8lSxMlp9Q"
+                opts={{
+                    width: "100%",
+                    height: "100%",
+                    playerVars: {
+                        autoplay: 0,
+                        rel: 0,
+                        modestbranding: 1, // 컨트롤 바에 youtube 로고를 표시하지 않음
+                    },
+                }}
+                //이벤트 리스너
+                onEnd={(e) => {
+                    e.target.stopVideo(0)
+                }}
+            /> */}
 					<iframe
 						className={S.videoItem}
 						src={`https://www.youtube-nocookie.com/embed/Lr8lSxMlp9Q`}
@@ -332,10 +341,10 @@ function OnBoarding() {
 				</div>
 				<div className="relative w-full">
 					<video autoPlay loop muted className="mx-auto h-auto w-[30%]">
-						<source src="/assets/onboarding/mobile.mp4"></source>
+						<source src={mobile}></source>
 					</video>
 					<div className={S.vodImg}>
-						<img src="/assets/onboarding/quick-vod.png" alt="" />
+						<img src={quickVod} alt="" />
 					</div>
 				</div>
 			</section>
@@ -352,7 +361,7 @@ function OnBoarding() {
 				</div>
 				<div>
 					<video autoPlay loop muted className="mx-auto h-auto w-[60%]">
-						<source src="/assets/onboarding/devices.mp4"></source>
+						<source src={devices}></source>
 					</video>
 				</div>
 			</section>
@@ -391,12 +400,9 @@ function OnBoarding() {
 							[기타] 티빙 고객센터 카카오 챗봇 및 실시간 채팅 상담 이용하기
 							<em>
 								{activeIndex === 0 ? (
-									<img src="/assets/onboarding/arrow-up.svg" alt="답변 닫기" />
+									<img src={arrowUp} alt="답변 닫기" />
 								) : (
-									<img
-										src="/assets/onboarding/arrow-down.svg"
-										alt="답변 열기"
-									/>
+									<img src={arrowDown} alt="답변 열기" />
 								)}
 							</em>
 						</label>
@@ -441,12 +447,9 @@ function OnBoarding() {
 							[결제] 영화 VOD를 개별구매 할 수 없나요?
 							<em>
 								{activeIndex === 1 ? (
-									<img src="/assets/onboarding/arrow-up.svg" alt="답변 닫기" />
+									<img src={arrowUp} alt="답변 닫기" />
 								) : (
-									<img
-										src="/assets/onboarding/arrow-down.svg"
-										alt="답변 열기"
-									/>
+									<img src={arrowDown} alt="답변 열기" />
 								)}
 							</em>
 						</label>
@@ -476,12 +479,9 @@ function OnBoarding() {
 							[결제] 보유한 타잉캐시는 어떻게 사용하나요?
 							<em>
 								{activeIndex === 2 ? (
-									<img src="/assets/onboarding/arrow-up.svg" alt="답변 닫기" />
+									<img src={arrowUp} alt="답변 닫기" />
 								) : (
-									<img
-										src="/assets/onboarding/arrow-down.svg"
-										alt="답변 열기"
-									/>
+									<img src={arrowDown} alt="답변 열기" />
 								)}
 							</em>
 						</label>
@@ -510,12 +510,9 @@ function OnBoarding() {
 							[결제] 기존에 구매한 개별구매 영화는 시청할 수 없나요?
 							<em>
 								{activeIndex === 3 ? (
-									<img src="/assets/onboarding/arrow-up.svg" alt="답변 닫기" />
+									<img src={arrowUp} alt="답변 닫기" />
 								) : (
-									<img
-										src="/assets/onboarding/arrow-down.svg"
-										alt="답변 열기"
-									/>
+									<img src={arrowDown} alt="답변 열기" />
 								)}
 							</em>
 						</label>
@@ -530,10 +527,10 @@ function OnBoarding() {
 									<br />
 									<br />
 									■ 개별구매 영화 시청 경로
-									<br />- PC : 티빙 로그인 > 우측 상단 프로필 아이콘 > MY >
-									시청내역 or 구매내역 메뉴의 영화 탭에서 시청 가능
-									<br />- 모바일 APP : 티빙 로그인 > 기록 > 시청내역 or 구매내역
-									메뉴에서 시청 가능
+									<br />- PC : 티빙 로그인 &gt; 우측 상단 프로필 아이콘 &gt; MY
+									&gt; 시청내역 or 구매내역 메뉴의 영화 탭에서 시청 가능
+									<br />- 모바일 APP : 티빙 로그인 &gt; 기록 &gt; 시청내역 or
+									구매내역 메뉴에서 시청 가능
 									<br />
 									<br />* 단, 개별구매 후 이용기간이 만료된 콘텐츠인 경우 더이상
 									시청하실 수 없습니다.
@@ -553,12 +550,9 @@ function OnBoarding() {
 							[회원] 타잉 회원가입 방법이 궁금해요.
 							<em>
 								{activeIndex === 4 ? (
-									<img src="/assets/onboarding/arrow-up.svg" alt="답변 닫기" />
+									<img src={arrowUp} alt="답변 닫기" />
 								) : (
-									<img
-										src="/assets/onboarding/arrow-down.svg"
-										alt="답변 열기"
-									/>
+									<img src={arrowDown} alt="답변 열기" />
 								)}
 							</em>
 						</label>
@@ -607,12 +601,9 @@ function OnBoarding() {
 							[회원] 타잉 로그인 방법이 궁금해요.
 							<em>
 								{activeIndex === 5 ? (
-									<img src="/assets/onboarding/arrow-up.svg" alt="답변 닫기" />
+									<img src={arrowUp} alt="답변 닫기" />
 								) : (
-									<img
-										src="/assets/onboarding/arrow-down.svg"
-										alt="답변 열기"
-									/>
+									<img src={arrowDown} alt="답변 열기" />
 								)}
 							</em>
 						</label>
@@ -678,12 +669,9 @@ function OnBoarding() {
 							[로그인] 자동 로그아웃이 되었는데 제 계정을 모르겠어요.
 							<em>
 								{activeIndex === 6 ? (
-									<img src="/assets/onboarding/arrow-up.svg" alt="답변 닫기" />
+									<img src={arrowUp} alt="답변 닫기" />
 								) : (
-									<img
-										src="/assets/onboarding/arrow-down.svg"
-										alt="답변 열기"
-									/>
+									<img src={arrowDown} alt="답변 열기" />
 								)}
 							</em>
 						</label>
@@ -702,7 +690,7 @@ function OnBoarding() {
 									<br />
 									1) 계정 선택 화면 가장 하단 '아이디 찾기' 클릭
 									<br />
-									2) 본인인증으로 찾기 > 본인인증하기
+									2) 본인인증으로 찾기 &gt; 본인인증하기
 									<br />
 									3) 가입한 계정 ID들 안내
 									<br />
@@ -741,12 +729,9 @@ function OnBoarding() {
 							[로그인] 이용권이 있는 계정이 무엇인지 찾고싶어요.
 							<em>
 								{activeIndex === 7 ? (
-									<img src="/assets/onboarding/arrow-up.svg" alt="답변 닫기" />
+									<img src={arrowUp} alt="답변 닫기" />
 								) : (
-									<img
-										src="/assets/onboarding/arrow-down.svg"
-										alt="답변 열기"
-									/>
+									<img src={arrowDown} alt="답변 열기" />
 								)}
 							</em>
 						</label>
@@ -802,12 +787,9 @@ function OnBoarding() {
 							[로그인] 로그인이 안될 때 고객문의를 남길 수 있는 방법이 있나요?
 							<em>
 								{activeIndex === 8 ? (
-									<img src="/assets/onboarding/arrow-up.svg" alt="답변 닫기" />
+									<img src={arrowUp} alt="답변 닫기" />
 								) : (
-									<img
-										src="/assets/onboarding/arrow-down.svg"
-										alt="답변 열기"
-									/>
+									<img src={arrowDown} alt="답변 열기" />
 								)}
 							</em>
 						</label>
@@ -838,12 +820,9 @@ function OnBoarding() {
 							[인증] 성인인증은 어떻게 하나요?
 							<em>
 								{activeIndex === 9 ? (
-									<img src="/assets/onboarding/arrow-up.svg" alt="답변 닫기" />
+									<img src={arrowUp} alt="답변 닫기" />
 								) : (
-									<img
-										src="/assets/onboarding/arrow-down.svg"
-										alt="답변 열기"
-									/>
+									<img src={arrowDown} alt="답변 열기" />
 								)}
 							</em>
 						</label>
@@ -899,5 +878,3 @@ function OnBoarding() {
 		</>
 	);
 }
-
-export default OnBoarding;
