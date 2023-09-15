@@ -1,1 +1,0 @@
-import"prop-types";import{j as r}from"./index-00da733f.js";import"./react-7b82c02c.js";import"./reactRouter-7cbd2f1e.js";import"./extra-3c07f53d.js";function a(){return r.jsx("div",{children:"Program"})}export{a as default};

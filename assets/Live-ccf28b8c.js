@@ -1,1 +1,0 @@
-import"prop-types";import{j as i}from"./index-00da733f.js";import"./react-7b82c02c.js";import"./reactRouter-7cbd2f1e.js";import"./extra-3c07f53d.js";function p(){return i.jsx("div",{children:"Live"})}export{p as default};
