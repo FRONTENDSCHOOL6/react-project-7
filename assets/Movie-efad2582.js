@@ -1,1 +1,0 @@
-import{j as i}from"./index-64351ee0.js";import"./react-7b82c02c.js";import"./reactRouter-7cbd2f1e.js";import"prop-types";import"./extra-3c07f53d.js";function p(){return i.jsx("div",{children:"Movie"})}export{p as default};
