@@ -4,18 +4,18 @@
 }
 
 .mainBannerMoreBtn {
-  @apply absolute px-[2.7%] py-5 bottom-[17%] right-[5%] z-10 border border-white rounded bg-transparent saturate-100 backdrop-blur-3xl;
+  @apply absolute px-[2.7%] py-5 bottom-[17%] right-[5%] border border-white rounded bg-transparent saturate-100 backdrop-blur-3xl z-10;
   @apply text-gray-200 text-xl font-light;
 }
 
-.listTitle {
+.listTitle,
+.popularTitle {
   @apply text-white text-2xl font-semibold ml-10 mb-3;
 }
 
-.mainButtonPrev {
-  @apply hover:opacity-80 hover:bg-gradient-to-l hover:from-transparent hover:to-black/80;
-}
-
-.mainButtonNext {
-  @apply hover:opacity-80 hover:bg-gradient-to-r hover:from-transparent hover:to-black/80;
+.mainButtonPrev,
+.popularButtonPrev,
+.mainButtonNext,
+.popularButtonNext {
+  @apply hover:opacity-80 hover:bg-gradient-to-r hover:from-transparent hover:to-black/80 duration-300;
 }

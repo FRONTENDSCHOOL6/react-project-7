@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import PropTypes from "prop-types";
 
-export function MainList({ classTitle, listTitle, startNum, endNum }) {
+export function MainList({ classTitle, listTitle, genreId, startNum, endNum }) {
 	const [contents, setContents] = useState([]);
 	const [status, setStatus] = useState("pending");
 	const [error, setError] = useState(null);
@@ -67,7 +67,7 @@ export function MainList({ classTitle, listTitle, startNum, endNum }) {
 							className="overflow-y-visible mb-10 px-10"
 						>
 							{contentCategory.data
-								.filter((movie) => movie.genre === "cpcr28a1nvppyow")
+								.filter((movie) => movie.genre === genreId)
 								.map((item) => (
 									<SwiperSlide key={item.id}>
 										<Link to={`contents/${item.id}`}>
@@ -107,6 +107,7 @@ export function MainList({ classTitle, listTitle, startNum, endNum }) {
 MainList.propTypes = {
 	classTitle: PropTypes.string.isRequired,
 	listTitle: PropTypes.string.isRequired,
+	genreId: PropTypes.string.isRequired,
 	startNum: PropTypes.number.isRequired,
 	endNum: PropTypes.number.isRequired,
 };
