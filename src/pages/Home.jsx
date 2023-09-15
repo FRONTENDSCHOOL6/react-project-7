@@ -10,97 +10,30 @@ import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
-
-// export const readRecordOne = async (collectionName, id) => {
-// 	try {
-// 		return await pb.collection("movie").getFullList();
-// 	} catch (error) {
-// 		throw new Error(error.message);
-// 	}
-// };
-
-// function Home() {
-// 	const { id } = useParams();
-// 	async function record() {
-// 		const record1 = await pb.collection("movie").getFullList();
-// 		const record2 = await pb
-// 			.collection("movie")
-// 			.getFullList({ expand: "genre" });
-// 		// console.log(record1);
-// 		// console.log(record2.expand.genre.genre);
-// 		return record1;
-// 	}
-// 	record();
-
-// 	const [data, setData] = useState(null);
-
-// 	useEffect(() => {
-// 		async function movieList() {
-// 			const record1 = await pb.collection("movie").getFullList();
-// 			setData(record1);
-// 		}
-// 		movieList();
-// 	});
-
-// 	return (
-// 		<main>
-// 			<section className={S.banner}>
-// 				<Swiper>
-// 					<SwiperSlide></SwiperSlide>
-// 				</Swiper>
-// 				{data?.map((item, id) => {
-// 					return (
-// 						<>
-// 							{/* <p key={item.id}>{item.title}</p> */}
-// 							<span key={item.id}>{item.description}</span>
-// 						</>
-// 					);
-// 				})}
-// 			</section>
-// 		</main>
-// 	);
-// }
+import { MainList } from "./MainList";
 
 //@ 메인 배너 컴포넌트
 function MainBanner() {
 	const bannerContents = [
 		{
-			id: 1,
+			id: "q1pqyij1cmjidxh",
 			title: "스트릿우먼파이터",
 			img: "/assets/home/streetwoman.webp",
 			desc: "K-POP 데스 매치 미션",
 		},
 		{
-			id: 2,
-			title: "천박사 퇴마 연구소",
-			img: "/assets/home/exorcism.webp",
-			content: "올 추석, 가짜 퇴마사",
-			contentSub: " 강동원이 온다!",
-			desc: "<천박사 퇴마 연구소> 예매권 증정 이벤트",
+			id: "sjjmb2un0496h9z",
+			title: "유퀴즈 온 더 블럭",
+			img: "/assets/home/dongwon-uquiz.webp",
+			desc: "강동원, 20년만의 예능 출연!",
 		},
 		{
-			id: 3,
+			id: "7ew1rjbtkqfhwee",
 			title: "소용없어 거짓말",
 			img: "/assets/home/lie.webp",
 			desc: "김소현X황민현의 쌍방구원 로맨스",
 		},
 	];
-
-	useEffect(() => {
-		document.addEventListener("keydown", handleKeyDown);
-
-		return () => {
-			document.removeEventListener("keydown", handleKeyDown);
-		};
-	}, []);
-
-	const handleKeyDown = (event) => {
-		if (event.key === "Enter") {
-			// 왼쪽 화살표 키
-			event.preventDefault();
-			event.target.click();
-		}
-	};
 
 	return (
 		<Swiper
@@ -112,7 +45,7 @@ function MainBanner() {
 				keyboard: true,
 				onlyInViewport: false,
 			}}
-			autoplay={true}
+			// autoplay={true}
 			effect={"fade"}
 			pagination={{ clickable: true }}
 			modules={[Navigation, EffectFade, Autoplay, Pagination]}
@@ -120,26 +53,36 @@ function MainBanner() {
 		>
 			{bannerContents &&
 				bannerContents.map((item) => (
-					<SwiperSlide key={item.id}>
-						<img src={item.img} alt={item.title} />
-						<p key={item.id} className={S.mainBannerContent}>
-							{item.content}
-							<span className="block">{item.contentSub}</span>
-						</p>
-						<span className={S.mainBannerDesc}>{item.desc}</span>
-					</SwiperSlide>
+					<div key={item.id}>
+						<SwiperSlide key={item.id}>
+							<img src={item.img} alt={item.title} />
+							<span className={S.mainBannerDesc}>{item.desc}</span>
+							<Link
+								key={item.id}
+								to={`/contents/${item.id}`}
+								className={S.mainBannerMoreBtn}
+								alt={item.title}
+							>
+								<button>자세히 보기</button>
+							</Link>
+						</SwiperSlide>
+					</div>
 				))}
 			<div
 				className="swiper-button-prev"
 				id="homePrevButton"
-				onKeyDown={handleKeyDown}
+				onKeyDown={(e) => {
+					if (e.key === "Enter") e.currentTarget.click();
+				}}
 				role="button"
 				tabIndex={0}
 			/>
 			<div
 				className="swiper-button-next"
 				id="homeNextButton"
-				onKeyDown={handleKeyDown}
+				onKeyDown={(e) => {
+					if (e.key === "Enter") e.currentTarget.click();
+				}}
 				role="button"
 				tabIndex={0}
 			/>
@@ -152,22 +95,6 @@ function Home() {
 	const [status, setStatus] = useState("pending");
 	const [error, setError] = useState(null);
 	const itemCount = 20;
-
-	useEffect(() => {
-		document.addEventListener("keydown", handleKeyDown);
-
-		return () => {
-			document.removeEventListener("keydown", handleKeyDown);
-		};
-	}, []);
-
-	const handleKeyDown = (event) => {
-		if (event.key === "Enter") {
-			// 왼쪽 화살표 키
-			event.preventDefault();
-			event.target.click();
-		}
-	};
 
 	useEffect(() => {
 		setStatus("loading");
@@ -192,7 +119,7 @@ function Home() {
 	return (
 		<div className="bg-black w-screen overflow-hidden">
 			<MainBanner></MainBanner>
-			<section className="popular">
+			{/* <section className="popular">
 				<h3 className={S.popularTitle}>타잉 인기 영화</h3>
 				{contents?.map(
 					(contentCategory) =>
@@ -222,7 +149,7 @@ function Home() {
 								pagination={{ clickable: true }}
 								modules={[Navigation, Pagination]}
 								tabIndex={0}
-								className="overflow-visible mb-10 px-10"
+								className="overflow-y-visible mb-10 px-10"
 							>
 								{contentCategory.data.slice(27, 38).map((item) => (
 									<SwiperSlide key={item.id}>
@@ -238,14 +165,18 @@ function Home() {
 								<div
 									className={`swiper-button-prev ${S.popularButtonPrev}`}
 									id="popularPrevButton"
-									onKeyDown={handleKeyDown}
+									onKeyDown={(e) => {
+										if (e.key === "Enter") e.currentTarget.click();
+									}}
 									role="button"
 									tabIndex={0}
 								/>
 								<div
 									className={`swiper-button-next ${S.popularButtonNext}`}
 									id="popularNextButton"
-									onKeyDown={handleKeyDown}
+									onKeyDown={(e) => {
+										if (e.key === "Enter") e.currentTarget.click();
+									}}
 									role="button"
 									tabIndex={0}
 								/>
@@ -283,7 +214,7 @@ function Home() {
 								pagination={{ clickable: true }}
 								modules={[Navigation, Pagination]}
 								tabIndex={0}
-								className="overflow-visible mb-10 px-10"
+								className="overflow-y-visible mb-10 px-10"
 							>
 								{contentCategory.data.slice(27, 38).map((item) => (
 									<SwiperSlide key={item.id}>
@@ -299,21 +230,32 @@ function Home() {
 								<div
 									className={`swiper-button-prev ${S.popularButtonPrev}`}
 									id="popularPrevButton"
-									onKeyDown={handleKeyDown}
+									onKeyDown={(e) => {
+										if (e.key === "Enter") e.currentTarget.click();
+									}}
 									role="button"
 									tabIndex={0}
 								/>
 								<div
 									className={`swiper-button-next ${S.popularButtonNext}`}
 									id="popularNextButton"
-									onKeyDown={handleKeyDown}
+									onKeyDown={(e) => {
+										if (e.key === "Enter") e.currentTarget.click();
+									}}
 									role="button"
 									tabIndex={0}
 								/>
 							</Swiper>
 						)
 				)}
-			</section>
+			</section> */}
+			<MainList
+				classTitle={"horror"}
+				listTitle={"공포영화"}
+				startNum={0}
+				endNum={10}
+			/>
+
 			{/* <div>
 				{contents?.map(
 					(contentCategory) =>
