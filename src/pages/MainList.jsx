@@ -7,11 +7,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import PropTypes from "prop-types";
 
-export function MainList({ classTitle, listTitle, genreId, startNum, endNum }) {
+export function MainList({ classTitle, listTitle, genre, genreId }) {
 	const [contents, setContents] = useState([]);
 	const [status, setStatus] = useState("pending");
 	const [error, setError] = useState(null);
-	const itemCount = 20;
 
 	useEffect(() => {
 		setStatus("loading");
@@ -34,11 +33,11 @@ export function MainList({ classTitle, listTitle, genreId, startNum, endNum }) {
 	}, []);
 
 	return (
-		<section className={classTitle}>
+		<section className={`${classTitle} mainSwiper`}>
 			<h3 className={`${classTitle}List ${S.listTitle}`}>{listTitle}</h3>
 			{contents?.map(
 				(contentCategory) =>
-					contentCategory.title === "영화" && (
+					contentCategory.title === `${genre}` && (
 						<Swiper
 							key={contentCategory.title}
 							slidesPerView={7}
@@ -53,7 +52,7 @@ export function MainList({ classTitle, listTitle, genreId, startNum, endNum }) {
 									slidesPerView: 7,
 								},
 							}}
-							slidesPerGroup={3}
+							slidesPerGroup={7}
 							spaceBetween={10}
 							navigation={{
 								nextEl: "#mainNextButton",
@@ -69,13 +68,13 @@ export function MainList({ classTitle, listTitle, genreId, startNum, endNum }) {
 							{contentCategory.data
 								.filter((movie) => movie.genre === genreId)
 								.map((item) => (
-									<SwiperSlide key={item.id}>
+									<SwiperSlide key={item.id} className={S.listContent}>
 										<Link to={`contents/${item.id}`}>
 											<img
 												src={getPbImageURL(item, "poster")}
 												alt={item.title}
 											/>
-											<p className="text-gray200 text-xl mt-2">{item.title}</p>
+											<p className={S.listName}>{item.title}</p>
 										</Link>
 									</SwiperSlide>
 								))}
@@ -107,7 +106,6 @@ export function MainList({ classTitle, listTitle, genreId, startNum, endNum }) {
 MainList.propTypes = {
 	classTitle: PropTypes.string.isRequired,
 	listTitle: PropTypes.string.isRequired,
+	genre: PropTypes.string.isRequired,
 	genreId: PropTypes.string.isRequired,
-	startNum: PropTypes.number.isRequired,
-	endNum: PropTypes.number.isRequired,
 };

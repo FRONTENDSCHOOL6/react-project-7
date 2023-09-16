@@ -4,13 +4,21 @@
 }
 
 .mainBannerMoreBtn {
-  @apply absolute px-[2.7%] py-5 bottom-[17%] right-[5%] border border-white rounded bg-transparent saturate-100 backdrop-blur-3xl z-10;
+  @apply absolute px-[2.7%] py-5 bottom-[17%] right-[5%] border border-gray-300 rounded bg-transparent saturate-100 backdrop-blur-3xl z-10 hover:border-white;
   @apply text-gray-200 text-xl font-light;
+}
+
+.listContent {
+  @apply text-gray200 hover:-translate-y-2 duration-300 hover:text-white;
+}
+
+.listName {
+  @apply text-xl mt-2 whitespace-nowrap overflow-hidden text-ellipsis;
 }
 
 .listTitle,
 .popularTitle {
-  @apply text-white text-2xl font-semibold ml-10 mb-3;
+  @apply text-white text-2xl font-semibold ml-10 mb-4;
 }
 
 .mainButtonPrev,
