@@ -328,18 +328,4 @@ function Search() {
 	);
 }
 
-//RecentView.propTypes = {
-//  view: propTypes.shape({
-//    id: number.isRequired,
-//    title: string.isRequired,
-//  }),
-//};
-
-//RealtimeSearch.propTypes = {
-//  item: PropTypes.shape({
-//    id: number.isRequired,
-//    title: string.isRequired,
-//  }),
-//};
-
 export default Search;
