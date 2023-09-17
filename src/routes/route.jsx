@@ -20,6 +20,8 @@ const Program = lazy(() => import("./../pages/Program"));
 const Movie = lazy(() => import("./../pages/Movie"));
 //const Search = lazy(() => import("./../pages/Search"))
 import Search from "./../pages/Search";
+const EditProfiles = lazy(() => import("../pages/EditProfiles"));
+const EditProfile = lazy(() => import("../pages/EditProfile"));
 
 const router = createHashRouter(
 	createRoutesFromElements(
@@ -36,6 +38,8 @@ const router = createHashRouter(
 			<Route path="/membership" element={<Membership />} />
 			<Route path="/onboarding" element={<OnBoarding />} />
 			<Route path="/profile" element={<Profile />} />
+			<Route path="/editprofiles" element={<EditProfiles />} />
+			<Route path="/editprofile" element={<EditProfile />} />
 			<Route path="/program" element={<Program />} />
 			<Route path="/movie" element={<Movie />} />
 		</Route>

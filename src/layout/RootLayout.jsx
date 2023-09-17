@@ -11,6 +11,9 @@ export default function RootLayout() {
 		"/signup",
 		"/findid",
 		"/findpw",
+		"/editprofiles",
+		"/editprofile",
+		"/profile",
 	];
 	useLocation;
 
