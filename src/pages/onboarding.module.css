@@ -21,7 +21,7 @@
 .joinButton {
   @apply relative left-1/2 -translate-x-1/2 top-5 bg-primary w-[100%] py-5 rounded;
   @apply text-white text-2xl font-semibold;
-  @apply before:bg-[url('/assets/onboarding/tving-symbol.svg')] before:bg-no-repeat before:absolute before:top-0 before:left-0 before:w-20 before:h-full;
+  @apply before:bg-[url('/assets/tving-symbol.svg')] before:bg-no-repeat before:absolute before:top-0 before:left-0 before:w-20 before:h-full;
 }
 
 .onlyTaing {
@@ -33,7 +33,7 @@
 }
 
 .fun {
-  @apply relative w-full bg-black text-center text-white pb-36
+  @apply relative w-full bg-black text-center text-white pb-36;
 }
 
 .textBig {

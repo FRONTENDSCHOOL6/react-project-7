@@ -15,12 +15,11 @@ html {
   font-feature-settings: normal;
   font-variation-settings: normal;
 }
-.swiper {
-  --swiper-navigation-size: 3.5%;
-  --swiper-theme-color: transparent;
-}
+
+/* 랜딩페이지 무한루프 스와이퍼 */
 .swiperLoop .swiper-wrapper {
   transition-timing-function: linear !important;
+  position: relative;
 }
 
 /* detail 스와이퍼 css */
@@ -70,7 +69,8 @@ html {
 .detailPagenation .swiper-pagination-bullet {
   background-color: white;
 }
-.homeMain .swiper-wrapper::before {
+
+.homeMain .swiper-slide::before {
   position: absolute;
   content: "";
   width: 100%;
@@ -79,24 +79,25 @@ html {
   z-index: 1;
 }
 
-.homeMain .swiper-button-prev,
-.homeMain .swiper-button-next {
+/* 메인페이지 */
+.mainPage .swiper-button-prev,
+.mainPage .swiper-button-next {
   top: 0;
   height: 100%;
   color: white;
   opacity: 0.6;
 }
 
-.homeMain .swiper-button-prev {
+.mainPage .swiper-button-prev {
   transform: scaleX(-1);
 }
 
-.homeMain .swiper-button-prev:after,
-.homeMain .swiper-button-next:after {
-  content: url(/assets/home/main-next.svg);
+.mainPage .swiper-button-prev:after,
+.mainPage .swiper-button-next:after {
+  content: url(/assets/main-next.svg);
 }
 
-.homeMain .swiper-pagination-bullet-active {
+.mainPage .swiper-pagination-bullet-active {
   background: white;
   opacity: 1;
 }
@@ -113,20 +114,11 @@ html {
   height: 0.7rem;
 }
 
-.popular .swiper-button-prev,
-.popular .swiper-button-next {
-  width: 4%;
-  top: 4%;
-  height: 95%;
-  color: white;
-  opacity: 0.6;
-}
-
-.popular .swiper-button-prev {
+.mainPage .swiper-button-prev {
   left: 0;
 }
 
-.popular .swiper-button-next {
+.mainPage .swiper-button-next {
   right: 0;
 }
 

@@ -1,173 +1,23 @@
-import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
+import S from "./Home.module.css";
 import pb from "@/api/pocketbase";
 import { getPbImageURL } from "@/utils/getPbImageURL";
-import S from "./Home.module.css";
+import { Link } from "react-router-dom";
 import React, { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
-
-// export const readRecordOne = async (collectionName, id) => {
-// 	try {
-// 		return await pb.collection("movie").getFullList();
-// 	} catch (error) {
-// 		throw new Error(error.message);
-// 	}
-// };
-
-// function Home() {
-// 	const { id } = useParams();
-// 	async function record() {
-// 		const record1 = await pb.collection("movie").getFullList();
-// 		const record2 = await pb
-// 			.collection("movie")
-// 			.getFullList({ expand: "genre" });
-// 		// console.log(record1);
-// 		// console.log(record2.expand.genre.genre);
-// 		return record1;
-// 	}
-// 	record();
-
-// 	const [data, setData] = useState(null);
-
-// 	useEffect(() => {
-// 		async function movieList() {
-// 			const record1 = await pb.collection("movie").getFullList();
-// 			setData(record1);
-// 		}
-// 		movieList();
-// 	});
-
-// 	return (
-// 		<main>
-// 			<section className={S.banner}>
-// 				<Swiper>
-// 					<SwiperSlide></SwiperSlide>
-// 				</Swiper>
-// 				{data?.map((item, id) => {
-// 					return (
-// 						<>
-// 							{/* <p key={item.id}>{item.title}</p> */}
-// 							<span key={item.id}>{item.description}</span>
-// 						</>
-// 					);
-// 				})}
-// 			</section>
-// 		</main>
-// 	);
-// }
-
-//@ 메인 배너 컴포넌트
-function MainBanner() {
-	const bannerContents = [
-		{
-			id: 1,
-			title: "스트릿우먼파이터",
-			img: "/assets/home/streetwoman.webp",
-			desc: "K-POP 데스 매치 미션",
-		},
-		{
-			id: 2,
-			title: "천박사 퇴마 연구소",
-			img: "/assets/home/exorcism.webp",
-			content: "올 추석, 가짜 퇴마사",
-			contentSub: " 강동원이 온다!",
-			desc: "<천박사 퇴마 연구소> 예매권 증정 이벤트",
-		},
-		{
-			id: 3,
-			title: "소용없어 거짓말",
-			img: "/assets/home/lie.webp",
-			desc: "김소현X황민현의 쌍방구원 로맨스",
-		},
-	];
-
-	useEffect(() => {
-		document.addEventListener("keydown", handleKeyDown);
-
-		return () => {
-			document.removeEventListener("keydown", handleKeyDown);
-		};
-	}, []);
-
-	const handleKeyDown = (event) => {
-		if (event.key === "Enter") {
-			// 왼쪽 화살표 키
-			event.preventDefault();
-			event.target.click();
-		}
-	};
-
-	return (
-		<Swiper
-			className={"mySwiper homeMain ${S.homeGradient}"}
-			loop="true"
-			navigation={{
-				nextEl: "#homeNextButton",
-				prevEl: "#homePrevButton",
-				keyboard: true,
-				onlyInViewport: false,
-			}}
-			autoplay={true}
-			effect={"fade"}
-			pagination={{ clickable: true }}
-			modules={[Navigation, EffectFade, Autoplay, Pagination]}
-			tabIndex={0}
-		>
-			{bannerContents &&
-				bannerContents.map((item) => (
-					<SwiperSlide key={item.id}>
-						<img src={item.img} alt={item.title} />
-						<p key={item.id} className={S.mainBannerContent}>
-							{item.content}
-							<span className="block">{item.contentSub}</span>
-						</p>
-						<span className={S.mainBannerDesc}>{item.desc}</span>
-					</SwiperSlide>
-				))}
-			<div
-				className="swiper-button-prev"
-				id="homePrevButton"
-				onKeyDown={handleKeyDown}
-				role="button"
-				tabIndex={0}
-			/>
-			<div
-				className="swiper-button-next"
-				id="homeNextButton"
-				onKeyDown={handleKeyDown}
-				role="button"
-				tabIndex={0}
-			/>
-		</Swiper>
-	);
-}
+import { MainList } from "./MainList";
+import { MainBanner } from "./MainBanner";
 
 function Home() {
 	const [contents, setContents] = useState([]);
 	const [status, setStatus] = useState("pending");
 	const [error, setError] = useState(null);
 	const itemCount = 20;
-
-	useEffect(() => {
-		document.addEventListener("keydown", handleKeyDown);
-
-		return () => {
-			document.removeEventListener("keydown", handleKeyDown);
-		};
-	}, []);
-
-	const handleKeyDown = (event) => {
-		if (event.key === "Enter") {
-			// 왼쪽 화살표 키
-			event.preventDefault();
-			event.target.click();
-		}
-	};
 
 	useEffect(() => {
 		setStatus("loading");
@@ -190,7 +40,7 @@ function Home() {
 	}, []);
 
 	return (
-		<div className="bg-black w-screen overflow-hidden">
+		<div className="mainPage bg-black w-screen overflow-hidden">
 			<MainBanner></MainBanner>
 			<section className="popular">
 				<h3 className={S.popularTitle}>타잉 인기 영화</h3>
@@ -222,7 +72,7 @@ function Home() {
 								pagination={{ clickable: true }}
 								modules={[Navigation, Pagination]}
 								tabIndex={0}
-								className="overflow-visible mb-10 px-10"
+								className="overflow-y-visible mb-10 px-10"
 							>
 								{contentCategory.data.slice(27, 38).map((item) => (
 									<SwiperSlide key={item.id}>
@@ -236,16 +86,20 @@ function Home() {
 									</SwiperSlide>
 								))}
 								<div
-									className={`swiper-button-prev ${S.popularButtonPrev}`}
+									className={`swiper-button-prev ${S.mainButtonPrev}`}
 									id="popularPrevButton"
-									onKeyDown={handleKeyDown}
+									onKeyDown={(e) => {
+										if (e.key === "Enter") e.currentTarget.click();
+									}}
 									role="button"
 									tabIndex={0}
 								/>
 								<div
-									className={`swiper-button-next ${S.popularButtonNext}`}
+									className={`swiper-button-next ${S.mainButtonNext}`}
 									id="popularNextButton"
-									onKeyDown={handleKeyDown}
+									onKeyDown={(e) => {
+										if (e.key === "Enter") e.currentTarget.click();
+									}}
 									role="button"
 									tabIndex={0}
 								/>
@@ -275,15 +129,15 @@ function Home() {
 								slidesPerGroup={3}
 								spaceBetween={10}
 								navigation={{
-									nextEl: "#popularNextButton",
-									prevEl: "#popularPrevButton",
+									nextEl: "#popularTvNextButton",
+									prevEl: "#popularTvPrevButton",
 									keyboard: true,
 									onlyInViewport: false,
 								}}
 								pagination={{ clickable: true }}
 								modules={[Navigation, Pagination]}
 								tabIndex={0}
-								className="overflow-visible mb-10 px-10"
+								className="overflow-y-visible mb-10 px-10"
 							>
 								{contentCategory.data.slice(27, 38).map((item) => (
 									<SwiperSlide key={item.id}>
@@ -297,16 +151,20 @@ function Home() {
 									</SwiperSlide>
 								))}
 								<div
-									className={`swiper-button-prev ${S.popularButtonPrev}`}
-									id="popularPrevButton"
-									onKeyDown={handleKeyDown}
+									className={`swiper-button-prev ${S.mainButtonPrev}`}
+									id="popularTvPrevButton"
+									onKeyDown={(e) => {
+										if (e.key === "Enter") e.currentTarget.click();
+									}}
 									role="button"
 									tabIndex={0}
 								/>
 								<div
-									className={`swiper-button-next ${S.popularButtonNext}`}
-									id="popularNextButton"
-									onKeyDown={handleKeyDown}
+									className={`swiper-button-next ${S.mainButtonNext}`}
+									id="popularTvNextButton"
+									onKeyDown={(e) => {
+										if (e.key === "Enter") e.currentTarget.click();
+									}}
 									role="button"
 									tabIndex={0}
 								/>
@@ -314,30 +172,20 @@ function Home() {
 						)
 				)}
 			</section>
-			{/* <div>
-				{contents?.map(
-					(contentCategory) =>
-						contentCategory.data.length > 0 && (
-							<Swiper
-								key={contentCategory.title}
-								slidesPerView={7}
-								spaceBetween={10}
-								className="h-96"
-							>
-								{contentCategory.data.slice(0, itemCount).map((item) => (
-									<SwiperSlide key={item.id} className="overflow-hidden">
-										<img
-											src={getPbImageURL(item, "poster")}
-											alt={item.title}
-											className=" h-[250px] w-auto"
-										/>
-										<h2 className="text-gray200">{item.title}</h2>
-									</SwiperSlide>
-								))}
-							</Swiper>
-						)
-				)}
-			</div> */}
+			<MainList
+				classTitle={"romance"}
+				listTitle="사랑에 빠지는 순간, 로맨스 영화"
+				genreId={"n0ztxfbdj977ycx"}
+				startNum={0}
+				endNum={10}
+			/>
+			<MainList
+				classTitle={"horror"}
+				listTitle={"불 끄면 생각날걸 ? 공포영화"}
+				genreId={"cpcr28a1nvppyow"}
+				startNum={0}
+				endNum={10}
+			/>
 		</div>
 	);
 }
