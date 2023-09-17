@@ -72,8 +72,8 @@ function FindId() {
 	const isEmailValid = emailRegex.test(email);
 
 	//@ 확인버튼
-	const handleConfirmButton = async (email) => {
-		email.preventDefault();
+	const handleConfirmButton = async (e) => {
+		e.preventDefault();
 
 		if (!isEmailValid) {
 			setErrorMessage((prevErrors) => ({
@@ -90,10 +90,10 @@ function FindId() {
 
 			try {
 				const result = await pb.collection("users").getList(1, 20, {
-					filter: `(email~ "${email.target.value}")`,
+					filter: `(email= "${email}")`,
 				});
 				if (result.items.length > 0){
-					console.log("input email=",email.target.value, "username=",result.items.at(0).username);
+					console.log("input email=",e.target.value, "username=",result.items.at(0).username);
 					setResult(null);
 				}else{
 					setResult(null);
@@ -104,26 +104,6 @@ function FindId() {
 			}
 		}
 	};
-
-	// const authData = async (e) => {
-	// 	// await pb.collection("users").getFirstListItem(?filter=(email=`${email}`)
-	// 	await pb.collection("users").getFullList(email == `${email}`, email);
-	// 	const result = await pb
-	// 		.collection("users")
-	// 		.getList(1, 20, { filter: (email = value) });
-	// 	return;
-	// };
-
-	// const result = await pb.collection('users').getList(1, 20, {
-	//         filter: email = value,
-	//     });
-	// const toggleClearButton = () => {
-	// 	showClearButton();
-	// };
-
-	// const toggleClearButton = () => {
-	// 	hiddenClearButton();
-	// }
 
 	return (
 		<>
