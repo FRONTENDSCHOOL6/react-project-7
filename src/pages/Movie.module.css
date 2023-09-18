@@ -1,0 +1,11 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.button {
+  @apply bg-transparent hover:bg-yellow-500 duration-300 text-white text-lg border border-yellow-200 rounded-full py-3 px-5 w-36;
+}
+
+.buttonActive {
+  @apply bg-yellow-500 text-white text-lg border border-yellow-200 rounded-full py-3 px-5 w-36;
+}
