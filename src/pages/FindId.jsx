@@ -1,7 +1,9 @@
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import pb from "@/api/pocketbase";
+import idStore from "@/store/idStore";
+import S from "./findid.module.css";
 
 function FindId() {
 	const navigate = useNavigate();
@@ -10,6 +12,13 @@ function FindId() {
 	const [FormState, setFormState] = useState(null);
 
 	const [isClearButtonHidden, setisClearButtonHidden] = useState(true);
+
+	const { idState, findId } = idStore();
+
+	useEffect(() => {
+		console.log(idState);
+	}, [idState]);
+
 
 	//@ 이메일 전역 변수
 	const [email, setEmail] = useState("");
@@ -25,7 +34,7 @@ function FindId() {
 
 	const [result, setResult] = useState(null);
 
-	useEffect(()=> {
+	useEffect(() => {
 		setResult(null); //? 페이지가 리로드될때마다 result 값 초기화
 	}, []);
 
@@ -92,11 +101,32 @@ function FindId() {
 				const result = await pb.collection("users").getList(1, 20, {
 					filter: `(email= "${email}")`,
 				});
-				if (result.items.length > 0){
-					console.log("input email=",e.target.value, "username=",result.items.at(0).username);
+				if (result.items.length > 0) {
+					console.log(
+						"input email=",
+						e.target.value,
+						"username=",
+						result.items.at(0).username
+					);
+
+					const userID = result.items.at(0).username;
+					const updatedStorageData = {
+						isIdFound: true,
+						id: userID,
+					};
+					localStorage.setItem(
+						"pocketbase_auth",
+						JSON.stringify(updatedStorageData)
+					);
+					console.log(updatedStorageData);
+					idStore.setState({ idState: updatedStorageData });
+					navigate("/successfindid");
+					console.log("Found UserID successful.");
+					return userID;
+					// setResult(null);
+				} else {
 					setResult(null);
-				}else{
-					setResult(null);
+					navigate("/failedfindid");
 					throw new Error("No user found");
 				}
 			} catch (error) {
@@ -110,14 +140,12 @@ function FindId() {
 			<Helmet>
 				<title>FindId - Taing</title>
 			</Helmet>
-			<div className="bg-black h-screen z-50">
-				<div className="pt-[70px] text-white login-title leading-10 container w-1/3 mx-auto align-middle">
-					<div className="pb-[60px] font-semibold text-4xl flex justify-center">
-						아이디 찾기
-					</div>
-					<div className="text-white">
-						<div className="font-semibold text-xl">이메일로 찾기</div>
-						<div className="text-gray400 font-medium">
+			<div className={S.contentSection}>
+				<div className={S.contentWrapper}>
+					<div className={S.findIdTitle}>아이디 찾기</div>
+					<div className="">
+						<div className={S.findIdSubtitle1}>이메일로 찾기</div>
+						<div className={S.findIdSubtitle2}>
 							가입 시 등록한 이메일을 입력해주세요
 						</div>
 					</div>
@@ -126,46 +154,45 @@ function FindId() {
 							type="email"
 							label="이메일"
 							name="email"
-							className={`text-white h-16 bg-gray800 placeholder-slate-600 login-form px-4 w-full rounded-sm
-									${validationErrors.email ? "border-red-500" : ""}`}
+							className={`${S.inputForm} ${validationErrors.email ? `${S.formBorder}` : ""}`}
 							placeholder="이메일"
 							onChange={handleInput}
 						/>
 						{/* 이메일 유효성 에러 메시지 표시 */}
 						{validationErrors.email && (
-							<p className="text-red-500 text-sm mt-2">
+							<p className={S.errorMessage}>
 								이메일을 올바르게 입력해주세요.
 							</p>
 						)}
 						<div className="h-8"></div>
 						<button
 							type="submit"
-							className={`h-16 bg-gray300 text-gray500 font-extrabold login-button w-full rounded-sm
-						dark:hover:bg-gray100 dark:hover:text-black
-						${!isEmailValid || disable ? "" : "opacity-50 cursor-pointer"}`}
-							// disabled={!isEmailValid || disable}
+							className={`${S.submitButton}
+						${!isEmailValid || disable ? "" : `${S.eventSubmitButton}`}`}
 							onClick={handleConfirmButton}
 						>
 							확인
 						</button>
 					</form>
 					{/* <div className="w-full border-slate-800 pt-10 my-[1%] border-t-[0.5px] mt-[60px]"></div> */}
-					<div className="flex flex-row items-center mt-10 justify-between">
-						<span className="w-2/5 h-[1px] bg-gray800"></span>
-						<span className="w-1/5 text-center ">또는</span>
-						<span className="w-2/5 h-[1px] bg-gray800"></span>
+					<div className={S.horizonSection}>
+						<span className={S.horizonLine}></span>
+						<span className={S.horizonText}>
+							또는
+						</span>
+						<span className={S.horizonLine}></span>
 					</div>
 					<div>
-						<h4 className="pt-10 pb-3 text-gray100 font-semibold text-xl">
+						<h4 className={S.findText1}>
 							본인인증으로 찾기
 						</h4>
-						<p className="pb-5 text-gray400">
+						<p className={S.findText2}>
 							이미 본인인증이 완료된 계정에 한하여 아이디찾기가 가능합니다
 						</p>
 
 						<button
 							type="submit"
-							className="h-16 bg-gray100 text-black font-extrabold login-button w-full rounded-sm dark:hover:bg-zinc-100"
+							className={S.authButton}
 						>
 							본인인증하기
 						</button>
