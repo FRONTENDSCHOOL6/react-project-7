@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import pb from "@/api/pocketbase";
 import { getPbImageURL } from "@/utils/getPbImageURL";
-import S from "./Movie.module.css";
+import S from "./Program.module.css";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
@@ -37,7 +37,7 @@ export function NavButton({ content, index, id, activeIndex, setActiveIndex }) {
 	);
 }
 
-export function CategoryNav() {
+export function ProgramNav() {
 	const [activeIndex, setActiveIndex] = useState(null);
 
 	const [contents, setContents] = useState([]);
@@ -48,7 +48,7 @@ export function CategoryNav() {
 
 		Promise.all([pb.collection("genre").getFullList()])
 			.then(([genreList]) => {
-				setContents([{ title: "영화 장르명", data: genreList }]);
+				setContents([{ title: "프로그램 장르명", data: genreList }]);
 				setStatus("success");
 			})
 			.catch((error) => {
@@ -60,8 +60,19 @@ export function CategoryNav() {
 	return (
 		<nav>
 			<Swiper
-				className="categoryNav px-[3.5%]"
-				slidesPerView={8.5}
+				className="programNav px-[3.5%]"
+				slidesPerView={7}
+				breakpoints={{
+					480: {
+						slidesPerView: 4,
+					},
+					768: {
+						slidesPerView: 5,
+					},
+					1024: {
+						slidesPerView: 6,
+					},
+				}}
 				slidesPerGroup={4}
 				navigation={{
 					nextEl: "#categoryNextButton",
@@ -73,7 +84,9 @@ export function CategoryNav() {
 			>
 				{contents?.map((contentCategory) =>
 					contentCategory.data
-						.filter((item) => item.movieCode && item.movieCode.trim() !== "")
+						.filter(
+							(item) => item.programCode && item.programCode.trim() !== ""
+						)
 						.map((item, index) => (
 							<>
 								<SwiperSlide key={item.id}>
@@ -97,7 +110,7 @@ export function CategoryNav() {
 	);
 }
 
-export function CategoryContent() {
+export function ProgramContent() {
 	//? 버튼 클릭에 관련된 변수
 	const { buttonId, setButtonId } = useButtonStore();
 	const { isButtonClicked, setIsButtonClicked } = useButtonStore();
@@ -110,9 +123,9 @@ export function CategoryContent() {
 	useEffect(() => {
 		setStatus("loading");
 
-		Promise.all([pb.collection("movie").getFullList()])
-			.then((movieList) => {
-				setContents([{ title: "영화", data: movieList }]);
+		Promise.all([pb.collection("program").getFullList()])
+			.then((programList) => {
+				setContents([{ title: "TV 프로그램", data: programList }]);
 				setStatus("success");
 			})
 			.catch((error) => {
