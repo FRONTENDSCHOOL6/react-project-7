@@ -88,12 +88,15 @@ html {
   opacity: 0.6;
 }
 
-.mainPage .swiper-button-prev {
+.mainPage .swiper-button-prev,
+.categoryNav .swiper-button-prev::after {
   transform: scaleX(-1);
 }
 
-.mainPage .swiper-button-prev:after,
-.mainPage .swiper-button-next:after {
+.mainPage .swiper-button-prev::after,
+.mainPage .swiper-button-next::after,
+.categoryNav .swiper-button-next::after,
+.categoryNav .swiper-button-prev::after {
   content: url(/assets/main-next.svg);
 }
 
