@@ -88,6 +88,7 @@ html {
   opacity: 0.6;
 }
 
+
 .popular .swiper-button-prev,
 .popular .swiper-button-next {
   top: 5.8%;
@@ -97,8 +98,10 @@ html {
   transform: scaleX(-1);
 }
 
-.mainPage .swiper-button-prev:after,
-.mainPage .swiper-button-next:after {
+.mainPage .swiper-button-prev::after,
+.mainPage .swiper-button-next::after,
+.categoryNav .swiper-button-next::after,
+.categoryNav .swiper-button-prev::after {
   content: url(/assets/main-next.svg);
 }
 
