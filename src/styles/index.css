@@ -88,20 +88,23 @@ html {
   opacity: 0.6;
 }
 
-
 .popular .swiper-button-prev,
 .popular .swiper-button-next {
   top: 5.8%;
 }
 
-.mainPage .swiper-button-prev {
+.mainPage .swiper-button-prev,
+.categoryNav .swiper-button-prev,
+.programNav .swiper-button-prev {
   transform: scaleX(-1);
 }
 
 .mainPage .swiper-button-prev::after,
 .mainPage .swiper-button-next::after,
 .categoryNav .swiper-button-next::after,
-.categoryNav .swiper-button-prev::after {
+.categoryNav .swiper-button-prev::after,
+.programNav .swiper-button-next::after,
+.programNav .swiper-button-prev::after {
   content: url(/assets/main-next.svg);
 }
 
