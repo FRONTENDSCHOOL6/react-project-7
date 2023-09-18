@@ -45,7 +45,7 @@ function Header() {
 	}, []);
 
 	const handleHover = () => {
-		setIsHovered(isHovered);
+		setIsHovered(!isHovered);
 	};
 	const handleLogoutClick = () => {
 		handleShowLogoutPopup();
