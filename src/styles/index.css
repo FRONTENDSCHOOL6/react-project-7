@@ -23,37 +23,28 @@ html {
 }
 
 /* detail 스와이퍼 css */
-.detailSwiper .swiper-button-prev {
-  position: absolute;
-  background: center / contain no-repeat url(/assets/contents/left-swiper.svg);
-  top: 50%;
-  left: 2%;
-  transform: translateY(-50%);
+
+.detailSwiper .swiper-button-prev,
+.detailSwiper .swiper-button-next {
+  top: 0;
   height: 100%;
-  opacity: 0.5;
-  padding-right: 1%;
-  z-index: 4;
-  transition: all 0.3s;
   color: white;
+  opacity: 0.6;
+  z-index: 999;
 }
 
-.detailSwiper .swiper-button-prev:hover,
-.detailSwiper .swiper-button-next:hover {
+.detailSwiper:hover .swiper-button-prev,
+.detailSwiper:hover .swiper-button-next {
   opacity: 1;
 }
 
-.detailSwiper .swiper-button-next {
-  position: absolute;
-  background: center / contain no-repeat url(/assets/contents/right-swiper.svg);
-  top: 50%;
-  transform: translateY(-50%);
-  right: 0%;
-  height: 100%;
-  opacity: 0.5;
-  padding-right: 1%;
-  z-index: 4;
-  transition: all 0.3s;
-  color: white;
+.detailSwiper .swiper-button-prev {
+  transform: scaleX(-1);
+}
+
+.detailSwiper .swiper-button-prev:after,
+.detailSwiper .swiper-button-next:after {
+  content: url(/assets/main-next.svg);
 }
 
 .detailPagenation .swiper-pagination {
@@ -70,7 +61,19 @@ html {
   background-color: white;
 }
 
-.homeMain .swiper-slide::before {
+.detailPagenation {
+  .swiper-pagination {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  &:hover {
+    .swiper-pagination {
+      opacity: 1;
+    }
+  }
+}
+
+.homeMain .swiper-wrapper::before {
   position: absolute;
   content: "";
   width: 100%;
