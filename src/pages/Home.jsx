@@ -42,27 +42,27 @@ function Home() {
 	return (
 		<div className="mainPage bg-black w-screen overflow-hidden">
 			<MainBanner></MainBanner>
-			<section className="popular">
-				<h3 className={S.popularTitle}>타잉 인기 영화</h3>
+			<section className="mainSwiper popular">
+				<h3 className={S.popularTitle}>인기 영화</h3>
 				{contents?.map(
 					(contentCategory) =>
 						contentCategory.title === "영화" && (
 							<Swiper
 								key={contentCategory.title}
-								slidesPerView={7}
+								slidesPerView={5.5}
 								breakpoints={{
 									480: {
-										slidesPerView: 5,
+										slidesPerView: 3,
 									},
 									768: {
-										slidesPerView: 6,
+										slidesPerView: 4,
 									},
 									1024: {
-										slidesPerView: 7,
+										slidesPerView: 5,
 									},
 								}}
 								slidesPerGroup={3}
-								spaceBetween={10}
+								spaceBetween={70}
 								navigation={{
 									nextEl: "#popularNextButton",
 									prevEl: "#popularPrevButton",
@@ -72,16 +72,21 @@ function Home() {
 								pagination={{ clickable: true }}
 								modules={[Navigation, Pagination]}
 								tabIndex={0}
-								className="overflow-y-visible mb-10 px-10"
+								className="overflow-y-visible mb-10 pl-[5%]"
 							>
-								{contentCategory.data.slice(27, 38).map((item) => (
-									<SwiperSlide key={item.id}>
-										<Link to={`contents/${item.id}`}>
+								{contentCategory.data.slice(27, 37).map((item, index) => (
+									<SwiperSlide key={item.id} className={S.listContent}>
+										<span className="rank absolute bottom-[0%] left-[-20%] text-[7rem] leading-[6rem] text-white italic font-extrabold">
+											{index + 1}
+										</span>
+										<Link
+											to={`contents/${item.id}`}
+											className="w-full flex flex-row items-end gap-[4%]"
+										>
 											<img
 												src={getPbImageURL(item, "poster")}
 												alt={item.title}
 											/>
-											<p className="text-gray200 text-xl mt-2">{item.title}</p>
 										</Link>
 									</SwiperSlide>
 								))}
@@ -107,27 +112,27 @@ function Home() {
 						)
 				)}
 			</section>
-			<section className="popular">
-				<h3 className={S.popularTitle}>타잉 인기 드라마</h3>
+			<section className="mainSwiper popular">
+				<h3 className={S.popularTitle}>인기 TV프로그램</h3>
 				{contents?.map(
 					(contentCategory) =>
 						contentCategory.title === "TV 프로그램" && (
 							<Swiper
 								key={contentCategory.title}
-								slidesPerView={7}
+								slidesPerView={5.5}
 								breakpoints={{
 									480: {
-										slidesPerView: 5,
+										slidesPerView: 3,
 									},
 									768: {
-										slidesPerView: 6,
+										slidesPerView: 4,
 									},
 									1024: {
-										slidesPerView: 7,
+										slidesPerView: 5,
 									},
 								}}
 								slidesPerGroup={3}
-								spaceBetween={10}
+								spaceBetween={70}
 								navigation={{
 									nextEl: "#popularTvNextButton",
 									prevEl: "#popularTvPrevButton",
@@ -137,16 +142,18 @@ function Home() {
 								pagination={{ clickable: true }}
 								modules={[Navigation, Pagination]}
 								tabIndex={0}
-								className="overflow-y-visible mb-10 px-10"
+								className="overflow-y-visible mb-10 pl-[5%]"
 							>
-								{contentCategory.data.slice(27, 38).map((item) => (
-									<SwiperSlide key={item.id}>
-										<Link to={`contents/${item.id}`}>
+								{contentCategory.data.slice(27, 37).map((item, index) => (
+									<SwiperSlide key={item.id} className={S.listContent}>
+										<span className="rank absolute bottom-[0%] left-[-20%] text-[7rem] leading-[6rem] text-white italic font-extrabold">
+											{index + 1}
+										</span>
+										<Link to={`contents/${item.id}`} className="w-full">
 											<img
 												src={getPbImageURL(item, "poster")}
 												alt={item.title}
 											/>
-											<p className="text-gray200 text-xl mt-2">{item.title}</p>
 										</Link>
 									</SwiperSlide>
 								))}
@@ -174,17 +181,39 @@ function Home() {
 			</section>
 			<MainList
 				classTitle={"romance"}
-				listTitle="사랑에 빠지는 순간, 로맨스 영화"
+				listTitle={"사랑에 빠지는 순간, 로맨스"}
+				genre={"영화"}
 				genreId={"n0ztxfbdj977ycx"}
-				startNum={0}
-				endNum={10}
+			/>
+			<MainList
+				classTitle={"kids"}
+				listTitle={"아이들과 함께! 키즈 프로그램"}
+				genre={"TV 프로그램"}
+				genreId={"jbrgnkddukg6sod"}
+			/>
+			<MainList
+				classTitle={"tv"}
+				listTitle={"가족끼리 즐기자! 예능 프로그램"}
+				genre={"TV 프로그램"}
+				genreId={"bk1642512y8h7u4"}
+			/>
+			<MainList
+				classTitle={"sf"}
+				listTitle={"강력한 비주얼 ! SF 영화"}
+				genre={"영화"}
+				genreId={"i1cbm8l1n1opqh1"}
 			/>
 			<MainList
 				classTitle={"horror"}
-				listTitle={"불 끄면 생각날걸 ? 공포영화"}
+				listTitle={"불 끄면 생각날걸? 공포 영화"}
+				genre={"영화"}
 				genreId={"cpcr28a1nvppyow"}
-				startNum={0}
-				endNum={10}
+			/>
+			<MainList
+				classTitle={"documentary"}
+				listTitle={"다큐멘터리"}
+				genre={"TV 프로그램"}
+				genreId={"rpq7aiz0y08y0y8"}
 			/>
 		</div>
 	);
