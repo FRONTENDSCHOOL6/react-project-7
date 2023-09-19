@@ -69,12 +69,18 @@
   @apply absolute w-[38%] bottom-[-5%] left-1/2 -translate-x-1/2;
 }
 
-.no1 {
+.num {
   @apply relative w-full bg-black text-center text-white pb-[calc(10%+20rem)];
 }
 
-.no1Wrapper {
-  @apply absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-[1rem];
+.numWrapper {
+  @apply absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-[1rem]  max-sm:w-1/2;
+}
+
+.numButton {
+  @apply relative left-1/2 -translate-x-1/2 top-5 bg-primary w-full py-5 rounded;
+  @apply text-white text-2xl font-semibold;
+  @apply before:bg-[url('/assets/tving-symbol.svg')] before:bg-no-repeat before:bg-left-top before:absolute before:top-0 before:left-0 before:w-full before:bg-contain before:h-full;
 }
 
 .qna {
