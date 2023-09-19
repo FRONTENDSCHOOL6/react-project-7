@@ -12,6 +12,8 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { MainList } from "./MainList";
 import { MainBanner } from "./MainBanner";
+import kbo from "/assets/kbo.jpeg";
+import ufc from "/assets/ufc.jpeg";
 
 function Home() {
 	const [contents, setContents] = useState([]);
@@ -197,6 +199,11 @@ function Home() {
 				genre={"TV 프로그램"}
 				genreId={"bk1642512y8h7u4"}
 			/>
+			<section className={S.eventBanner}>
+				<div className="w-full">
+					<img className="w-full" src={kbo} alt="" />
+				</div>
+			</section>
 			<MainList
 				classTitle={"sf"}
 				listTitle={"강력한 비주얼 ! SF 영화"}
@@ -215,6 +222,11 @@ function Home() {
 				genre={"TV 프로그램"}
 				genreId={"rpq7aiz0y08y0y8"}
 			/>
+			<section className={S.eventBanner}>
+				<div className="w-full">
+					<img className="w-full" src={ufc} alt="" />
+				</div>
+			</section>
 		</div>
 	);
 }
