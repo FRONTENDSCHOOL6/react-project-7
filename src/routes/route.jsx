@@ -44,9 +44,9 @@ const router = createHashRouter(
 			<Route path="/search" element={<Search />} />
 			<Route path="/membership" element={<Membership />} />
 			<Route path="/onboarding" element={<OnBoarding />} />
-			<Route path="/profile" element={<Profile />} />
-			<Route path="/editprofiles" element={<EditProfiles />} />
-			<Route path="/editprofile" element={<EditProfile />} />
+			<Route path="/profile/:id" element={<Profile />} />
+			<Route path="/editprofiles/:id" element={<EditProfiles />} />
+			<Route path="/editprofile/:id/:id" element={<EditProfile />} />
 			<Route path="/program" element={<Program />} />
 			<Route path="/movie" element={<Movie />} />
 		</Route>
