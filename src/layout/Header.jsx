@@ -5,27 +5,23 @@ import logo from "/assets/logo.svg";
 import searchIcon from "/assets/search.png";
 import profileIcon from "/assets/profile.png";
 import xIcon from "/assets/headerX.svg";
-
-import authStore from "@/store/authStore";
 import useStorage from "@/hooks/useStorage";
-import pb from "@/api/pocketbase";
+import authStore from "@/store/authStore";
+import { useCallback } from "react";
 import { getPbImageURL } from "@/utils/getPbImageURL";
+import { data } from "autoprefixer";
+
 function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isHovered, setIsHovered] = useState(false);
-	const [showLogoutPopup, setShowLogoutPopup] = useState(false);
-	const [profileData, setProfileData] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
-	const { authState, signOut } = authStore(); // authState와 signOut을 가져옵니다.
-	const { storageData } = useStorage("pocketbase_auth");
-	console.log(storageData);
-	const selectedProfile = JSON.parse(localStorage.getItem("selectedProfile"));
-	const navigate = useNavigate();
+	const [showLogoutPopup, setShowLogoutPopup] = useState(false);
 	const [searchIconSrc, setSearchIconSrc] = useState(searchIcon);
 	const [searchAlt, setSearchAlt] = useState("검색");
+	const [profileData, setProfileData] = useState(null);
 	const location = useLocation();
-
-
+	const navigate = useNavigate();
+	const { storageData } = useStorage("pocketbase_auth");
 	// ? search 페이지로 갔을 시, 아이콘과 alt 변경
 	useEffect(() => {
 		if (location.pathname === "/search") {
@@ -46,7 +42,7 @@ function Header() {
 
 	const { authState, signOut } = authStore(); // authState와 signOut을 가져옵니다.
 
-	console.log(authState);
+	//console.log(authState);
 
 	//@ 스크롤 이벤트
 	useEffect(() => {
@@ -71,25 +67,35 @@ function Header() {
 			const parsedData = JSON.parse(storageData);
 			authStore.setState({ authState: parsedData });
 		}
-	}, []);
-
+	}, [storageData]);
+	//console.log(authState);
 	useEffect(() => {
-		const fetchProfiles = async () => {
+		const fetchProfileData = async () => {
 			try {
+				// Set isLoading to true when starting to fetch data
 				setIsLoading(true);
-				const data = await pb
-					.collection("users")
-					.getOne(authState?.user?.id, { expand: "profiles" });
-				setProfileData(data);
+
+				// Fetch the profile data from localStorage
+				const data = localStorage.getItem("selectedProfile");
+
+				// Check if data exists before parsing
+				if (data) {
+					// Set the fetched profile data
+					setProfileData(JSON.parse(data));
+				} else {
+					// Handle the case when there's no data in localStorage
+					setProfileData(null); // You can set it to an appropriate default value if needed
+				}
 			} catch (error) {
-				console.log(error);
+				console.error(error);
 			} finally {
 				setIsLoading(false);
 			}
 		};
-		fetchProfiles(authState?.user?.id);
-	}, [authState]);
+		fetchProfileData();
+	}, [profileData]);
 
+	//console.log(profileData);
 	const handleHover = () => {
 		setIsHovered(!isHovered);
 	};
@@ -99,7 +105,22 @@ function Header() {
 	const handleShowLogoutPopup = () => {
 		setShowLogoutPopup(!showLogoutPopup);
 	};
-
+	//useEffect(() => {
+	//	const fetchProfiles = async () => {
+	//		try {
+	//			setIsLoading(true);
+	//			const data = await pb
+	//				.collection("users")
+	//				.getOne(authState?.user?.id, { expand: "profiles" });
+	//			setProfileData(data);
+	//		} catch (error) {
+	//			console.log(error);
+	//		} finally {
+	//			setIsLoading(false);
+	//		}
+	//	};
+	//	fetchProfiles(authState?.user?.id);
+	//}, [authState]);
 	return (
 		<header
 			className={`
@@ -137,14 +158,22 @@ function Header() {
 				<li
 					onMouseEnter={handleHover}
 					onMouseLeave={handleHover}
-					className="w-10 h-10 object-cover "
+					className=" w-11 h-11 object-cover mt-1"
 				>
-					<img
-						src={getPbImageURL(selectedProfile, "poster") || profileIcon}
-						alt="프로필"
-						className={S.profileImg}
-						onClick={() => navigate(`/profile/${storageData.user.id}`)}
-					/>
+					{isLoading ? (
+						<p>로딩중</p>
+					) : (
+						<img
+							src={
+								profileData
+									? getPbImageURL(profileData, "poster")
+									: getPbImageURL(authState?.user, "avatar") || profileIcon
+							}
+							alt="프로필"
+							className={S.profileImg}
+							onClick={() => navigate(`/profile/${storageData.user.id}`)}
+						/>
+					)}
 				</li>
 			</ul>
 			<div
@@ -154,16 +183,32 @@ function Header() {
 				onMouseLeave={handleHover}
 			>
 				<div className="flex flex-col px-5">
-					<div className="flex gap-3 items-center">
-						<img
-							src={getPbImageURL(selectedProfile, "poster") || profileIcon}
-							alt="유저의 프로필 이미지"
-							className="w-12 h-12 object-cover"
-						/>
+					<div className="flex gap-3">
+						{isLoading ? (
+							<p>로딩중</p>
+						) : (
+							<img
+								src={
+									profileData
+										? getPbImageURL(profileData, "poster")
+										: getPbImageURL(authState?.user, "avatar") || profileIcon
+								}
+								alt="유저의 프로필 이미지"
+								className="w-11 h-11 object-cover"
+							/>
+						)}
+
 						<div className="flex flex-col">
-							<span className="font-semibold text-left">
-								{selectedProfile?.username || storageData.user.nickname}
-							</span>
+							{isLoading ? (
+								<p>로딩중</p>
+							) : (
+								<span className="font-semibold text-left">
+									{" "}
+									{profileData
+										? profileData.username
+										: authState?.user?.username || "로그인 정보가 없습니다."}
+								</span>
+							)}
 
 							<button
 								type="button"
@@ -206,6 +251,7 @@ function Header() {
 								onClick={async () => {
 									await signOut();
 									localStorage.removeItem("pocketbase_auth");
+									localStorage.removeItem("selectedProfile");
 									setShowLogoutPopup(false);
 									navigate("/onboarding");
 								}}

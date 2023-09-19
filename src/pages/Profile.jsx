@@ -45,32 +45,37 @@ function Profile() {
 						시청할 프로필을 선택해주세요.
 					</p>
 				</div>
-				<ul className="flex items-center justify-center gap-7 w-2/3">
-					{profileData?.expand?.profiles.map((profile) => (
-						<li
-							key={profile.username}
-							className="flex flex-col justify-center items-center w-full hover:-translate-y-3 duration-200 transition-all h-full object-cover"
-						>
-							<button
-								type="button"
-								className="border-solid border-white border-4 block overflow-hidden transition-all duration-[0.3s] p-0 rounded-[3px] w-[13.87rem] h-[13.875rem] object-cover"
-								onClick={handleProfileSelect(profile)}
+				{isLoading ? (
+					<p>로딩중 입니다...</p>
+				) : (
+					<ul className="flex items-center justify-center gap-7 w-2/3">
+						{profileData?.expand?.profiles.map((profile) => (
+							<li
+								key={profile.username}
+								className="flex flex-col justify-center items-center w-full hover:-translate-y-3 duration-200 transition-all h-full object-cover"
 							>
-								<img
-									src={getPbImageURL(profile, "poster")}
-									alt={`유저 ${profile.username}의 프로필 이미지`}
-									className="w-full h-full object-cover"
-								/>
-							</button>
-							<p className="text-sm text-neutral-400 my-2">
-								{profile.username}
-							</p>
-						</li>
-					))}
-				</ul>
+								<button
+									type="button"
+									className="border-solid border-white border-4 block overflow-hidden transition-all duration-[0.3s] p-0 rounded-[3px] w-[13.87rem] h-[13.875rem] object-cover"
+									onClick={handleProfileSelect(profile)}
+								>
+									<img
+										src={getPbImageURL(profile, "poster")}
+										alt={`유저 ${profile.username}의 프로필 이미지`}
+										className="w-full h-full object-cover"
+									/>
+								</button>
+								<p className="text-sm text-neutral-400 my-2">
+									{profile.username}
+								</p>
+							</li>
+						))}
+					</ul>
+				)}
+
 				<button
 					type="button"
-					className="block w-1/4 box-border border bg-black text-neutral-400 text-lg text-center px-0 py-3 border-solid border-[#4e4e4e] rounded"
+					className="block w-2/4 box-border border bg-black text-neutral-400 text-lg text-center px-0 py-3 border-solid border-[#4e4e4e] rounded"
 					onClick={() => navigate(`/editprofiles/${authState?.user?.id}`)}
 				>
 					프로필 편집
