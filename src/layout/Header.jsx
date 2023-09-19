@@ -4,19 +4,20 @@ import S from "./Header.module.css";
 import logo from "/assets/logo.svg";
 import searchIcon from "/assets/search.png";
 import profileIcon from "/assets/profile.png";
-import useStorage from "@/hooks/useStorage";
 import authStore from "@/store/authStore";
-import { useCallback } from "react";
-
+import useStorage from "@/hooks/useStorage";
+import pb from "@/api/pocketbase";
+import { getPbImageURL } from "@/utils/getPbImageURL";
 function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isHovered, setIsHovered] = useState(false);
 	const [showLogoutPopup, setShowLogoutPopup] = useState(false);
-
+	const [profileData, setProfileData] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
 	const { authState, signOut } = authStore(); // authState와 signOut을 가져옵니다.
-
-	console.log(authState);
-
+	const { storageData } = useStorage("pocketbase_auth");
+	console.log(storageData);
+	const selectedProfile = JSON.parse(localStorage.getItem("selectedProfile"));
 	const navigate = useNavigate();
 
 	//@ 스크롤 이벤트
@@ -43,6 +44,23 @@ function Header() {
 			authStore.setState({ authState: parsedData });
 		}
 	}, []);
+
+	useEffect(() => {
+		const fetchProfiles = async () => {
+			try {
+				setIsLoading(true);
+				const data = await pb
+					.collection("users")
+					.getOne(authState?.user?.id, { expand: "profiles" });
+				setProfileData(data);
+			} catch (error) {
+				console.log(error);
+			} finally {
+				setIsLoading(false);
+			}
+		};
+		fetchProfiles(authState?.user?.id);
+	}, [authState]);
 
 	const handleHover = () => {
 		setIsHovered(!isHovered);
@@ -87,10 +105,17 @@ function Header() {
 						<img src={searchIcon} alt="검색" className={S.profileImg} />
 					</Link>
 				</li>
-				<li onMouseEnter={handleHover} onMouseLeave={handleHover}>
-					<Link to="profile">
-						<img src={profileIcon} alt="프로필" className={S.profileImg} />
-					</Link>
+				<li
+					onMouseEnter={handleHover}
+					onMouseLeave={handleHover}
+					className="w-10 h-10 object-cover "
+				>
+					<img
+						src={getPbImageURL(selectedProfile, "poster") || profileIcon}
+						alt="프로필"
+						className={S.profileImg}
+						onClick={() => navigate(`/profile/${storageData.user.id}`)}
+					/>
 				</li>
 			</ul>
 			<div
@@ -100,15 +125,21 @@ function Header() {
 				onMouseLeave={handleHover}
 			>
 				<div className="flex flex-col px-5">
-					<div className="flex gap-3">
-						<img src={profileIcon} alt="유저의 프로필 이미지" />
+					<div className="flex gap-3 items-center">
+						<img
+							src={getPbImageURL(selectedProfile, "poster") || profileIcon}
+							alt="유저의 프로필 이미지"
+							className="w-12 h-12 object-cover"
+						/>
 						<div className="flex flex-col">
-							<span className="font-semibold text-left">shclgus2</span>
+							<span className="font-semibold text-left">
+								{selectedProfile?.username || storageData.user.nickname}
+							</span>
 
 							<button
 								type="button"
 								className="pt-1 text-sm text-left"
-								onClick={() => navigate("/profile")}
+								onClick={() => navigate(`/profile/${storageData.user.id}`)}
 							>
 								<span className="text-sm text-[#a3a3a3] hover:text-white">
 									프로필 전환 &gt;
