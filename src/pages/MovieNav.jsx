@@ -158,7 +158,7 @@ export function MovieContent() {
 					contentCategory.data.map((item) =>
 						item.map((item) => (
 							<div key={item.id} className="w-[20%]">
-								<Link to={`contents/${item.id}`}>
+								<Link to={`/contents/${item.id}`}>
 									<img src={getPbImageURL(item, "poster")} alt={item.title} />
 									<p className="text-gray200 text-xl mt-2  whitespace-nowrap overflow-hidden text-ellipsis">
 										{item.title}

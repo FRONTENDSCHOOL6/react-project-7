@@ -122,6 +122,7 @@ function EditProfile() {
 		}
 	};
 	console.log(updatedUser);
+	console.log(profileData);
 	return (
 		<section className="bg-black w-screen h-screen flex items-center justify-center text-white my-auto relative pt-[2rem] lg:pt-[1.5rem] md:pt-[1rem]">
 			<div className="flex flex-col justify-center items-center min-h-full gap-10 w-2/3">

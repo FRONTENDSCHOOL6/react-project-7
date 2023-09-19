@@ -7,9 +7,7 @@ import profileIcon from "/assets/profile.png";
 import xIcon from "/assets/headerX.svg";
 import useStorage from "@/hooks/useStorage";
 import authStore from "@/store/authStore";
-import { useCallback } from "react";
 import { getPbImageURL } from "@/utils/getPbImageURL";
-import { data } from "autoprefixer";
 
 function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
@@ -72,19 +70,14 @@ function Header() {
 	useEffect(() => {
 		const fetchProfileData = async () => {
 			try {
-				// Set isLoading to true when starting to fetch data
 				setIsLoading(true);
 
-				// Fetch the profile data from localStorage
 				const data = localStorage.getItem("selectedProfile");
 
-				// Check if data exists before parsing
 				if (data) {
-					// Set the fetched profile data
 					setProfileData(JSON.parse(data));
 				} else {
-					// Handle the case when there's no data in localStorage
-					setProfileData(null); // You can set it to an appropriate default value if needed
+					setProfileData(null);
 				}
 			} catch (error) {
 				console.error(error);

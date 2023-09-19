@@ -27,7 +27,7 @@ function Contents() {
 
 	//@ 이미지 url 생성 함수
 	const getPbImageURL = (item, fileName = "photo") =>
-		`${import.meta.env.VITE_PB_API}/files/${item.collectionId}/${item.id}/${
+		`${import.meta.env.VITE_PB_API}/files/${item?.collectionId}/${item?.id}/${
 			item[fileName]
 		}`;
 
@@ -37,10 +37,10 @@ function Contents() {
 		const handleData = async (type) => {
 			try {
 				const response = await fetch(
-					`${import.meta.env.VITE_PB_API}/collections/${type}/records/${id}`
+					`${import.meta.env.VITE_PB_URL}/api/collections/${type}/records/${id}`
 				);
 				const data = await response.json();
-
+				console.log(data);
 				//@ 이미지 데이터 가져오기
 				if (data.poster) {
 					setState((prevState) => ({
