@@ -6,9 +6,12 @@ import {
 } from "react-router-dom";
 const RootLayout = lazy(() => import("./../layout/RootLayout"));
 const Home = lazy(() => import("./../pages/Home"));
+const SignInList = lazy(() => import("./../pages/SignInList"));
 const SignIn = lazy(() => import("./../pages/SignIn"));
 const SignUp = lazy(() => import("./../pages/SignUp"));
 const FindId = lazy(() => import("../pages/FindId"));
+const SuccessFindId = lazy(() => import("../pages/SuccessFindId"));
+const FailedFindId = lazy(() => import("../pages/FailedFindId"));
 const FindPassword = lazy(() => import("../pages/FindPassword"));
 const Contents = lazy(() => import("../pages/Contents"));
 const Favorite = lazy(() => import("./../pages/Favorite"));
@@ -23,13 +26,17 @@ import Search from "./../pages/Search";
 const EditProfiles = lazy(() => import("../pages/EditProfiles"));
 const EditProfile = lazy(() => import("../pages/EditProfile"));
 
+
 const router = createHashRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<RootLayout />}>
 			<Route index element={<Home />} />
+			<Route path="/signinlist" element={<SignInList />} />
 			<Route path="/signin" element={<SignIn />} />
 			<Route path="/signup" element={<SignUp />} />
 			<Route path="/findid" element={<FindId />} />
+			<Route path="/successfindid" element={<SuccessFindId />} />
+			<Route path="/failedfindid" element={<FailedFindId />} />
 			<Route path="/findpw" element={<FindPassword />} />
 			<Route path="/contents/:id" element={<Contents />} />
 			<Route path="/favorite" element={<Favorite />} />
