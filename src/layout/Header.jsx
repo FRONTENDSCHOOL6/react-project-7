@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import S from "./Header.module.css";
 import logo from "/assets/logo.svg";
 import searchIcon from "/assets/search.png";
 import profileIcon from "/assets/profile.png";
+import xIcon from "/assets/headerX.svg";
 import useStorage from "@/hooks/useStorage";
 import authStore from "@/store/authStore";
 import { useCallback } from "react";
@@ -12,12 +13,32 @@ function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isHovered, setIsHovered] = useState(false);
 	const [showLogoutPopup, setShowLogoutPopup] = useState(false);
+	const [searchIconSrc, setSearchIconSrc] = useState(searchIcon);
+	const [searchAlt, setSearchAlt] = useState("검색");
+	const location = useLocation();
+	const navigate = useNavigate();
+
+	// ? search 페이지로 갔을 시, 아이콘과 alt 변경
+	useEffect(() => {
+		if (location.pathname === "/search") {
+			setSearchIconSrc(xIcon);
+			setSearchAlt("뒤로가기");
+		} else {
+			setSearchIconSrc(searchIcon);
+			setSearchAlt("검색");
+		}
+	}, [location.pathname]);
+
+	// ? x아이콘 클릭시 뒤로가기 핸들러
+	const handleIconClick = () => {
+		if (location.pathname === "/search") {
+			navigate(-1);
+		}
+	};
 
 	const { authState, signOut } = authStore(); // authState와 signOut을 가져옵니다.
 
 	console.log(authState);
-
-	const navigate = useNavigate();
 
 	//@ 스크롤 이벤트
 	useEffect(() => {
@@ -53,6 +74,7 @@ function Header() {
 	const handleShowLogoutPopup = () => {
 		setShowLogoutPopup(!showLogoutPopup);
 	};
+
 	return (
 		<header
 			className={`
@@ -82,9 +104,9 @@ function Header() {
 				</li>
 			</ul>
 			<ul className={S.profile}>
-				<li>
+				<li onClick={handleIconClick}>
 					<Link to="search">
-						<img src={searchIcon} alt="검색" className={S.profileImg} />
+						<img src={searchIconSrc} alt={searchAlt} className={S.profileImg} />
 					</Link>
 				</li>
 				<li onMouseEnter={handleHover} onMouseLeave={handleHover}>
