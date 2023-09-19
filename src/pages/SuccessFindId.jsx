@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import pb from "@/api/pocketbase";
-import bigcheck from "/assets/bigcheck.svg";
+import bigcheck from "/assets/big-check.svg";
 import S from "./successfindid.module.css";
 import idStore from "@/store/idStore";
 import tvingLogo from "/assets/tving-login.svg";

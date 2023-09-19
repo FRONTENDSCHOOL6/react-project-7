@@ -25,7 +25,6 @@ function Header() {
 	const [searchAlt, setSearchAlt] = useState("검색");
 	const location = useLocation();
 
-
 	// ? search 페이지로 갔을 시, 아이콘과 alt 변경
 	useEffect(() => {
 		if (location.pathname === "/search") {
@@ -43,8 +42,6 @@ function Header() {
 			navigate(-1);
 		}
 	};
-
-	const { authState, signOut } = authStore(); // authState와 signOut을 가져옵니다.
 
 	console.log(authState);
 
@@ -100,6 +97,7 @@ function Header() {
 		setShowLogoutPopup(!showLogoutPopup);
 	};
 
+	console.log(selectedProfile);
 	return (
 		<header
 			className={`

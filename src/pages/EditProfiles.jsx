@@ -37,7 +37,7 @@ function EditProfiles() {
 				</div>
 				<div className="w-full flex flex-col items-center justify-center gap-10">
 					<ul className="flex items-center justify-center gap-7 w-2/3">
-						{profileData?.expand?.profiles.map((profile) => (
+						{profileData?.expand?.profiles.map((profile) => {
 							<li
 								key={profile.username}
 								className="flex flex-col justify-center items-center w-full "
@@ -60,8 +60,8 @@ function EditProfiles() {
 								<p className="text-sm text-neutral-400 my-2">
 									{profile.username}
 								</p>
-							</li>
-						))}
+							</li>;
+						})}
 					</ul>
 				</div>
 				<button
