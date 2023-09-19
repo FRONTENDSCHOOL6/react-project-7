@@ -5,25 +5,18 @@ import logo from "/assets/logo.svg";
 import searchIcon from "/assets/search.png";
 import profileIcon from "/assets/profile.png";
 import xIcon from "/assets/headerX.svg";
-
-import authStore from "@/store/authStore";
 import useStorage from "@/hooks/useStorage";
-import pb from "@/api/pocketbase";
-import { getPbImageURL } from "@/utils/getPbImageURL";
+import authStore from "@/store/authStore";
+import { useCallback } from "react";
+
 function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isHovered, setIsHovered] = useState(false);
 	const [showLogoutPopup, setShowLogoutPopup] = useState(false);
-	const [profileData, setProfileData] = useState(null);
-	const [isLoading, setIsLoading] = useState(true);
-	const { authState, signOut } = authStore(); // authState와 signOut을 가져옵니다.
-	const { storageData } = useStorage("pocketbase_auth");
-	console.log(storageData);
-	const selectedProfile = JSON.parse(localStorage.getItem("selectedProfile"));
-	const navigate = useNavigate();
 	const [searchIconSrc, setSearchIconSrc] = useState(searchIcon);
 	const [searchAlt, setSearchAlt] = useState("검색");
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	// ? search 페이지로 갔을 시, 아이콘과 alt 변경
 	useEffect(() => {
@@ -42,6 +35,8 @@ function Header() {
 			navigate(-1);
 		}
 	};
+
+	const { authState, signOut } = authStore(); // authState와 signOut을 가져옵니다.
 
 	console.log(authState);
 
@@ -70,25 +65,12 @@ function Header() {
 		}
 	}, []);
 
-	useEffect(() => {
-		const fetchProfiles = async () => {
-			try {
-				setIsLoading(true);
-				const data = await pb
-					.collection("users")
-					.getOne(authState?.user?.id, { expand: "profiles" });
-				setProfileData(data);
-			} catch (error) {
-				console.log(error);
-			} finally {
-				setIsLoading(false);
-			}
-		};
-		fetchProfiles(authState?.user?.id);
-	}, [authState]);
+	const handleMouseEnter = () => {
+		setIsHovered(true);
+	};
 
-	const handleHover = () => {
-		setIsHovered(!isHovered);
+	const handleMouseLeave = () => {
+		setIsHovered(false);
 	};
 	const handleLogoutClick = () => {
 		handleShowLogoutPopup();
@@ -97,7 +79,6 @@ function Header() {
 		setShowLogoutPopup(!showLogoutPopup);
 	};
 
-	console.log(selectedProfile);
 	return (
 		<header
 			className={`
@@ -132,41 +113,28 @@ function Header() {
 						<img src={searchIconSrc} alt={searchAlt} className={S.profileImg} />
 					</Link>
 				</li>
-				<li
-					onMouseEnter={handleHover}
-					onMouseLeave={handleHover}
-					className="w-10 h-10 object-cover "
-				>
-					<img
-						src={getPbImageURL(selectedProfile, "poster") || profileIcon}
-						alt="프로필"
-						className={S.profileImg}
-						onClick={() => navigate(`/profile/${storageData.user.id}`)}
-					/>
+				<li onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+					<Link to="profile">
+						<img src={profileIcon} alt="프로필" className={S.profileImg} />
+					</Link>
 				</li>
 			</ul>
 			<div
 				className={`leading-[1.15] text-base text-white fixed min-w-[15rem] box-border shadow-[0px_5px_10px_0_rgba(0,0,0,0.5)] bg-[#212121] translate-x-0 -translate-y-2.5 -mt-0.5 pt-6 pb-[1.167rem] px-0 rounded-sm border-solid border-[#4d4d4d] border right-[3.5rem] top-[5.833rem] transition-all z-50 
           ${isHovered ? "" : "invisible opacity-0"}`}
-				onMouseEnter={handleHover}
-				onMouseLeave={handleHover}
+				onMouseEnter={handleMouseEnter}
+				onMouseLeave={handleMouseLeave}
 			>
 				<div className="flex flex-col px-5">
-					<div className="flex gap-3 items-center">
-						<img
-							src={getPbImageURL(selectedProfile, "poster") || profileIcon}
-							alt="유저의 프로필 이미지"
-							className="w-12 h-12 object-cover"
-						/>
+					<div className="flex gap-3">
+						<img src={profileIcon} alt="유저의 프로필 이미지" />
 						<div className="flex flex-col">
-							<span className="font-semibold text-left">
-								{selectedProfile?.username || storageData.user.nickname}
-							</span>
+							<span className="font-semibold text-left">shclgus2</span>
 
 							<button
 								type="button"
 								className="pt-1 text-sm text-left"
-								onClick={() => navigate(`/profile/${storageData.user.id}`)}
+								onClick={() => navigate("/profile")}
 							>
 								<span className="text-sm text-[#a3a3a3] hover:text-white">
 									프로필 전환 &gt;
