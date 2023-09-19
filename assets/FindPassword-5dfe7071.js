@@ -1,1 +1,0 @@
-import{j as r}from"./index-f0d60930.js";import"./react-7b82c02c.js";import"./reactRouter-bd0fbe8a.js";import"./extra-3c07f53d.js";function d(){return r.jsx("div",{children:"FindPassword"})}export{d as default};
