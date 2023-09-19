@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 const RootLayout = lazy(() => import("./../layout/RootLayout"));
 const Home = lazy(() => import("./../pages/Home"));
-const SignInList = lazy(() => import("./../pages/SignInList"));
+//const SignInList = lazy(() => import("./../pages/SignInList"));
 const SignIn = lazy(() => import("./../pages/SignIn"));
 const SignUp = lazy(() => import("./../pages/SignUp"));
 const FindId = lazy(() => import("../pages/FindId"));
@@ -26,12 +26,11 @@ import Search from "./../pages/Search";
 const EditProfiles = lazy(() => import("../pages/EditProfiles"));
 const EditProfile = lazy(() => import("../pages/EditProfile"));
 
-
 const router = createHashRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<RootLayout />}>
 			<Route index element={<Home />} />
-			<Route path="/signinlist" element={<SignInList />} />
+			{/*<Route path="/signinlist" element={<SignInList />} />*/}
 			<Route path="/signin" element={<SignIn />} />
 			<Route path="/signup" element={<SignUp />} />
 			<Route path="/findid" element={<FindId />} />
@@ -44,9 +43,9 @@ const router = createHashRouter(
 			<Route path="/search" element={<Search />} />
 			<Route path="/membership" element={<Membership />} />
 			<Route path="/onboarding" element={<OnBoarding />} />
-			<Route path="/profile" element={<Profile />} />
-			<Route path="/editprofiles" element={<EditProfiles />} />
-			<Route path="/editprofile" element={<EditProfile />} />
+			<Route path="/profile/:id" element={<Profile />} />
+			<Route path="/editprofiles/:id" element={<EditProfiles />} />
+			<Route path="/editprofile/:id/:id" element={<EditProfile />} />
 			<Route path="/program" element={<Program />} />
 			<Route path="/movie" element={<Movie />} />
 		</Route>

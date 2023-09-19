@@ -85,6 +85,7 @@ export function LoopSlide() {
 				modules={[Autoplay]}
 				speed={9000}
 				freeMode={true}
+				preventInteractionOnTransition={true}
 			>
 				{groupTopTwice &&
 					groupTopTwice.map((item) => (
@@ -105,6 +106,7 @@ export function LoopSlide() {
 				modules={[Autoplay]}
 				speed={10000}
 				freeMode={true}
+				preventInteractionOnTransition={true}
 			>
 				{groupBottomTwice &&
 					groupBottomTwice.map((item) => (
