@@ -46,6 +46,19 @@ function Home() {
 		<>
 			<Helmet>
 				<title>TAING</title>
+				<meta
+					name="description"
+					content="멋쟁이 사자처럼 6기 7조의 파이널 프로젝트 - 티빙 클론코딩 타잉 메인페이지"
+				/>
+				<meta name="keywords" content="티빙, ott, 영화, 드라마" />
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="타잉 메인페이지" />
+				<meta property="og:description" content="프로젝트 타잉 메인페이지" />
+				<meta property="og:image" content="@/assets/metaImg.png" />
+				<meta
+					property="og:url"
+					content="http://localhost:5173/react-project-7/#/"
+				/>
 			</Helmet>
 			<div className="mainPage bg-black w-screen overflow-hidden">
 				<MainBanner></MainBanner>
