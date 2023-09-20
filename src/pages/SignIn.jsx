@@ -6,10 +6,9 @@ import hidePasswordIcon from "/assets/hide-password.svg";
 import pb from "@/api/pocketbase";
 import unAutoLogin from "/assets/unactive-check.svg";
 import AutoLogin from "/assets/red-check.svg";
-import authStore from "@/store/authStore";
+import authStore from "@/store/useAuthStore";
 import { useEffect } from "react";
-import useStorage from "@/hooks/useStorage";
-import useAuthStore from "@/store/authStore";
+import useAuthStore from "@/store/useAuthStore";
 
 function SignIn() {
 	const { authState, signIn } = authStore();
@@ -44,21 +43,25 @@ function SignIn() {
 
 				// localStorage에 업데이트된 데이터를 저장합니다.
 				const updatedStorageData = {
-					isAuth: true,
+					isAuth: !!record,
 					user: record,
 					token: token,
 				};
-				localStorage.setItem(
-					"pocketbase_auth",
-					JSON.stringify(updatedStorageData)
-				);
+				//localStorage.setItem(
+				//	"pocketbase_auth",
+				//	JSON.stringify(updatedStorageData)
+				//);
 				console.log(updatedStorageData);
 				// Zustand 상태를 업데이트합니다.
-				useAuthStore.setState({ authState: updatedStorageData });
+				await useAuthStore.setState({ authState: updatedStorageData });
 				console.log(useAuthStore.getState().authState);
 				// Authentication successful
 				console.log(authState);
-				navigate(`/profile/${authState?.user?.id}`);
+				await localStorage.setItem(
+					"pocketbase_auth",
+					JSON.stringify(updatedStorageData)
+				);
+				navigate(`/profile/${updatedStorageData.user.id}`);
 				console.log("Authentication successful.");
 			} else {
 				// Authentication failed

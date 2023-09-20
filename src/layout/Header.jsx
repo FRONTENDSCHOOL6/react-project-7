@@ -6,7 +6,7 @@ import searchIcon from "/assets/search.png";
 import profileIcon from "/assets/profile.png";
 import xIcon from "/assets/headerX.svg";
 
-import authStore from "@/store/authStore";
+import authStore from "@/store/useAuthStore";
 import useStorage from "@/hooks/useStorage";
 import { getPbImageURL } from "@/utils/getPbImageURL";
 import useProfileStore from "@/store/useProfileStore";
@@ -42,8 +42,8 @@ function Header() {
 		}
 	};
 
-	console.log(authState);
-	console.log(authState.user);
+	//console.log(authState);
+	//console.log(authState.user);
 
 	//@ 스크롤 이벤트
 	useEffect(() => {

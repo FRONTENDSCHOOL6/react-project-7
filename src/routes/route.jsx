@@ -7,6 +7,7 @@ import {
 const RootLayout = lazy(() => import("./../layout/RootLayout"));
 const Home = lazy(() => import("./../pages/Home"));
 const SignIn = lazy(() => import("./../pages/SignIn"));
+const SignInList = lazy(() => import("./../pages/SignInList"));
 const SignUp = lazy(() => import("./../pages/SignUp"));
 const FindId = lazy(() => import("../pages/FindId"));
 const FindPassword = lazy(() => import("../pages/FindPassword"));
@@ -28,8 +29,16 @@ const EditProfile = lazy(() => import("../pages/EditProfile"));
 const router = createHashRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<RootLayout />}>
-			<Route index element={<Home />} />
+			<Route
+				index
+				element={
+					<ProtectRoute>
+						<Home />
+					</ProtectRoute>
+				}
+			/>
 			<Route path="/signin" element={<SignIn />} />
+			<Route path="/signinlist" element={<SignInList />} />
 			<Route path="/signup" element={<SignUp />} />
 			<Route path="/findid" element={<FindId />} />
 			<Route path="/findpw" element={<FindPassword />} />

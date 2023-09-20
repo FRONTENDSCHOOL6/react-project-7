@@ -1,17 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import useAuthStore from "@/store/authStore";
+import useAuthStore from "@/store/useAuthStore";
 import { getPbImageURL } from "@/utils/getPbImageURL";
 import useProfileStore from "@/store/useProfileStore";
 import pb from "@/api/pocketbase";
+
 function Profile() {
 	const navigate = useNavigate();
 	const { authState } = useAuthStore();
-	const { setProfileData } = useProfileStore();
-	console.log(authState);
-	const [isLoading, setIsLoading] = useState(false);
-	//const [avatarUrl, setAvatarUrl] = useState(null);
+	const { profileData, setProfileData } = useProfileStore();
+	const [isLoading, setIsLoading] = useState(true); // 초기에는 로딩 중으로 설정합니다.
 	const [profilesData, setProfilesData] = useState(null);
+
 	const handleProfileSelect = (profile) => () => {
 		localStorage.setItem("selectedProfile", JSON.stringify(profile));
 		setProfileData(profile);
@@ -21,35 +21,31 @@ function Profile() {
 	useEffect(() => {
 		const fetchProfiles = async () => {
 			try {
-				setIsLoading(true);
 				const data = await pb
 					.collection("users")
 					.getOne(authState?.user?.id, { expand: "profiles" });
+
 				setProfilesData(data);
 			} catch (error) {
-				console.log(error);
+				console.error(error);
 			} finally {
-				setIsLoading(false);
+				setIsLoading(false); // 데이터 로딩이 완료되면 로딩 상태를 false로 설정합니다.
 			}
 		};
 
 		// authState가 없거나 초기값인 경우에는 데이터 로딩을 기다립니다.
 		if (!authState || !authState.user) {
+			setIsLoading(false); // authState가 없으면 로딩 상태를 바로 false로 설정합니다.
 			return;
 		}
 
 		fetchProfiles(authState.user.id);
 	}, [authState]);
 
-	console.log(profilesData?.expand?.profiles);
-	console.log(profilesData?.expand?.profiles.map((v) => v.username));
-
-	if (!authState || !authState.user || isLoading) {
-		return <p>로딩중 입니다...</p>;
+	if (!authState || !authState.user) {
+		return <p>로딩 중 입니다...</p>;
 	}
 
-	console.log(profilesData?.expand?.profiles);
-	console.log(profilesData?.expand?.profiles.map((v) => v.username));
 	return (
 		<section className="bg-black w-screen h-screen flex items-center justify-center text-white my-auto relative pt-[2rem] lg:pt-[1.5rem] md:pt-[1rem]">
 			<div className="flex flex-col justify-center items-center min-h-full gap-12">
@@ -60,29 +56,27 @@ function Profile() {
 					</p>
 				</div>
 				<ul className="flex items-center justify-center gap-7 w-2/3">
-					{!isLoading
-						? profilesData?.expand?.profiles.map((profile) => (
-								<li
-									key={profile.username}
-									className="flex flex-col justify-center items-center w-full hover:-translate-y-3 duration-200 transition-all h-full object-cover"
-								>
-									<button
-										type="button"
-										className="border-solid border-white border-4 block overflow-hidden transition-all duration-[0.3s] p-0 rounded-[3px] w-[13.87rem] h-[13.875rem] object-cover"
-										onClick={handleProfileSelect(profile)}
-									>
-										<img
-											src={getPbImageURL(profile, "poster")}
-											alt={`유저 ${profile.username}의 프로필 이미지`}
-											className="w-full h-full object-cover"
-										/>
-									</button>
-									<p className="text-sm text-neutral-400 my-2">
-										{profile.username}
-									</p>
-								</li>
-						  ))
-						: setIsLoading(false)}
+					{profilesData?.expand?.profiles.map((profile) => (
+						<li
+							key={profile.username}
+							className="flex flex-col justify-center items-center w-full hover:-translate-y-3 duration-200 transition-all h-full object-cover"
+						>
+							<button
+								type="button"
+								className="border-solid border-white border-4 block overflow-hidden transition-all duration-[0.3s] p-0 rounded-[3px] w-[13.87rem] h-[13.875rem] object-cover"
+								onClick={handleProfileSelect(profile)}
+							>
+								<img
+									src={getPbImageURL(profile, "poster")}
+									alt={`유저 ${profile.username}의 프로필 이미지`}
+									className="w-full h-full object-cover"
+								/>
+							</button>
+							<p className="text-sm text-neutral-400 my-2">
+								{profile.username}
+							</p>
+						</li>
+					))}
 				</ul>
 				<button
 					type="button"
