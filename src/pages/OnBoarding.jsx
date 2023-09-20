@@ -23,6 +23,7 @@ import earth from "/assets/earth.jpeg";
 import fake from "/assets/fake.jpeg";
 import great2 from "/assets/great2.jpeg";
 import king from "/assets/king-the-land.jpeg";
+import { Helmet } from "react-helmet-async";
 
 export default function OnBoarding() {
 	//@ 버튼 클릭 시 로그인 페이지로 이동
@@ -45,6 +46,9 @@ export default function OnBoarding() {
 
 	return (
 		<>
+			<Helmet>
+				<title>TAING</title>
+			</Helmet>
 			{/* 재미를 플레이해보세요 */}
 			<section
 				className={S.join}
