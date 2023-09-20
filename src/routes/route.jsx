@@ -20,6 +20,8 @@ const Program = lazy(() => import("./../pages/Program"));
 const Movie = lazy(() => import("./../pages/Movie"));
 //const Search = lazy(() => import("./../pages/Search"))
 import Search from "./../pages/Search";
+import { Navigate } from "react-router-dom";
+import ProtectRoute from "./ProtectRoute";
 const EditProfiles = lazy(() => import("../pages/EditProfiles"));
 const EditProfile = lazy(() => import("../pages/EditProfile"));
 
@@ -31,17 +33,80 @@ const router = createHashRouter(
 			<Route path="/signup" element={<SignUp />} />
 			<Route path="/findid" element={<FindId />} />
 			<Route path="/findpw" element={<FindPassword />} />
-			<Route path="/contents/:id" element={<Contents />} />
-			<Route path="/favorite" element={<Favorite />} />
-			<Route path="/live" element={<Live />} />
-			<Route path="/search" element={<Search />} />
-			<Route path="/membership" element={<Membership />} />
+			<Route
+				path="/contents/:id"
+				element={
+					<ProtectRoute>
+						<Contents />
+					</ProtectRoute>
+				}
+			/>
+			<Route
+				path="/favorite"
+				element={
+					<ProtectRoute>
+						<Favorite />
+					</ProtectRoute>
+				}
+			/>
+			<Route
+				path="/live"
+				element={
+					<ProtectRoute>
+						<Live />
+					</ProtectRoute>
+				}
+			/>
+			<Route
+				path="/search"
+				element={
+					<ProtectRoute>
+						<Search />
+					</ProtectRoute>
+				}
+			/>
+			<Route
+				path="/membership"
+				element={
+					<ProtectRoute>
+						<Membership />
+					</ProtectRoute>
+				}
+			/>
 			<Route path="/onboarding" element={<OnBoarding />} />
-			<Route path="/profile" element={<Profile />} />
-			<Route path="/editprofiles" element={<EditProfiles />} />
-			<Route path="/editprofile" element={<EditProfile />} />
-			<Route path="/program" element={<Program />} />
-			<Route path="/movie" element={<Movie />} />
+			<Route path="/profile/:id" element={<Profile />} />
+			<Route
+				path="/editprofiles/:id"
+				element={
+					<ProtectRoute>
+						<EditProfiles />
+					</ProtectRoute>
+				}
+			/>
+			<Route
+				path="/editprofile/:id/:id"
+				element={
+					<ProtectRoute>
+						<EditProfile />
+					</ProtectRoute>
+				}
+			/>
+			<Route
+				path="/program"
+				element={
+					<ProtectRoute>
+						<Program />
+					</ProtectRoute>
+				}
+			/>
+			<Route
+				path="/movie"
+				element={
+					<ProtectRoute>
+						<Movie />
+					</ProtectRoute>
+				}
+			/>
 		</Route>
 	)
 );

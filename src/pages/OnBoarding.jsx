@@ -23,6 +23,7 @@ import fake from "/assets/fake.jpeg";
 import great2 from "/assets/great2.jpeg";
 import king from "/assets/king-the-land.jpeg";
 import { Helmet } from "react-helmet-async";
+import tvingLogoBig from "/assets/no1-tving.svg";
 
 export default function OnBoarding() {
 	//@ 버튼 클릭 시 로그인 페이지로 이동
