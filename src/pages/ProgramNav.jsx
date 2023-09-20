@@ -141,7 +141,7 @@ export function ProgramContent() {
 						item
 							.filter((item) => item.genre === buttonId)
 							.map((item) => (
-								<div key={item.id} className="w-[20%]">
+								<div key={item.id} className="w-[20%] max-md:w-[30%]">
 									<Link to={`/contents/${item.id}`}>
 										<img src={getPbImageURL(item, "poster")} alt={item.title} />
 										<p className="text-gray200 text-xl mt-2  whitespace-nowrap overflow-hidden text-ellipsis">

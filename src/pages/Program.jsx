@@ -10,7 +10,10 @@ export default function Movie() {
 			<Helmet>
 				<title>TV Programs - Taing</title>
 			</Helmet>
-			<div className="bg-black pt-40 px-[5%]">
+			<div className="bg-black pt-32 px-[5%]">
+				<h3 className="text-white text-4xl font-semibold mb-[2%] ml-[3%]">
+					TV 프로그램
+				</h3>
 				<ProgramNav />
 				<div className="contentWrapper w-full pt-10 flex flex-row gap-5 flex-wrap justify-between">
 					<ProgramContent />
