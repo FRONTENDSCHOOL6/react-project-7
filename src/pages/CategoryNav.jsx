@@ -1,3 +1,4 @@
+//! 실험 중인 코드
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import pb from "@/api/pocketbase";
@@ -36,7 +37,7 @@ export function NavButton({ content, index, id, activeIndex, setActiveIndex }) {
 	);
 }
 
-export function MovieNav() {
+export function CategoryNav() {
 	const [activeIndex, setActiveIndex] = useState(null);
 
 	const [contents, setContents] = useState([]);
@@ -60,18 +61,7 @@ export function MovieNav() {
 		<nav>
 			<Swiper
 				className="categoryNav px-[3.5%]"
-				slidesPerView={7}
-				breakpoints={{
-					480: {
-						slidesPerView: 4,
-					},
-					768: {
-						slidesPerView: 5,
-					},
-					1024: {
-						slidesPerView: 6,
-					},
-				}}
+				slidesPerView={8.5}
 				slidesPerGroup={4}
 				navigation={{
 					nextEl: "#categoryNextButton",
@@ -107,7 +97,7 @@ export function MovieNav() {
 	);
 }
 
-export function MovieContent() {
+export function CategoryContent() {
 	//? 버튼 클릭에 관련된 변수
 	const { buttonId, setButtonId } = useButtonStore();
 	const { isButtonClicked, setIsButtonClicked } = useButtonStore();
@@ -158,7 +148,7 @@ export function MovieContent() {
 					contentCategory.data.map((item) =>
 						item.map((item) => (
 							<div key={item.id} className="w-[20%]">
-								<Link to={`/contents/${item.id}`}>
+								<Link to={`contents/${item.id}`}>
 									<img src={getPbImageURL(item, "poster")} alt={item.title} />
 									<p className="text-gray200 text-xl mt-2  whitespace-nowrap overflow-hidden text-ellipsis">
 										{item.title}

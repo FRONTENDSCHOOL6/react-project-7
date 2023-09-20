@@ -7,11 +7,11 @@
 }
 
 .joinContentWrapper {
-  @apply absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-3 text-center w-full;
+  @apply absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-3 text-center;
 }
 
 .joinContent {
-  @apply text-white text-[2.75rem] font-semibold leading-[120%] tracking-wide;
+  @apply text-white text-[2.75rem] font-semibold leading-[65px] tracking-wide;
 }
 
 .joinSubContent {
@@ -19,10 +19,9 @@
 }
 
 .joinButton {
-  @apply relative left-1/2 -translate-x-1/2 top-5 bg-primary w-1/3 py-5 rounded;
+  @apply relative left-1/2 -translate-x-1/2 top-5 bg-primary w-[100%] py-5 rounded;
   @apply text-white text-2xl font-semibold;
-  @apply before:bg-[url('/assets/tving-symbol.svg')] before:bg-no-repeat before:bg-left-top before:absolute before:top-0 before:left-0 before:w-full before:bg-contain before:h-full;
-  @apply max-lg:w-1/2;
+  @apply before:bg-[url('/assets/tving-symbol.svg')] before:bg-no-repeat before:absolute before:top-0 before:left-0 before:w-20 before:h-full;
 }
 
 .onlyTaing {

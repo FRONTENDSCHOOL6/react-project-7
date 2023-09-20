@@ -14,7 +14,6 @@ import dessert from "/assets/dessert.webp";
 import mobile from "/assets/mobile.mp4";
 import quickVod from "/assets/quick-vod.png";
 import devices from "/assets/devices.mp4";
-import tvingLogoBig from "/assets/no1-tving.svg";
 import arrowUp from "/assets/arrow-up.svg";
 import arrowDown from "/assets/arrow-down.svg";
 
@@ -306,6 +305,23 @@ export default function OnBoarding() {
 			{/* 유튜브 섹션 */}
 			<section className="bg-black w-full">
 				<div className={S.videoWrapper}>
+					{/* <YouTube
+                className="absolute top-1/2 left-1/2 -translate-x-1/2"
+                videoId="Lr8lSxMlp9Q"
+                opts={{
+                    width: "100%",
+                    height: "100%",
+                    playerVars: {
+                        autoplay: 0,
+                        rel: 0,
+                        modestbranding: 1, // 컨트롤 바에 youtube 로고를 표시하지 않음
+                    },
+                }}
+                //이벤트 리스너
+                onEnd={(e) => {
+                    e.target.stopVideo(0)
+                }}
+            /> */}
 					<iframe
 						className={S.videoItem}
 						src={`https://www.youtube-nocookie.com/embed/Lr8lSxMlp9Q`}
@@ -352,7 +368,11 @@ export default function OnBoarding() {
 			{/* 지금 시작해보세요 */}
 			<section className={S.no1}>
 				<div className={S.no1Wrapper}>
-					<img className="inline-block w-[50%]" src={tvingLogoBig} alt="" />
+					<img
+						className="inline-block w-[50%]"
+						src="/assets/onboarding/no1-tving.svg"
+						alt=""
+					/>
 					<p className={`${S.joinContent} px-20`}>지금 시작해보세요</p>
 					<button
 						type="button"
