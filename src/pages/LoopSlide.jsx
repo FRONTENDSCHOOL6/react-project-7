@@ -68,8 +68,14 @@ export function LoopSlide() {
 			img: busan,
 		},
 	];
-	const groupTopTwice = Array(2).fill(groupTop).flat();
-	const groupBottomTwice = Array(2).fill(groupBottom).flat();
+	const groupTopTwice = Array(2)
+		.fill(groupTop)
+		.flat()
+		.map((item, index) => ({ ...item, id: item.id + "_1_" + index }));
+	const groupBottomTwice = Array(2)
+		.fill(groupBottom)
+		.flat()
+		.map((item, index) => ({ ...item, id: item.id + "_2_" + index }));
 
 	return (
 		<>
