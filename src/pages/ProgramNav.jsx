@@ -1,12 +1,11 @@
 //! 실험 중인 코드
 import React, { useRef, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import pb from "@/api/pocketbase";
 import { getPbImageURL } from "@/utils/getPbImageURL";
 import S from "./Program.module.css";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import useButtonStore from "@/store/buttonStore";
@@ -141,10 +140,10 @@ export function ProgramContent() {
 						item
 							.filter((item) => item.genre === buttonId)
 							.map((item) => (
-								<div key={item.id} className="w-[20%] max-md:w-[30%]">
-									<Link to={`/contents/${item.id}`}>
+								<div key={item.id} className={S.listContent}>
+									<Link to={`/contents/${item.id}`} className={S.listContent}>
 										<img src={getPbImageURL(item, "poster")} alt={item.title} />
-										<p className="text-gray200 text-xl mt-2  whitespace-nowrap overflow-hidden text-ellipsis">
+										<p className="text-xl mt-2  whitespace-nowrap overflow-hidden text-ellipsis">
 											{item.title}
 										</p>
 									</Link>
@@ -160,10 +159,10 @@ export function ProgramContent() {
 				{contents?.map((contentCategory) =>
 					contentCategory.data.map((item) =>
 						item.map((item) => (
-							<div key={item.id} className="w-[20%]">
+							<div key={item.id} className={S.listContent}>
 								<Link to={`/contents/${item.id}`}>
 									<img src={getPbImageURL(item, "poster")} alt={item.title} />
-									<p className="text-gray200 text-xl mt-2  whitespace-nowrap overflow-hidden text-ellipsis">
+									<p className="text-xl mt-2  whitespace-nowrap overflow-hidden text-ellipsis">
 										{item.title}
 									</p>
 								</Link>
