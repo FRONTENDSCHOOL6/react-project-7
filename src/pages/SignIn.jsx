@@ -9,6 +9,7 @@ import AutoLogin from "/assets/red-check.svg";
 import authStore from "@/store/authStore";
 import { useEffect } from "react";
 import useStorage from "@/hooks/useStorage";
+import useAuthStore from "@/store/authStore";
 
 function SignIn() {
 	const { authState, signIn } = authStore();
@@ -38,7 +39,7 @@ function SignIn() {
 			console.log(response);
 			if (response) {
 				// 인증에 성공한 경우
-
+				console.log(response);
 				const { token, record } = response;
 
 				// localStorage에 업데이트된 데이터를 저장합니다.
@@ -53,9 +54,11 @@ function SignIn() {
 				);
 				console.log(updatedStorageData);
 				// Zustand 상태를 업데이트합니다.
-				authStore.setState({ authState: updatedStorageData });
+				useAuthStore.setState({ authState: updatedStorageData });
+				console.log(useAuthStore.getState().authState);
 				// Authentication successful
-				navigate("/");
+				console.log(authState);
+				navigate(`/profile/${authState?.user?.id}`);
 				console.log("Authentication successful.");
 			} else {
 				// Authentication failed

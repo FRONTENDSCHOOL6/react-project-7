@@ -16,6 +16,14 @@ import quickVod from "/assets/quick-vod.png";
 import devices from "/assets/devices.mp4";
 import arrowUp from "/assets/arrow-up.svg";
 import arrowDown from "/assets/arrow-down.svg";
+import busan from "/assets/busan.jpeg";
+import danceSinger from "/assets/dance-singer.jpeg";
+import earth from "/assets/earth.jpeg";
+import fake from "/assets/fake.jpeg";
+import great2 from "/assets/great2.jpeg";
+import king from "/assets/king-the-land.jpeg";
+import { Helmet } from "react-helmet-async";
+import tvingLogoBig from "/assets/no1-tving.svg";
 
 export default function OnBoarding() {
 	//@ 버튼 클릭 시 로그인 페이지로 이동
@@ -38,6 +46,9 @@ export default function OnBoarding() {
 
 	return (
 		<>
+			<Helmet>
+				<title>TAING</title>
+			</Helmet>
 			{/* 재미를 플레이해보세요 */}
 			<section
 				className={S.join}
@@ -101,204 +112,6 @@ export default function OnBoarding() {
 					</span>
 				</div>
 				<div className="w-full">
-					{/* //! 추후 swiper의 이미지들을 배열로 순환하여 랜더링될 수 있는 로직으로
-            수정 예정. */}
-					<Swiper
-						className="mySwiper swiperLoop mb-3"
-						slidesPerView={4.5}
-						spaceBetween={"1%"}
-						autoplay={{
-							delay: 0,
-							disableOnInteraction: true,
-						}}
-						loop={true}
-						modules={[Autoplay]}
-						speed={9000}
-						freeMode={true}
-					>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/busan.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/dance-singer.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/earth.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/fake.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/great2.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/king-the-land.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/busan.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/dance-singer.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/earth.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/fake.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/great2.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/king-the-land.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-					</Swiper>
-					<Swiper
-						className={`mySwiper swiperLoop mb-2`}
-						slidesPerView={4.5}
-						spaceBetween={"1%"}
-						autoplay={{
-							delay: 0,
-							disableOnInteraction: true,
-						}}
-						loop={true}
-						modules={[Autoplay]}
-						speed={6000}
-						freeMode={true}
-					>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/busan.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/dance-singer.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/earth.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/fake.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/great2.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/king-the-land.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/busan.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/dance-singer.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/earth.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/fake.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/great2.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/king-the-land.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-					</Swiper>
 					<LoopSlide />
 				</div>
 			</section>
@@ -366,18 +179,16 @@ export default function OnBoarding() {
 				</div>
 			</section>
 			{/* 지금 시작해보세요 */}
-			<section className={S.no1}>
-				<div className={S.no1Wrapper}>
-					<img
-						className="inline-block w-[50%]"
-						src="/assets/onboarding/no1-tving.svg"
-						alt=""
-					/>
-					<p className={`${S.joinContent} px-20`}>지금 시작해보세요</p>
+			<section className={S.num}>
+				<div className={S.numWrapper}>
+					<img className="inline-block w-[50%]" src={tvingLogoBig} alt="" />
+					<p className={`${S.joinContent} px-20 max-sm:px-12`}>
+						지금 시작해보세요
+					</p>
 					<button
 						type="button"
 						onClick={navigateToLogin}
-						className={S.joinButton}
+						className={S.numButton}
 					>
 						지금 바로, 타잉을 플레이 하세요!
 					</button>
