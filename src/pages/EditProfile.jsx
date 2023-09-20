@@ -1,7 +1,7 @@
 import DefaultProfile from "/assets/default-profile.png";
 import S from "./EditProfiles.module.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import useAuthStore from "@/store/authStore";
+import useAuthStore from "@/store/useAuthStore";
 import { useState, useEffect } from "react";
 import pb from "@/api/pocketbase";
 import { getPbImageURL } from "@/utils/getPbImageURL";

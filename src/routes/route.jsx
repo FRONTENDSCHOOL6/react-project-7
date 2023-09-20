@@ -28,7 +28,14 @@ const EditProfile = lazy(() => import("../pages/EditProfile"));
 const router = createHashRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<RootLayout />}>
-			<Route index element={<Home />} />
+			<Route
+				index
+				element={
+					<ProtectRoute>
+						<Home />
+					</ProtectRoute>
+				}
+			/>
 			<Route path="/signin" element={<SignIn />} />
 			<Route path="/signup" element={<SignUp />} />
 			<Route path="/findid" element={<FindId />} />
