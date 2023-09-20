@@ -121,7 +121,7 @@ function Header() {
 				</li>
 			</ul>
 			<ul className={S.profile}>
-				<li onClick={handleIconClick}>
+				<li onClick={handleIconClick} className="w-10 h-10 object-cover">
 					<Link to="search">
 						<img src={searchIconSrc} alt={searchAlt} className={S.profileImg} />
 					</Link>
@@ -129,7 +129,7 @@ function Header() {
 				<li
 					onMouseEnter={handleHover}
 					onMouseLeave={handleHover}
-					className="w-10 h-10 object-cover "
+					className="w-10 h-10 object-cover"
 				>
 					<img
 						src={profileImg ? profileImg : profileIcon}
