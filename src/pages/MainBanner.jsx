@@ -50,7 +50,7 @@ export function MainBanner() {
 				bannerContents.map((item) => (
 					<div key={item.id}>
 						<SwiperSlide key={item.id}>
-							<img src={item.img} alt={item.title} />
+							<img className="w-full" src={item.img} alt={item.title} />
 							<span className={S.mainBannerDesc}>{item.desc}</span>
 							<Link
 								key={item.id}

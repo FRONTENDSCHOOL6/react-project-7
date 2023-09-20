@@ -11,9 +11,16 @@ import dessert from "/assets/dessert.webp";
 import mobile from "/assets/mobile.mp4";
 import quickVod from "/assets/quick-vod.png";
 import devices from "/assets/devices.mp4";
-import tvingLogoBig from "/assets/no1-tving.svg";
 import arrowUp from "/assets/arrow-up.svg";
 import arrowDown from "/assets/arrow-down.svg";
+import busan from "/assets/busan.jpeg";
+import danceSinger from "/assets/dance-singer.jpeg";
+import earth from "/assets/earth.jpeg";
+import fake from "/assets/fake.jpeg";
+import great2 from "/assets/great2.jpeg";
+import king from "/assets/king-the-land.jpeg";
+import { Helmet } from "react-helmet-async";
+import tvingLogoBig from "/assets/no1-tving.svg";
 
 export default function OnBoarding() {
 	//@ 버튼 클릭 시 로그인 페이지로 이동
@@ -120,6 +127,23 @@ export default function OnBoarding() {
 			{/* 유튜브 섹션 */}
 			<section className="bg-black w-full">
 				<div className={S.videoWrapper}>
+					{/* <YouTube
+                className="absolute top-1/2 left-1/2 -translate-x-1/2"
+                videoId="Lr8lSxMlp9Q"
+                opts={{
+                    width: "100%",
+                    height: "100%",
+                    playerVars: {
+                        autoplay: 0,
+                        rel: 0,
+                        modestbranding: 1, // 컨트롤 바에 youtube 로고를 표시하지 않음
+                    },
+                }}
+                //이벤트 리스너
+                onEnd={(e) => {
+                    e.target.stopVideo(0)
+                }}
+            /> */}
 					<iframe
 						title="replay video"
 						className={S.videoItem}
