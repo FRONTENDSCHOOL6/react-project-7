@@ -31,9 +31,9 @@ function EditProfiles() {
 	}, [authState]);
 	return (
 		<section className="bg-black w-screen h-screen flex items-center justify-center text-white my-auto relative pt-[2rem] lg:pt-[1.5rem] md:pt-[1rem]">
-			<div className="flex flex-col justify-center items-center min-h-full gap-10">
+			<div className="flex flex-col justify-center items-center min-h-full gap-6">
 				<div className="flex flex-col gap-1">
-					<h2 className="text-5xl text-center font-bold">프로필 편집</h2>
+					<h2 className="text-4xl text-center font-bold">프로필 편집</h2>
 				</div>
 				<div className="w-full flex flex-col items-center justify-center gap-10">
 					<ul className="flex items-center justify-center gap-7 w-2/3">
@@ -70,8 +70,8 @@ function EditProfiles() {
 				</div>
 				<button
 					type="button"
-					className="block w-2/5 box-border border font-bold text-center mt-2 px-0 py-3 border-solid rounded bg-[#dedede] text-black border-[#dedede] hover:border-white hover:bg-white text-lg"
-					onClick={() => navigate("/profile")}
+					className="block w-2/5 box-border border font-bold text-center mt-2 px-0 py-3 border-solid rounded bg-[#dedede] text-black border-[#dedede] hover:border-white hover:bg-white"
+					onClick={() => navigate(`/profile/${authState?.user?.id}`)}
 				>
 					{" "}
 					완료

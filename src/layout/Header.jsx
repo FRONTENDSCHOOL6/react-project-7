@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import S from "./Header.module.css";
 import logo from "/assets/logo.svg";
 import searchIcon from "/assets/search.png";
@@ -8,6 +8,8 @@ import xIcon from "/assets/headerX.svg";
 import useStorage from "@/hooks/useStorage";
 import authStore from "@/store/authStore";
 import { getPbImageURL } from "@/utils/getPbImageURL";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
@@ -30,7 +32,6 @@ function Header() {
 			setSearchAlt("검색");
 		}
 	}, [location.pathname]);
-
 	// ? x아이콘 클릭시 뒤로가기 핸들러
 	const handleIconClick = () => {
 		if (location.pathname === "/search") {
@@ -143,9 +144,9 @@ function Header() {
 				</li>
 			</ul>
 			<ul className={S.profile}>
-				<li onClick={handleIconClick}>
+				<li>
 					<Link to="search">
-						<img src={searchIconSrc} alt={searchAlt} className={S.profileImg} />
+						<img src={searchIcon} alt="검색" className={S.profileImg} />
 					</Link>
 				</li>
 				<li

@@ -127,7 +127,7 @@ function EditProfile() {
 		<section className="bg-black w-screen h-screen flex items-center justify-center text-white my-auto relative pt-[2rem] lg:pt-[1.5rem] md:pt-[1rem]">
 			<div className="flex flex-col justify-center items-center min-h-full gap-10 w-2/3">
 				<div className="flex flex-col gap-1">
-					<h2 className="text-5xl text-center font-bold">프로필 편집</h2>
+					<h2 className="text-4xl text-center font-bold">프로필 편집</h2>
 				</div>
 				<div className="editPoster w-full flex flex-col items-center justify-center gap-1">
 					<button
@@ -173,10 +173,10 @@ function EditProfile() {
 							value={updatedUser.username}
 							onChange={handleNameChange}
 							maxLength="10"
-							className="w-full h-12 bg-[#191919] text-lg leading-normal text-[#4d4d4d] pl-4 py-4 rounded-[3px] border-[solid] border-[#191919] focus:border-[#808080] focus:text-white"
+							className="w-full h-12 bg-[#191919] text-base leading-normal text-[#4d4d4d] pl-4 py-4 rounded-[3px] border-[solid] border-[#191919] focus:border-[#808080] focus:text-white"
 						/>
 					</label>
-					<p className="text-base text-neutral-400 my-2">
+					<p className="text-xs text-neutral-400 my-2">
 						* 2자 이상 10자 이내의 한글, 영문, 숫자 입력 가능합니다.
 					</p>
 				</div>
@@ -184,14 +184,14 @@ function EditProfile() {
 					<button
 						type="button"
 						onClick={handleSaveProfile}
-						className="block w-1/2 box-border border font-bold text-center mt-2 px-0 py-3 border-solid rounded bg-[#dedede] text-black border-[#dedede] hover:border-white hover:bg-white flex-grow"
+						className="block w-2/5 box-border border font-bold text-center mt-2 px-0 py-3 border-solid rounded bg-[#dedede] text-black border-[#dedede] hover:border-white hover:bg-white flex-grow"
 					>
 						확인
 					</button>
 					<button
 						type="button"
 						onClick={handleCancel}
-						className="block w-1/2 box-border border font-bold text-center mt-2 px-0 py-3 border-solid rounded bg-black text-neutral-400 border-[#4e4e4e] hover:border-[#a3a3a3] hover:text-[#dedede] flex-grow"
+						className="block w-2/5 box-border border font-bold text-center mt-2 px-0 py-3 border-solid rounded bg-black text-neutral-400 border-[#4e4e4e] hover:border-[#a3a3a3] hover:text-[#dedede] flex-grow"
 					>
 						취소
 					</button>
