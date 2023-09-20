@@ -19,7 +19,7 @@ export default function OnBoarding() {
 	//@ 버튼 클릭 시 로그인 페이지로 이동
 	const navigate = useNavigate();
 	const navigateToLogin = () => {
-		navigate("/signin");
+		navigate("/signinlist");
 	};
 
 	//@ 자주찾는질문 accordion 함수와 변수
