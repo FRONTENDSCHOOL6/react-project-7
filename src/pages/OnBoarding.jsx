@@ -1,11 +1,8 @@
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import S from "./OnBoarding.module.css";
-import React, { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { useState } from "react";
 import "swiper/css";
-import { Autoplay } from "swiper/modules";
-import YouTube from "react-youtube";
-import { useRef } from "react";
 import { LoopSlide } from "./LoopSlide";
 import mainImg from "/assets/main.webp";
 import hotel from "/assets/hotel.webp";
@@ -17,13 +14,6 @@ import devices from "/assets/devices.mp4";
 import tvingLogoBig from "/assets/no1-tving.svg";
 import arrowUp from "/assets/arrow-up.svg";
 import arrowDown from "/assets/arrow-down.svg";
-import busan from "/assets/busan.jpeg";
-import danceSinger from "/assets/dance-singer.jpeg";
-import earth from "/assets/earth.jpeg";
-import fake from "/assets/fake.jpeg";
-import great2 from "/assets/great2.jpeg";
-import king from "/assets/king-the-land.jpeg";
-import { Helmet } from "react-helmet-async";
 
 export default function OnBoarding() {
 	//@ 버튼 클릭 시 로그인 페이지로 이동
@@ -48,6 +38,18 @@ export default function OnBoarding() {
 		<>
 			<Helmet>
 				<title>TAING</title>
+				<meta
+					name="description"
+					content="멋쟁이 사자처럼 6기 7조의 파이널 프로젝트 - 티빙 클론코딩 타잉 랜딩페이지"
+				/>
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="타잉 랜딩페이지" />
+				<meta property="og:description" content="프로젝트 타잉 랜딩페이지" />
+				<meta property="og:image" content="@/assets/metaImgOnBoarding.png" />
+				<meta
+					property="og:url"
+					content="http://localhost:5173/react-project-7/#/onboarding"
+				/>
 			</Helmet>
 			{/* 재미를 플레이해보세요 */}
 			<section
