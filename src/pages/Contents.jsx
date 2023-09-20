@@ -1,5 +1,5 @@
 import S from "./Contents.module.css";
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { getPbImageURL } from "@/utils/getPbImageURL";
@@ -14,9 +14,10 @@ import "swiper/css/pagination";
 import TwitterIcon from "/assets/twitter-logo.png";
 import ShareIcon from "/assets/share-logo.png";
 import FacebookIcon from "/assets/facebook-logo.png";
+import ReviewItem from "../components/detail/EditReview";
 
 function Contents() {
-	//@ 상태 객체 처리
+	//@ 포켓베이스 데이터 가져오기
 	const [state, setState] = useState({
 		showFullDescription: false,
 		title: "",
@@ -48,25 +49,36 @@ function Contents() {
 		fifteen: "15세",
 		seven: "7세",
 	};
+
 	const versionText = {
 		dubbed: "더빙판",
 	};
 
-	//@ 포켓베이스 데이터 가져오기
 	const { id } = useParams();
+	const [comment, setComment] = useState([]);
+	const [contentType, setContentType] = useState("");
+
 	useEffect(() => {
 		const handleData = async (type) => {
 			try {
-				const response = await fetch(
-					`${import.meta.env.VITE_PB_API}/collections/${type}/records/${id}`
-				);
-				const data = await response.json();
-				console.log(`${type} data:`, data);
+				const data = await pb
+					.collection(type)
+					.getOne(id, { expand: "reviews,reviews.writer" });
+				setContentType(data.collectionName);
+				console.log(data);
+				const { expand } = data;
+				if (expand) {
+					setComment(expand.reviews);
+				}
+
 				let newState = {};
-				// 회차 정보
+
+				//?포스터
 				if (data.poster) {
 					newState.poster = getPbImageURL(data, "poster");
 				}
+
+				//?에피소드
 				if (data.episodeThumbs && data.episodeTitles && data.episodeInfos) {
 					const episodeThumbs = data.episodeThumbs.map((imgName) =>
 						getPbImageURL(
@@ -81,9 +93,10 @@ function Contents() {
 					const episodeTitles = data.episodeTitles.split(",");
 					const episodeInfos = data.episodeInfos.split(",");
 					const episodes = [];
+
 					for (let i = 0; i < episodeThumbs.length; i++) {
 						if (episodeInfos[i]) {
-							//? episodeInfos가 존재할 때만 넣기
+							//?episodeInfos 있는 경우
 							episodes.push({
 								thumbUrl: episodeThumbs[i],
 								title: episodeTitles[i],
@@ -91,9 +104,11 @@ function Contents() {
 							});
 						}
 					}
+
 					newState.episodes = episodes;
 				}
-				// 비슷한 프로그램
+
+				//? 비슷한 프로그램
 				if (data.similarThumbs && data.similarInfos) {
 					const similarThumbs = data.similarThumbs.map((imgName) =>
 						getPbImageURL(
@@ -106,7 +121,9 @@ function Contents() {
 						)
 					);
 					const similarInfos = data.similarInfos.split(",");
+
 					const similar = [];
+
 					for (let i = 0; i < similarThumbs.length; i++) {
 						if (similarInfos[i]) {
 							similar.push({
@@ -137,6 +154,7 @@ function Contents() {
 						newState[key] = data[key];
 					}
 				}
+
 				if (type === "movie" && data.runningTime) {
 					newState.runningTime = data.runningTime;
 				}
@@ -152,7 +170,7 @@ function Contents() {
 
 		Promise.all([handleData("program"), handleData("movie")])
 			.then(([programState, movieState]) => {
-				//? 최신의 state 값으로 새로운 state
+				//? 최신 state 값 기반으로 새로운 state
 				setState((prevState) => ({
 					...prevState,
 					...programState,
@@ -161,6 +179,7 @@ function Contents() {
 			})
 			.catch((error) => console.error(error));
 	}, [id]);
+
 	//@ 공유하기
 	const handleShare = () => {
 		navigator.clipboard.writeText(window.location.href);
@@ -187,6 +206,7 @@ function Contents() {
 	const [isShareOpen, setIsShareOpen] = useState(false);
 
 	//@ review
+	// review 기능 구현
 	const [stars, setStars] = useState(0); //? 현재 별점
 	const [hoverRating, setHoverRating] = useState(0); //? 마우스 호버시 별점
 	const [reviewText, setReviewText] = useState(""); //? 현재 입력중인 리뷰
@@ -194,7 +214,9 @@ function Contents() {
 	const [editingReviewIndex, setEditingReviewIndex] = useState(null);
 	const [editedComment, setEditedComment] = useState("");
 
-	// 리뷰 작성
+	const formref = useRef(null);
+
+	// 리뷰 입력
 	const handleReviewChange = (e) => {
 		if (editingReviewIndex !== null) {
 			setEditedComment(e.target.value);
@@ -202,13 +224,18 @@ function Contents() {
 			setReviewText(e.target.value);
 		}
 	};
-
-	const handleReviewSubmit = (e) => {
+	// 리뷰 전송
+	const handleReviewSubmit = async (e) => {
 		e.preventDefault();
+
+		const userFromLocalStorage = JSON.parse(
+			localStorage.getItem("pocketbase_auth") || "{}"
+		);
+		const userId = userFromLocalStorage?.user?.id;
+		console.log(userId);
 
 		if ((reviewText !== "" || editedComment !== "") && stars !== null) {
 			const newReviews = [...reviews];
-
 			if (editingReviewIndex !== null) {
 				newReviews[editingReviewIndex].text = editedComment;
 				newReviews[editingReviewIndex].stars = stars;
@@ -219,27 +246,47 @@ function Contents() {
 				setStars(0);
 				setHoverRating(0);
 			}
+			//? 새로운 리뷰 상태 설정
 			setReviews(newReviews);
+
+			//? 입력 필드 초기화
 			setReviewText("");
+
+			const reviewData =
+				editingReviewIndex !== null
+					? { text: editedComment, stars: stars }
+					: { text: reviewText, stars: stars };
+
+			try {
+				const data = {
+					star: reviewData.stars.toString(),
+					writer: userId,
+					contents: reviewData.text,
+					programId: id,
+				};
+				const record = await pb.collection("review").create(data);
+				console.log(record);
+				if (record) {
+					await pb.collection("users").update(userId, { "review+": record.id });
+					console.log(contentType);
+					await pb
+						.collection(contentType)
+						.update(data.programId, { "reviews+": record.id });
+				}
+				const newData = await pb
+					.collection("review")
+					.getOne(record.id, { expand: "writer" });
+
+				setComment((prev) => [...prev, newData]);
+			} catch (error) {
+				console.error(error);
+			}
 		}
 	};
 
-	// 수정
-	const handleEditClick = (index) => {
-		const reviewToEdit = reviews[index];
-		setEditingReviewIndex(index);
-		if (reviewToEdit) {
-			setEditedComment(reviewToEdit.text);
-			setStars(reviewToEdit.stars);
-		}
-	};
-	// 삭제
-	const handleDeleteClick = (index) => {
-		setReviews(reviews.filter((_, i) => i !== index));
-	};
-
-	//@ 찜하기
+	//@ 찜
 	const [isChanged, setChanged] = useState(false); //? 찜 버튼 상태
+
 	const handleHeart = () => {
 		setChanged(!isChanged);
 	}; //? 찜 버튼 클릭시 호출
@@ -255,11 +302,14 @@ function Contents() {
 	const [sortKey, setSortKey] = useState(0); //? 에피소드 정렬 후 리렌터링
 	const [isSorted, setIsSorted] = useState(true); //? 에피소드 정렬 방식, true:첫화부터
 
-	// 내림차순
 	const handleSortAsc = () => {
 		const sortedEpisodes = [...state.episodes].sort((a, b) => {
 			const titleA = parseInt(a.title.split(",")[0]);
 			const titleB = parseInt(b.title.split(",")[0]);
+
+			console.log(`titleA: ${titleA}, parsed: ${parseInt(titleA)}`);
+			console.log(`titleB: ${titleB}, parsed: ${parseInt(titleB)}`);
+
 			return titleA - titleB;
 		});
 
@@ -270,11 +320,14 @@ function Contents() {
 		setIsSorted(true);
 	};
 
-	// 오름차순
 	const handleSortDesc = () => {
 		const sortedEpisodes = [...state.episodes].sort((a, b) => {
 			const titleA = parseInt(a.title.split(",")[0]);
 			const titleB = parseInt(b.title.split(",")[0]);
+
+			console.log(`titleA: ${titleA}, parsed: ${parseInt(titleA)}`);
+			console.log(`titleB: ${titleB}, parsed: ${parseInt(titleB)}`);
+
 			return titleB - titleA;
 		});
 
@@ -294,11 +347,9 @@ function Contents() {
 						style={{ backgroundImage: `url(${state.poster})` }}
 					/>
 				</div>
-				<div className="relative z-10 flex flex-row justify-between h-full">
+				<div className={S.articleBg}>
 					<div className="w-2/5">
-						<h2 className="mb-[1.25rem] text-5xl font-semibold text-white">
-							{state.title}
-						</h2>
+						<h2 className={S.articleTitle}>{state.title}</h2>
 						<div className="border-gray300 ">
 							<span className={S.tag}>{state.release}</span>
 							<span className={S.tag}>{ratingText[state.rating]}</span>
@@ -323,7 +374,7 @@ function Contents() {
 							</button>
 							<button className={S.likeBtn} type="submit" onClick={handleHeart}>
 								<img
-									className="m-auto w-[2rem] h-[2rem] mt-[0.5625rem] mb-[0.3125rem] "
+									className={S.imgBtn}
 									src={isChanged ? "assets/full-heart.svg" : "assets/heart.svg"}
 									alt="하트 버튼"
 								/>
@@ -343,17 +394,17 @@ function Contents() {
 										className={`${S.sharePopup} flex justify-around items-center`}
 									>
 										<img
-											className="w-[25%] h-[65%] "
+											className={S.shareImg}
 											src={ShareIcon}
 											onClick={handleShare}
 										></img>
 										<img
-											className="w-[25%] h-[65%]"
+											className={S.shareImg}
 											src={FacebookIcon}
 											onClick={shareToFacebook}
 										/>
 										<img
-											className="w-[25%] h-[65%]"
+											className={S.shareImg}
 											src={TwitterIcon}
 											onClick={shareToTwitter}
 										/>
@@ -362,13 +413,11 @@ function Contents() {
 							</div>
 						</div>
 						<dl className="flex mt-[1.5625rem] font-semibold">
-							<dt className="mr-[0.9375rem] whitespace-nowrap font-semibold">
-								크리에이터
-							</dt>
+							<dt className={S.titleInfo}>크리에이터</dt>
 							<dd className={S.truncate}>{state.creator}</dd>
 						</dl>
 						<dl className="flex font-semibold">
-							<dt className="whitespace-nowrap mr-[0.9375rem]">출연</dt>
+							<dt className={S.titleInfo}>출연</dt>
 							<p className={`${S.actor} ${S.truncate}`}>{state.actor}</p>
 						</dl>
 
@@ -399,7 +448,7 @@ function Contents() {
 			<div>
 				<section className={S.section}>
 					<hr className="border-gray400" />
-					<div className="flex justify-between mt-[1.9375rem] mb-[1.125rem]">
+					<div className={S.sectionDiv}>
 						<button className={S.sectionTitle} type="submit">
 							{state.title}
 							<div>
@@ -412,7 +461,7 @@ function Contents() {
 								))}
 							</div>
 						</button>
-						<div className="pr-[1rem] flex justify-end font-semibold">
+						<div className={S.sortBtn}>
 							<button
 								className={`${isSorted ? `${S.asc}` : `${S.desc}`}`}
 								type="submit"
@@ -450,9 +499,9 @@ function Contents() {
 							</div>
 						</div>
 					</div>
-					<div className=" w-full font-normal">
+					<div className=" w-full font-semibold">
 						<Swiper
-							className="px-[3rem] detailSwiper swiperpagination-progressbar"
+							className="px-[3rem] detailSwiper"
 							key={sortKey}
 							spaceBetween={10}
 							modules={[Pagination, Navigation]}
@@ -480,9 +529,7 @@ function Contents() {
 											alt={`Episode Thumbnail ${index}`}
 										></img>
 										<figcaption className=" pt-[0.5625rem]">
-											<h4 className="text-gray100 text-base font-semibold">
-												{episode.title}
-											</h4>
+											<h4 className="text-white text-lg">{episode.title}</h4>
 											<p>{episode.info}</p>
 										</figcaption>
 									</figure>
@@ -511,7 +558,7 @@ function Contents() {
 				</section>
 				<section className={S.section}>
 					<span className={S.sectionTitle}>비슷한 TV 프로그램</span>
-					<div className="flex justify-between w-full font-normal ">
+					<div className={S.programFont}>
 						<Swiper
 							className="detailSwiper detailPagenation px-[3rem]  overflow-y-visible   "
 							key={sortKey}
@@ -545,7 +592,7 @@ function Contents() {
 											src={similar.thumbUrl}
 											alt={`Episode Thumbnail ${index}`}
 										></img>
-										<figcaption className="font-semibold pt-[0.5625rem]">
+										<figcaption className=" pt-[0.5625rem]">
 											<h4>{similar.info}</h4>
 										</figcaption>
 									</figure>
@@ -574,16 +621,8 @@ function Contents() {
 				</section>
 				<section className={S.reviewSection}>
 					<span className={`mb-[0.9375rem]  ${S.sectionTitle}`}>Review</span>
-
-					<span className="text-5xl pl-[3rem] ">
-						4.7
-						<span className="text-base ">평균 평점 &#40;51234개 &#41;</span>
-					</span>
-					<div className="flex flex-row pl-[3rem] justify-between">
-						<form
-							onSubmit={handleReviewSubmit}
-							className=" flex justify-between mt-[0.625rem] w-[92%]"
-						>
+					<div className={S.reviewBox}>
+						<form onSubmit={handleReviewSubmit} className={S.reviewForm}>
 							{[...Array(5)].map((star, i) => {
 								const ratingValue = i + 1;
 								return (
@@ -603,6 +642,7 @@ function Contents() {
 							<input
 								className={S.reviewInput}
 								value={reviewText}
+								ref={formref}
 								onChange={handleReviewChange}
 							></input>
 							<button className={S.reviewButton} type="submit">
@@ -611,46 +651,20 @@ function Contents() {
 						</form>
 					</div>
 					<div>
-						<ul className="w-[50%]">
-							{reviews.map((review, index) => (
-								<li className="pl-[3rem]" key={index}>
-									<span>{`${"⭐".repeat(review.stars)}`}</span>
-									{index === editingReviewIndex ? (
-										<div>
-											<input
-												className={S.editInput}
-												value={editedComment}
-												onChange={handleReviewChange}
-											/>
-											<button
-												className="ml-[0.3125rem]  mr-[0.3125rem] "
-												onClick={handleReviewSubmit}
-											>
-												수정완료
-											</button>
-											<button onClick={() => setEditingReviewIndex(null)}>
-												취소
-											</button>
-										</div>
-									) : (
-										<>
-											{review.text}
-											<button
-												className={S.editBtn}
-												onClick={() => handleEditClick(index)}
-											>
-												수정
-											</button>
-											<button
-												className={S.editBtn}
-												onClick={() => handleDeleteClick(index)}
-											>
-												삭제
-											</button>
-										</>
-									)}
-								</li>
-							))}
+						<ul className="">
+							{comment?.map((item) => {
+								console.log(item);
+								return (
+									<ReviewItem
+										key={item.id}
+										star={item.star}
+										writer={item.expand.writer.username}
+										comment={item.contents}
+										commentId={item.id}
+										onCommentChange={setComment}
+									/>
+								);
+							})}
 						</ul>
 					</div>
 				</section>
