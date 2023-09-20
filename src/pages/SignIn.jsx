@@ -6,70 +6,52 @@ import hidePasswordIcon from "/assets/hide-password.svg";
 import pb from "@/api/pocketbase";
 import unAutoLogin from "/assets/unactive-check.svg";
 import AutoLogin from "/assets/red-check.svg";
-import authStore from "@/store/authStore";
-import { useEffect } from "react";
-import useStorage from "@/hooks/useStorage";
 
 function SignIn() {
-	const { authState, signIn } = authStore();
 	const navigate = useNavigate();
-
+	//@ 자동로그인 부분 -> 이미지 상태관리 수정필요
 	const checkIcon = "/assets/unactive-check.svg";
 	const [imageSrc, setImageSrc] = useState(false);
 	const [isLoginClicked, setIsLoginClicked] = useState(false);
 
+	//* 비밀번호 보이게 하기
 	const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 	const [showPassword, setShowPassword] = useState(true);
 
 	const autoLogin = "/assets/red-check.svg";
 	const unAutoLoin = "/assets/unactive-check.svg";
 
-	useEffect(() => {
-		console.log(authState);
-	}, [authState]);
-
 	const handleSignIn = async (e) => {
 		e.preventDefault();
 
 		const { id, password } = formState;
 
-		try {
-			const response = await signIn(id, password);
-			console.log(response);
-			if (response) {
-				// 인증에 성공한 경우
-
-				const { token, record } = response;
-
-				// localStorage에 업데이트된 데이터를 저장합니다.
-				const updatedStorageData = {
-					isAuth: true,
-					user: record,
-					token: token,
-				};
-				localStorage.setItem(
-					"pocketbase_auth",
-					JSON.stringify(updatedStorageData)
-				);
-				console.log(updatedStorageData);
-				// Zustand 상태를 업데이트합니다.
-				authStore.setState({ authState: updatedStorageData });
-				// Authentication successful
-				navigate("/");
-				console.log("Authentication successful.");
-			} else {
-				// Authentication failed
-				console.log("Authentication failed.");
-			}
-		} catch (error) {
-			console.error("Error during authentication:", error);
-		}
+		await pb.collection("users").authWithPassword(id, password);
+		navigate("/");
+		console.log("pb.authStore.id=", pb.authStore.model.id);
+		console.log("pb.authStore.email=", pb.authStore.model.email);
+		console.log("pb.authStore.password=", pb.authStore.model.password);
+		console.log("pb.auStore.token=", pb.authStore.token);
+		console.log("pb.auStore.userID(username)=", pb.authStore.model.username);
 	};
 
 	const authData = async (e) => {
 		await pb
 			.collection("users")
 			.authWithPassword("Your_USERNAME_OR_EMAIL", "YOUR_PASSWORD");
+	};
+	// console.log("pb.authStore=",pb.authStore);
+	// console.log("pb.authStore=",pb.authStore);
+
+	const setCheckIcon = (isClicked) => {
+		// const unAutoLogin = "/assets/unactive-check.svg";
+		// const AutoLogin = "/assets/red-check.svg";
+		const checkIcon = "/assets/unactive-check.svg";
+		if (isLoginClicked) {
+			setIsLoginClicked(false);
+		} else {
+			setIsLoginClicked(true);
+		}
 	};
 
 	//@아이디 비밀번호 유효성 검사용 정규표현식
@@ -87,6 +69,10 @@ function SignIn() {
 		id: false,
 		password: false,
 	});
+
+	const isFormValid = () => {
+		return Object.values(validationErrors).every((error) => error === false);
+	};
 
 	//@비밀번호 보이기/숨기기
 	const togglePasswordHidden = () => {
@@ -148,14 +134,10 @@ function SignIn() {
 			<Helmet>
 				<title>Sign In - Taing</title>
 			</Helmet>
-			<Link to="/">
-				<img
-					src="/assets/logo.svg"
-					alt="Taing logo"
-					className="w-[110px] pt=[10px]"
-				/>
-			</Link>
-
+				<Link to="/">
+					<img src="/assets/logo.svg" alt="Taing logo" className="w-[110px] pt=[10px]" />
+				</Link>
+		
 			<div className="contentWrapper w-full">
 				<div className="bg-black min-h-screen flex items-center justify-center">
 					<div className="pt-10 pb-16 text-white login-title container w-1/3 mx-auto">
@@ -164,6 +146,22 @@ function SignIn() {
 							TVING ID 로그인
 						</div>
 						<form onSubmit={handleSignIn} className="flex flex-col gap-2">
+							{/*<form
+            type="id"
+            label="아이디"
+            name="userID"
+            //  defaultvalue={formState.id}
+            onChange={handleInput}
+            />
+            <form
+            type="password"
+            label="비밀번호"
+            name="password"
+            //  defaultValue={formState.password}
+            onChange={handleInput}
+            />
+           */}
+
 							<input
 								type="text"
 								label="아이디"

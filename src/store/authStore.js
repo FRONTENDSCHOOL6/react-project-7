@@ -1,95 +1,43 @@
-import { create } from "zustand";
+import create from "zustand";
+import { useEffect } from "react";
 import pb from "@/api/pocketbase";
 
+//@ 초기 인증 상태
 const initialAuthState = {
 	isAuth: false,
 	user: null,
 	token: "",
 };
 
+//@ Zustand 스토어 생성
 const useAuthStore = create((set) => ({
 	authState: initialAuthState,
-
-	signIn: async (id, password) => {
-		try {
-			const response = await pb
-				.collection("users")
-				.authWithPassword(id, password);
-			const isAuth = !!response;
-			console.log(response);
-			console.log(isAuth);
-			// Zustand 상태를 업데이트합니다.
-			set({
-				authState: {
-					isAuth: isAuth,
-					user: isAuth ? response.record : null,
-					token: isAuth ? response.token : "",
-				},
-			});
-
-			// 여기에서 로컬 스토리지를 업데이트하는 코드를 추가할 수 있습니다.
-			// 예를 들어, localStorage.setItem을 사용하여 업데이트합니다.
-
-			// 응답이 성공적으로 왔을 때 반환합니다.
-			return response;
-		} catch (error) {
-			console.error("Error during authentication:", error);
-			const authData = {
-				isAuth: false,
-				user: null,
-				token: "",
-			};
-
-			// Zustand 상태를 업데이트합니다.
-			set({
-				authState: authData,
-			});
-
-			// 여기에서 로컬 스토리지를 업데이트하는 코드를 추가할 수 있습니다.
-
-			// 응답이 실패한 경우 반환합니다.
-			return { isAuth: false, user: null, token: "" };
-		}
+	setAuthState: (state) => set({ authState: state }),
+	signUp: async (registerUser) => {
+		return await pb.collection("users").create(registerUser);
 	},
-
-	signOut: async () => {
-		const authData = {
-			isAuth: false,
-			user: null,
-			token: "",
-		};
-
-		// Zustand 상태를 업데이트합니다.
+	signIn: async (usernameOrEmail, password) => {
+		const response = await pb
+			.collection("users")
+			.authWithPassword(usernameOrEmail, password);
 		set({
-			authState: authData,
+			authState: { isAuth: true, user: response.user, token: response.token },
 		});
-
-		// 여기에서 로컬 스토리지를 업데이트하는 코드를 추가할 수 있습니다.
-
-		// AuthStore에서도 clear를 호출합니다.
+		return response;
+	},
+	signOut: async () => {
+		set({ authState: initialAuthState });
 		return await pb.authStore.clear();
 	},
-
 	cancelMembership: async (recordId) => {
-		const authData = {
-			isAuth: false,
-			user: null,
-			token: "",
-		};
-
-		// Zustand 상태를 업데이트합니다.
-		set({
-			authState: authData,
-		});
-
-		// 여기에서 로컬 스토리지를 업데이트하는 코드를 추가할 수 있습니다.
-
-		// 해당 사용자 레코드를 삭제합니다.
+		set({ authState: initialAuthState });
 		return await pb.collection("users").delete(recordId);
 	},
 }));
 
 export default useAuthStore;
+
+import useStorage from "./useStorage"; // useStorage 훅을 가져옴
 
 //? SignIn 페이지 - Zustand Version
 

@@ -63,7 +63,7 @@ export function MainList({ classTitle, listTitle, genre, genreId }) {
 							pagination={{ clickable: true }}
 							modules={[Navigation, Pagination]}
 							tabIndex={0}
-							className="overflow-y-visible mb-10 px-10"
+							className="overflow-y-visible mb-[4%] px-10"
 						>
 							{contentCategory.data
 								.filter((movie) => movie.genre === genreId)
@@ -71,6 +71,7 @@ export function MainList({ classTitle, listTitle, genre, genreId }) {
 									<SwiperSlide key={item.id} className={S.listContent}>
 										<Link to={`contents/${item.id}`}>
 											<img
+												className="w-full"
 												src={getPbImageURL(item, "poster")}
 												alt={item.title}
 											/>
