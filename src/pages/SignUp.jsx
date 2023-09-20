@@ -10,7 +10,7 @@ import redCheck from "/assets/small-red-check.svg";
 import grayCheck from "/assets/small-gray-check.svg";
 import popUp from "/assets/popup-menu.svg";
 import clearButton from "/assets/clear-all.svg";
-import { LocalAuthStore } from "pocketbase";
+//import { LocalAuthStore } from "pocketbase";
 
 function SignUp() {
 	const navigate = useNavigate();
@@ -21,7 +21,6 @@ function SignUp() {
 	const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$/; // 8~15글자 영문+숫자
 
 	console.log(pb);
-
 
 	const [imageSrc, setImageSrc] = useState(false);
 	const [isAgreeClicked, setIsAgreeClicked] = useState(false);
@@ -93,12 +92,12 @@ function SignUp() {
 			.collection("users")
 			.create({ ...formState, emailVisibility: true });
 
-			console.log(pb.authStore);
-      console.log("pb.authStore.id=", pb.authStore.model.id);
-      console.log("pb.authStore.email=", pb.authStore.model.email);
-      console.log("pb.authStore.password=", pb.authStore.model.password);
-      console.log("pb.auStore.token=", pb.authStore.token);
-      console.log("pb.auStore.fovaoriteMovie=", pb.authStore.model.favoriteMovie);
+		console.log(pb.authStore);
+		console.log("pb.authStore.id=", pb.authStore.model.id);
+		console.log("pb.authStore.email=", pb.authStore.model.email);
+		console.log("pb.authStore.password=", pb.authStore.model.password);
+		console.log("pb.auStore.token=", pb.authStore.token);
+		console.log("pb.auStore.fovaoriteMovie=", pb.authStore.model.favoriteMovie);
 		navigate("/");
 	};
 
@@ -244,7 +243,7 @@ function SignUp() {
 									validationErrors.passwordConfirm
 										? "border-red-500"
 										: !validationErrors.passwordConfirm &&
-										formState.passwordConfirm !== ""
+										  formState.passwordConfirm !== ""
 										? "border-green-600"
 										: "border-slate-400"
 								}
