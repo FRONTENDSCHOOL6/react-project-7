@@ -11,7 +11,7 @@
 }
 
 .joinContent {
-  @apply text-white text-[2.75rem] font-semibold leading-[65px] tracking-wide;
+  @apply text-white text-[2.75rem] font-semibold leading-[140%] tracking-wide;
 }
 
 .joinSubContent {
