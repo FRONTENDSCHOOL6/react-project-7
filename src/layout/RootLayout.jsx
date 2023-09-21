@@ -7,6 +7,7 @@ export default function RootLayout() {
 	const location = useLocation();
 	const simpleHeaderOn = [
 		"/signin",
+		"/signinlist",
 		"/onboarding",
 		"/signup",
 		"/findid",
