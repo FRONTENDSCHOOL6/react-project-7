@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import S from "./Home.module.css";
-import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import street from "/assets/streetwoman.webp";
 import uquiz from "/assets/dongwon-uquiz.webp";
 import lie from "/assets/lie.webp";
+import SwiperButton from "@/components/common/SwiperButton";
 
-//@ 메인 배너 컴포넌트
 export function MainBanner() {
 	const bannerContents = [
 		{
@@ -63,24 +62,8 @@ export function MainBanner() {
 						</SwiperSlide>
 					</div>
 				))}
-			<div
-				className="swiper-button-prev"
-				id="homePrevButton"
-				onKeyDown={(e) => {
-					if (e.key === "Enter") e.currentTarget.click();
-				}}
-				role="button"
-				tabIndex={0}
-			/>
-			<div
-				className="swiper-button-next"
-				id="homeNextButton"
-				onKeyDown={(e) => {
-					if (e.key === "Enter") e.currentTarget.click();
-				}}
-				role="button"
-				tabIndex={0}
-			/>
+			<SwiperButton className="swiper-button-next" id="homePrevButton" />
+			<SwiperButton className="swiper-button-prev" id="homeNextButton" />
 		</Swiper>
 	);
 }
