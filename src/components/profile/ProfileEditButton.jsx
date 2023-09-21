@@ -7,7 +7,7 @@ function ProfileEditButton() {
 	return (
 		<button
 			type="button"
-			className={S.ProfileEditButton}
+			className={S.profileEditButton}
 			onClick={() => navigate(`/editprofiles/${storageData?.model?.id}`)}
 		>
 			프로필 편집
