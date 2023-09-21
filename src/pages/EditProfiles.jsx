@@ -14,7 +14,7 @@ function EditProfiles() {
 	const [isLoading, setIsLoading] = useState(true);
 	const [profileData, setProfileData] = useState(null);
 	const handleProfileClick = (profile) => {
-		navigate(`/editprofile/${authState?.user?.id}/${profile.id}`);
+		navigate(`/editprofile/${authState?.model?.id}/${profile.id}`);
 	};
 	useEffect(() => {
 		const fetchProfiles = async () => {
@@ -22,7 +22,7 @@ function EditProfiles() {
 				setIsLoading(true);
 				const data = await pb
 					.collection("users")
-					.getOne(storageData.user.id, { expand: "profiles" });
+					.getOne(storageData.model.id, { expand: "profiles" });
 				setProfileData(data);
 			} catch (error) {
 				console.log(error);
@@ -30,8 +30,8 @@ function EditProfiles() {
 				setIsLoading(false);
 			}
 		};
-		fetchProfiles(storageData.user.id);
-	}, [storageData.user.id]);
+		fetchProfiles(storageData.model.id);
+	}, [storageData.model.id]);
 	return (
 		<section className="bg-black w-screen h-screen flex items-center justify-center text-white my-auto relative pt-[2rem] lg:pt-[1.5rem] md:pt-[1rem]">
 			<div className="flex flex-col justify-center items-center min-h-full gap-6">

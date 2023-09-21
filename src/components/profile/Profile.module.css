@@ -9,7 +9,7 @@
 
 .mainTitle {
   @apply box-border mt-2 px-8 py-0;
-  @apply text-neutral-400 text-lg break-keep;
+  @apply text-neutral-400 text-xl break-keep;
 }
 
 .listWrapper {
@@ -18,4 +18,9 @@
 }
 .profileButton {
   @apply border-solid border-white border-4 block overflow-hidden transition-all duration-[0.3s] p-0 rounded-[3px] w-[13.87rem] h-[13.875rem] object-cover;
+}
+.profileEditButton {
+  @apply block w-2/5 box-border border bg-black  px-1 py-3 border-solid border-[#4e4e4e] rounded;
+  @apply text-neutral-400 text-lg text-center;
+  @apply hover:text-white hover:border-white hover:font-bold;
 }

@@ -1,17 +1,15 @@
-import { useState } from "react";
+import pb from "@/api/pocketbase";
+import { default as useAuthStore } from "@/store/useAuthStore";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import showPasswordIcon from "/assets/eye.svg";
 import hidePasswordIcon from "/assets/hide-password.svg";
-import pb from "@/api/pocketbase";
-import unAutoLogin from "/assets/unactive-check.svg";
 import AutoLogin from "/assets/red-check.svg";
-import authStore from "@/store/useAuthStore";
-import { useEffect } from "react";
-import useAuthStore from "@/store/useAuthStore";
+import unAutoLogin from "/assets/unactive-check.svg";
 
 function SignIn() {
-	const { authState, signIn } = authStore();
+	const { authState, signIn } = useAuthStore();
 	const navigate = useNavigate();
 
 	const [imageSrc, setImageSrc] = useState(false);
@@ -55,12 +53,12 @@ function SignIn() {
 				await useAuthStore.setState({ authState: updatedStorageData });
 				console.log(useAuthStore.getState().authState);
 				// Authentication successful
-				console.log(authState);
-				await localStorage.setItem(
-					"pocketbase_auth",
-					JSON.stringify(updatedStorageData)
-				);
-				navigate(`/profile/${updatedStorageData.user.id}`);
+				console.log(updatedStorageData);
+				//await localStorage.setItem(
+				//	"pocketbase_auth",
+				//	JSON.stringify(updatedStorageData)
+				//);
+				navigate(`/profile/${updatedStorageData?.user?.id}`);
 				console.log("Authentication successful.");
 			} else {
 				// Authentication failed

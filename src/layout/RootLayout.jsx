@@ -15,12 +15,17 @@ export default function RootLayout() {
 		"/editprofiles",
 		"/editprofile",
 		"/profile",
+		"/signinlist",
+		"/suceessfindid",
+		"/failedfindid",
 	];
 	useLocation;
+	const pathSegments = location.pathname.split("/");
+	const currentPath = pathSegments[1];
 
 	return (
 		<>
-			{!simpleHeaderOn.includes(location.pathname) ? (
+			{!simpleHeaderOn.includes("/" + currentPath) ? (
 				<Header />
 			) : (
 				<SimpleHeader />

@@ -1,6 +1,6 @@
 import { getPbImageURL } from "@/utils/getPbImageURL";
 import { func, shape, string } from "prop-types";
-import S from "../../pages/EditProfiles.module.css";
+import S from "./EditProfiles.module.css";
 import DefaultProfile from "/assets/default-profile.png";
 
 export default function ProfileItem({ profile, onClick }) {
@@ -8,7 +8,9 @@ export default function ProfileItem({ profile, onClick }) {
 		<li className="flex flex-col justify-center items-center w-full">
 			<button type="button" className={`${S.editButton}`} onClick={onClick}>
 				<img
-					src={getPbImageURL(profile, "poster") || DefaultProfile}
+					src={
+						profile.poster ? getPbImageURL(profile, "poster") : DefaultProfile
+					}
 					alt={`유저 ${profile.username}의 프로필 이미지`}
 					className="w-full h-full object-cover opacity-50"
 				/>
