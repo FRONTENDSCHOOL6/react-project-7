@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import S from "./Header.module.css";
-import logo from "/assets/logo.svg";
-import searchIcon from "/assets/search.png";
-import profileIcon from "/assets/profile.png";
 import xIcon from "/assets/headerX.svg";
+import logo from "/assets/logo.svg";
+import profileIcon from "/assets/profile.png";
+import searchIcon from "/assets/search.png";
 
-import authStore from "@/store/useAuthStore";
 import useStorage from "@/hooks/useStorage";
-import { getPbImageURL } from "@/utils/getPbImageURL";
+import authStore from "@/store/useAuthStore";
 import useProfileStore from "@/store/useProfileStore";
+import { getPbImageURL } from "@/utils/getPbImageURL";
 
 function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
@@ -64,7 +64,7 @@ function Header() {
 		};
 	}, []);
 
-	let profileUsername = profileData?.username || selectedProfile.username;
+	let profileUsername = profileData?.username || selectedProfile?.username;
 
 	useEffect(() => {
 		// 비동기 함수를 이용하여 프로필 이미지 가져오기
