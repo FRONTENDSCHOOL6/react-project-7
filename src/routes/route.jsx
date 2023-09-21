@@ -89,7 +89,14 @@ const router = createHashRouter(
 				}
 			/>
 			<Route path="/onboarding" element={<OnBoarding />} />
-			<Route path="/profile/:id" element={<Profile />} />
+			<Route
+				path="/profile/:id"
+				element={
+					<ProtectRoute>
+						<Profile />
+					</ProtectRoute>
+				}
+			/>
 			<Route
 				path="/editprofiles/:id"
 				element={
