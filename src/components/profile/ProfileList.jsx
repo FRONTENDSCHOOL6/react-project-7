@@ -2,6 +2,7 @@ import { arrayOf, func, shape, string } from "prop-types";
 import ProfileItem from "./ProfileItem";
 
 function ProfileList({ profiles, onSelect }) {
+	console.log(profiles);
 	return (
 		<ul className="flex items-center justify-center gap-7 w-2/3">
 			{profiles?.map((profile) => (

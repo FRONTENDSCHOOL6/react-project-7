@@ -14,7 +14,7 @@ function Profile() {
 	const { storageData } = useStorage("pocketbase_auth");
 	const [isLoading, setIsLoading] = useState(true); // 초기에는 로딩 중으로 설정합니다.
 	const [profilesData, setProfilesData] = useState(null);
-
+	console.log(storageData);
 	const handleProfileSelect = (profile) => () => {
 		localStorage.setItem("selectedProfile", JSON.stringify(profile));
 		setProfileData(profile);
@@ -26,8 +26,8 @@ function Profile() {
 			try {
 				const data = await pb
 					.collection("users")
-					.getOne(storageData.user.id, { expand: "profiles" });
-
+					.getOne(storageData?.model?.id, { expand: "profiles" });
+				console.log(data);
 				setProfilesData(data);
 			} catch (error) {
 				console.error(error);
@@ -37,15 +37,14 @@ function Profile() {
 		};
 
 		// authState가 없거나 초기값인 경우에는 데이터 로딩을 기다립니다.
-		if (!storageData || !storageData.user) {
+		if (!storageData || !storageData?.model) {
 			setIsLoading(false); // authState가 없으면 로딩 상태를 바로 false로 설정합니다.
 			return;
 		}
-
-		fetchProfiles(storageData.user.id);
+		fetchProfiles(storageData?.model?.id);
 	}, [storageData]);
 
-	if (!storageData || !storageData.user) {
+	if (!storageData || !storageData?.model) {
 		return <Spinner />;
 	}
 
