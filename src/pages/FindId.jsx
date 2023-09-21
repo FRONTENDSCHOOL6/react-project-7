@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import pb from "@/api/pocketbase";
 import idStore from "../store/idStore";
 import S from "./FindId.module.css";
+import InputForm from "./../components/findid/inputForm"
 
 function FindId() {
 	const navigate = useNavigate();
@@ -149,7 +150,7 @@ function FindId() {
 						</div>
 					</div>
 					<form onSubmit={handleInput}>
-						<input
+						{/* <input
 							type="email"
 							label="이메일"
 							name="email"
@@ -157,6 +158,15 @@ function FindId() {
 								validationErrors.email ? `${S.formBorder}` : ""
 							}`}
 							placeholder="이메일"
+							onChange={handleInput}
+						/> */}
+						<InputForm
+							type="eamil"
+							name="email"
+							label="이메일"
+							placeholder="이메일"
+							className={` ${S.input} ${validationErrors.email ? `${S.formBorder}` : ""}
+						}`}
 							onChange={handleInput}
 						/>
 						{/* 이메일 유효성 에러 메시지 표시 */}
