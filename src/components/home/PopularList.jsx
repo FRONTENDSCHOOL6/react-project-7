@@ -6,6 +6,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import S from "./Home.module.css";
 import Spinner from "@/components/common/Spinner";
+import { string } from "prop-types";
 
 function PopularList({ heading, category }) {
 	const { contents, status } = useContentsStore();
@@ -76,5 +77,10 @@ function PopularList({ heading, category }) {
 		</>
 	);
 }
+
+PopularList.propTypes = {
+	heading: string.isRequired,
+	category: string.isRequired,
+};
 
 export default PopularList;

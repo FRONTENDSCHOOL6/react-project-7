@@ -4,12 +4,12 @@ import { getPbImageURL } from "@/utils/getPbImageURL";
 import S from "./Home.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import PropTypes from "prop-types";
+import { string } from "prop-types";
 import SwiperButton from "@/components/common/SwiperButton";
 import useContentsStore from "@/store/useContentsStore";
 import Spinner from "@/components/common/Spinner";
 
-export default function MainList({ classTitle, listTitle, genre, genreId }) {
+function MainList({ classTitle, listTitle, genre, genreId }) {
 	const { contents, status } = useContentsStore();
 
 	if (status === "loading") {
@@ -79,8 +79,10 @@ export default function MainList({ classTitle, listTitle, genre, genreId }) {
 }
 
 MainList.propTypes = {
-	classTitle: PropTypes.string.isRequired,
-	listTitle: PropTypes.string.isRequired,
-	genre: PropTypes.string.isRequired,
-	genreId: PropTypes.string.isRequired,
+	classTitle: string.isRequired,
+	listTitle: string.isRequired,
+	genre: string.isRequired,
+	genreId: string.isRequired,
 };
+
+export default MainList;

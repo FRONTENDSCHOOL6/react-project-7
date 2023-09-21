@@ -7,7 +7,7 @@ import uquiz from "/assets/dongwon-uquiz.webp";
 import lie from "/assets/lie.webp";
 import SwiperButton from "@/components/common/SwiperButton";
 
-export function MainBanner() {
+function MainBanner() {
 	const bannerContents = [
 		{
 			id: "q1pqyij1cmjidxh",
@@ -67,3 +67,5 @@ export function MainBanner() {
 		</Swiper>
 	);
 }
+
+export default MainBanner;
