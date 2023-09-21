@@ -1,11 +1,4 @@
 import { Helmet } from "react-helmet-async";
-import S from "@/components/home/Home.module.css";
-import pb from "@/api/pocketbase";
-import { getPbImageURL } from "@/utils/getPbImageURL";
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
