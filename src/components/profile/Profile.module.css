@@ -1,0 +1,21 @@
+.pageWrapper {
+  @apply bg-black w-screen h-screen flex items-center justify-center  my-auto relative pt-[2rem];
+  @apply text-white;
+  @apply lg:pt-[1.5rem] md:pt-[1rem];
+}
+.contentsWrapper {
+  @apply flex flex-col justify-center items-center min-h-full gap-12;
+}
+
+.mainTitle {
+  @apply box-border mt-2 px-8 py-0;
+  @apply text-neutral-400 text-lg break-keep;
+}
+
+.listWrapper {
+  @apply flex flex-col justify-center items-center w-full  h-full object-cover;
+  @apply hover:-translate-y-3 duration-200 transition-all;
+}
+.profileButton {
+  @apply border-solid border-white border-4 block overflow-hidden transition-all duration-[0.3s] p-0 rounded-[3px] w-[13.87rem] h-[13.875rem] object-cover;
+}
