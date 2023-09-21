@@ -14,6 +14,7 @@ html {
     "Noto Color Emoji";
   font-feature-settings: normal;
   font-variation-settings: normal;
+  font-size: calc(6px + 0.5vw);
 }
 
 /* 랜딩페이지 무한루프 스와이퍼 */
@@ -23,37 +24,28 @@ html {
 }
 
 /* detail 스와이퍼 css */
-.detailSwiper .swiper-button-prev {
-  position: absolute;
-  background: center / contain no-repeat url(/assets/contents/left-swiper.svg);
-  top: 50%;
-  left: 2%;
-  transform: translateY(-50%);
+
+.detailSwiper .swiper-button-prev,
+.detailSwiper .swiper-button-next {
+  top: 0;
   height: 100%;
-  opacity: 0.5;
-  padding-right: 1%;
-  z-index: 4;
-  transition: all 0.3s;
   color: white;
+  opacity: 0.6;
+  z-index: 999;
 }
 
-.detailSwiper .swiper-button-prev:hover,
-.detailSwiper .swiper-button-next:hover {
+.detailSwiper:hover .swiper-button-prev,
+.detailSwiper:hover .swiper-button-next {
   opacity: 1;
 }
 
-.detailSwiper .swiper-button-next {
-  position: absolute;
-  background: center / contain no-repeat url(/assets/contents/right-swiper.svg);
-  top: 50%;
-  transform: translateY(-50%);
-  right: 0%;
-  height: 100%;
-  opacity: 0.5;
-  padding-right: 1%;
-  z-index: 4;
-  transition: all 0.3s;
-  color: white;
+.detailSwiper .swiper-button-prev {
+  transform: scaleX(-1);
+}
+
+.detailSwiper .swiper-button-prev:after,
+.detailSwiper .swiper-button-next:after {
+  content: url(/assets/main-next.svg);
 }
 
 .detailPagenation .swiper-pagination {
@@ -70,13 +62,16 @@ html {
   background-color: white;
 }
 
-.homeMain .swiper-slide::before {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, transparent 80%, black);
-  z-index: 1;
+.detailPagenation {
+  .swiper-pagination {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  &:hover {
+    .swiper-pagination {
+      opacity: 1;
+    }
+  }
 }
 
 /* 메인페이지 */
@@ -104,8 +99,14 @@ html {
 .categoryNav .swiper-button-next::after,
 .categoryNav .swiper-button-prev::after,
 .programNav .swiper-button-next::after,
-.programNav .swiper-button-prev::after {
+.programNav .swiper-button-prev::after,
+.categoryNav .swiper-button-next::after,
+.categoryNav .swiper-button-prev::after {
   content: url(/assets/main-next.svg);
+  background: url(/assets/main-next.svg);
+  display: flex;
+  justify-content: center;
+  left: 0;
 }
 
 .mainPage .swiper-pagination-bullet-active {

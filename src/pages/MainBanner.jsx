@@ -32,7 +32,7 @@ export function MainBanner() {
 
 	return (
 		<Swiper
-			className={"mySwiper homeMain ${S.homeGradient}"}
+			className={"mySwiper homeMain"}
 			loop="true"
 			navigation={{
 				nextEl: "#homeNextButton",
@@ -49,8 +49,8 @@ export function MainBanner() {
 			{bannerContents &&
 				bannerContents.map((item) => (
 					<div key={item.id}>
-						<SwiperSlide key={item.id}>
-							<img src={item.img} alt={item.title} />
+						<SwiperSlide className={S.homeGradient} key={item.id}>
+							<img className="w-full" src={item.img} alt={item.title} />
 							<span className={S.mainBannerDesc}>{item.desc}</span>
 							<Link
 								key={item.id}

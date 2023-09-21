@@ -6,15 +6,14 @@ import hidePasswordIcon from "/assets/hide-password.svg";
 import pb from "@/api/pocketbase";
 import unAutoLogin from "/assets/unactive-check.svg";
 import AutoLogin from "/assets/red-check.svg";
-import authStore from "@/store/authStore";
+import authStore from "@/store/useAuthStore";
 import { useEffect } from "react";
-import useStorage from "@/hooks/useStorage";
+import useAuthStore from "@/store/useAuthStore";
 
 function SignIn() {
 	const { authState, signIn } = authStore();
 	const navigate = useNavigate();
 
-	const checkIcon = "/assets/unactive-check.svg";
 	const [imageSrc, setImageSrc] = useState(false);
 	const [isLoginClicked, setIsLoginClicked] = useState(false);
 
@@ -38,24 +37,30 @@ function SignIn() {
 			console.log(response);
 			if (response) {
 				// 인증에 성공한 경우
-
+				console.log(response);
 				const { token, record } = response;
 
 				// localStorage에 업데이트된 데이터를 저장합니다.
 				const updatedStorageData = {
-					isAuth: true,
+					isAuth: !!record,
 					user: record,
 					token: token,
 				};
-				localStorage.setItem(
+				//localStorage.setItem(
+				//	"pocketbase_auth",
+				//	JSON.stringify(updatedStorageData)
+				//);
+				console.log(updatedStorageData);
+				// Zustand 상태를 업데이트합니다.
+				await useAuthStore.setState({ authState: updatedStorageData });
+				console.log(useAuthStore.getState().authState);
+				// Authentication successful
+				console.log(authState);
+				await localStorage.setItem(
 					"pocketbase_auth",
 					JSON.stringify(updatedStorageData)
 				);
-				console.log(updatedStorageData);
-				// Zustand 상태를 업데이트합니다.
-				authStore.setState({ authState: updatedStorageData });
-				// Authentication successful
-				navigate("/");
+				navigate(`/profile/${updatedStorageData.user.id}`);
 				console.log("Authentication successful.");
 			} else {
 				// Authentication failed
@@ -148,18 +153,9 @@ function SignIn() {
 			<Helmet>
 				<title>Sign In - Taing</title>
 			</Helmet>
-			<Link to="/">
-				<img
-					src="/assets/logo.svg"
-					alt="Taing logo"
-					className="w-[110px] pt=[10px]"
-				/>
-			</Link>
-
 			<div className="contentWrapper w-full">
 				<div className="bg-black min-h-screen flex items-center justify-center">
 					<div className="pt-10 pb-16 text-white login-title container w-1/3 mx-auto">
-						{/* <div className="pb-[60px] font-bold text-[35px] flex justify-center"> */}
 						<div className="pb-[60px] font-bold text-lg md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-center">
 							TVING ID 로그인
 						</div>
@@ -209,7 +205,7 @@ function SignIn() {
 								/>
 								자동로그인
 							</label>
-							{/* 로그인 */}
+							{/*//@ 로그인 */}
 							<button
 								type="submit"
 								className="h-14 bg-[#FF153C] font-bold dark:hover:bg-[#cc1030] text-white login-button w-full rounded-sm"

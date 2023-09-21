@@ -1,11 +1,8 @@
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import S from "./OnBoarding.module.css";
-import React, { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { useState } from "react";
 import "swiper/css";
-import { Autoplay } from "swiper/modules";
-import YouTube from "react-youtube";
-import { useRef } from "react";
 import { LoopSlide } from "./LoopSlide";
 import mainImg from "/assets/main.webp";
 import hotel from "/assets/hotel.webp";
@@ -16,12 +13,13 @@ import quickVod from "/assets/quick-vod.png";
 import devices from "/assets/devices.mp4";
 import arrowUp from "/assets/arrow-up.svg";
 import arrowDown from "/assets/arrow-down.svg";
+import tvingLogoBig from "/assets/no1-tving.svg";
 
 export default function OnBoarding() {
 	//@ 버튼 클릭 시 로그인 페이지로 이동
 	const navigate = useNavigate();
 	const navigateToLogin = () => {
-		navigate("/signin");
+		navigate("/signinlist");
 	};
 
 	//@ 자주찾는질문 accordion 함수와 변수
@@ -38,6 +36,21 @@ export default function OnBoarding() {
 
 	return (
 		<>
+			<Helmet>
+				<title>TAING</title>
+				<meta
+					name="description"
+					content="멋쟁이 사자처럼 6기 7조의 파이널 프로젝트 - 티빙 클론코딩 타잉 랜딩페이지"
+				/>
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="타잉 랜딩페이지" />
+				<meta property="og:description" content="프로젝트 타잉 랜딩페이지" />
+				<meta property="og:image" content="@/assets/metaImgOnBoarding.png" />
+				<meta
+					property="og:url"
+					content="http://localhost:5173/react-project-7/#/onboarding"
+				/>
+			</Helmet>
 			{/* 재미를 플레이해보세요 */}
 			<section
 				className={S.join}
@@ -101,230 +114,18 @@ export default function OnBoarding() {
 					</span>
 				</div>
 				<div className="w-full">
-					{/* //! 추후 swiper의 이미지들을 배열로 순환하여 랜더링될 수 있는 로직으로
-            수정 예정. */}
-					<Swiper
-						className="mySwiper swiperLoop mb-3"
-						slidesPerView={4.5}
-						spaceBetween={"1%"}
-						autoplay={{
-							delay: 0,
-							disableOnInteraction: true,
-						}}
-						loop={true}
-						modules={[Autoplay]}
-						speed={9000}
-						freeMode={true}
-					>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/busan.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/dance-singer.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/earth.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/fake.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/great2.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/king-the-land.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/busan.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/dance-singer.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/earth.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/fake.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/great2.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/king-the-land.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-					</Swiper>
-					<Swiper
-						className={`mySwiper swiperLoop mb-2`}
-						slidesPerView={4.5}
-						spaceBetween={"1%"}
-						autoplay={{
-							delay: 0,
-							disableOnInteraction: true,
-						}}
-						loop={true}
-						modules={[Autoplay]}
-						speed={6000}
-						freeMode={true}
-					>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/busan.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/dance-singer.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/earth.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/fake.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/great2.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/king-the-land.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/busan.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/dance-singer.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/earth.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/fake.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/great2.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src="/assets/onboarding/king-the-land.jpeg"
-								alt=""
-								className="rounded"
-							/>
-						</SwiperSlide>
-					</Swiper>
 					<LoopSlide />
 				</div>
 			</section>
 			{/* 유튜브 섹션 */}
 			<section className="bg-black w-full">
 				<div className={S.videoWrapper}>
-					{/* <YouTube
-                className="absolute top-1/2 left-1/2 -translate-x-1/2"
-                videoId="Lr8lSxMlp9Q"
-                opts={{
-                    width: "100%",
-                    height: "100%",
-                    playerVars: {
-                        autoplay: 0,
-                        rel: 0,
-                        modestbranding: 1, // 컨트롤 바에 youtube 로고를 표시하지 않음
-                    },
-                }}
-                //이벤트 리스너
-                onEnd={(e) => {
-                    e.target.stopVideo(0)
-                }}
-            /> */}
 					<iframe
+						title="replay video"
 						className={S.videoItem}
 						src={`https://www.youtube-nocookie.com/embed/Lr8lSxMlp9Q`}
+						style={{ border: "none" }}
+						allowFullScreen
 					/>
 				</div>
 			</section>
@@ -366,18 +167,16 @@ export default function OnBoarding() {
 				</div>
 			</section>
 			{/* 지금 시작해보세요 */}
-			<section className={S.no1}>
-				<div className={S.no1Wrapper}>
-					<img
-						className="inline-block w-[50%]"
-						src="/assets/onboarding/no1-tving.svg"
-						alt=""
-					/>
-					<p className={`${S.joinContent} px-20`}>지금 시작해보세요</p>
+			<section className={S.num}>
+				<div className={S.numWrapper}>
+					<img className="inline-block w-[50%]" src={tvingLogoBig} alt="" />
+					<p className={`${S.joinContent} px-20 max-sm:px-12`}>
+						지금 시작해보세요
+					</p>
 					<button
 						type="button"
 						onClick={navigateToLogin}
-						className={S.joinButton}
+						className={S.numButton}
 					>
 						지금 바로, 타잉을 플레이 하세요!
 					</button>

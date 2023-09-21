@@ -68,8 +68,14 @@ export function LoopSlide() {
 			img: busan,
 		},
 	];
-	const groupTopTwice = Array(2).fill(groupTop).flat();
-	const groupBottomTwice = Array(2).fill(groupBottom).flat();
+	const groupTopTwice = Array(2)
+		.fill(groupTop)
+		.flat()
+		.map((item, index) => ({ ...item, id: item.id + "_1_" + index }));
+	const groupBottomTwice = Array(2)
+		.fill(groupBottom)
+		.flat()
+		.map((item, index) => ({ ...item, id: item.id + "_2_" + index }));
 
 	return (
 		<>
@@ -85,6 +91,7 @@ export function LoopSlide() {
 				modules={[Autoplay]}
 				speed={9000}
 				freeMode={true}
+				preventInteractionOnTransition={true}
 			>
 				{groupTopTwice &&
 					groupTopTwice.map((item) => (
@@ -105,6 +112,7 @@ export function LoopSlide() {
 				modules={[Autoplay]}
 				speed={10000}
 				freeMode={true}
+				preventInteractionOnTransition={true}
 			>
 				{groupBottomTwice &&
 					groupBottomTwice.map((item) => (
