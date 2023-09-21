@@ -1,5 +1,3 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
 import { handleEnterKeyDown } from "@/utils/keyDown";
 
 function SwiperButton({ className, id, onKeyDown, role, tabIndex }) {

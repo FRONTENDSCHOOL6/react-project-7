@@ -2,35 +2,19 @@ import { Link } from "react-router-dom";
 import pb from "@/api/pocketbase";
 import { getPbImageURL } from "@/utils/getPbImageURL";
 import S from "./Home.module.css";
-import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import PropTypes from "prop-types";
+import SwiperButton from "@/components/common/SwiperButton";
+import useContentsStore from "@/store/useContentsStore";
+import Spinner from "@/components/common/Spinner";
 
-export function MainList({ classTitle, listTitle, genre, genreId }) {
-	const [contents, setContents] = useState([]);
-	const [status, setStatus] = useState("pending");
-	const [error, setError] = useState(null);
+export default function MainList({ classTitle, listTitle, genre, genreId }) {
+	const { contents, status } = useContentsStore();
 
-	useEffect(() => {
-		setStatus("loading");
-
-		Promise.all([
-			pb.collection("program").getFullList(),
-			pb.collection("movie").getFullList(),
-		])
-			.then(([programList, movieList]) => {
-				setContents([
-					{ title: "TV 프로그램", data: programList },
-					{ title: "영화", data: movieList },
-				]);
-				setStatus("success");
-			})
-			.catch((error) => {
-				setError(error);
-				setStatus("error");
-			});
-	}, []);
+	if (status === "loading") {
+		return <Spinner />;
+	}
 
 	return (
 		<section className={`${classTitle} mainSwiper`}>
@@ -79,24 +63,14 @@ export function MainList({ classTitle, listTitle, genre, genreId }) {
 										</Link>
 									</SwiperSlide>
 								))}
-							<div
-								className={`swiper-button-prev ${S.mainButtonPrev}`}
+							<SwiperButton
+								className="swiper-button-prev ${S.mainButtonPrev}"
 								id="mainPrevButton"
-								onKeyDown={(e) => {
-									if (e.key === "Enter") e.currentTarget.click();
-								}}
-								role="button"
-								tabIndex={0}
-							/>
-							<div
+							></SwiperButton>
+							<SwiperButton
 								className={`swiper-button-next ${S.mainButtonNext}`}
 								id="mainNextButton"
-								onKeyDown={(e) => {
-									if (e.key === "Enter") e.currentTarget.click();
-								}}
-								role="button"
-								tabIndex={0}
-							/>
+							></SwiperButton>
 						</Swiper>
 					)
 			)}
