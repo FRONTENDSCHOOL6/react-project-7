@@ -1,5 +1,6 @@
 import { getPbImageURL } from "@/utils/getPbImageURL";
-import S from "./../../pages/EditProfiles.module.css";
+import { bool, func, shape, string } from "prop-types";
+import S from "./EditProfile.module.css";
 import DefaultProfile from "/assets/default-profile.png";
 
 export default function EditProfileSection({
@@ -10,11 +11,8 @@ export default function EditProfileSection({
 	handleNameChange,
 }) {
 	return (
-		<div className="editPoster w-full flex flex-col items-center justify-center gap-12">
-			<button
-				type="button"
-				className={`${S.editButton} border-solid block w-2/6 h-2/6 overflow-hidden transition-all duration-[0.3s] p-0 rounded-[3px] hover:-translate-y-3 relative object-cover`}
-			>
+		<div className={S.editProfileSection}>
+			<button type="button" className={`${S.editButton} `}>
 				{isLoading ? (
 					<div>Loading...</div>
 				) : (
@@ -53,13 +51,27 @@ export default function EditProfileSection({
 						value={updatedUser.username}
 						onChange={handleNameChange}
 						maxLength="10"
-						className="w-full h-12 bg-[#191919] text-base leading-normal text-[#4d4d4d] pl-4 py-4 rounded-[3px] border-[solid] border-[#191919] focus:border-[#808080] focus:text-white"
+						className={S.editInput}
 					/>
 				</label>
-				<p className="text-xs text-neutral-400 my-2">
+				<p className="text-base text-neutral-400 my-2">
 					* 2자 이상 10자 이내의 한글, 영문, 숫자 입력 가능합니다.
 				</p>
 			</div>
 		</div>
 	);
 }
+EditProfileSection.propTypes = {
+	isLoading: bool,
+	updatedUser: shape({
+		username: string,
+		poster: string,
+		posterFile: string,
+	}),
+	profileData: shape({
+		username: string,
+		poster: string,
+	}),
+	handlePosterChange: func,
+	handleNameChange: func,
+};

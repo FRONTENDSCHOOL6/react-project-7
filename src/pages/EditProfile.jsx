@@ -118,7 +118,7 @@ function EditProfile() {
 				"이 페이지를 벗어나면 변경된 내용은 저장되지 않습니다. 그래도 진행하시겠습니까?"
 			)
 		) {
-			navigate(`/editprofiles/${authState?.user?.id}`);
+			navigate(`/editprofiles/${authState?.model?.id}`);
 		} else {
 			console.log("프로필 편집 취소");
 		}

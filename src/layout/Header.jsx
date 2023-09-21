@@ -72,10 +72,10 @@ function Header() {
 			try {
 				let imageUrl;
 
-				if (profileData) {
+				if (profileData && profileData.poster) {
 					// profileData가 있을 경우 profileData를 사용
 					imageUrl = await getPbImageURL(profileData, "poster");
-				} else if (selectedProfile) {
+				} else if (selectedProfile && selectedProfile.poster) {
 					// profileData가 없고 selectedProfile이 있을 경우 selectedProfile을 사용
 					imageUrl = await getPbImageURL(selectedProfile, "poster");
 				} else {
@@ -147,7 +147,7 @@ function Header() {
 						src={profileImg ? profileImg : profileIcon}
 						alt="프로필"
 						className={S.profileImg}
-						onClick={() => navigate(`/profile/${storageData.user.id}`)}
+						onClick={() => navigate(`/profile/${storageData?.model?.id}`)}
 					/>
 				</li>
 			</ul>
@@ -159,12 +159,12 @@ function Header() {
 			>
 				<div className="flex flex-col px-5">
 					<div className="flex gap-3 items-center">
-						<div className="w-11 h-11 object-cover">
+						<div className="w-10 h-10 object-cover">
 							<img
 								src={profileImg ? profileImg : profileIcon}
 								alt="프로필"
 								className={`${S.profileImg} `}
-								onClick={() => navigate(`/profile/${storageData.user.id}`)}
+								onClick={() => navigate(`/profile/${storageData?.model?.id}`)}
 							/>
 						</div>
 						<div className="flex flex-col">
@@ -175,7 +175,7 @@ function Header() {
 							<button
 								type="button"
 								className="pt-1 text-sm text-left"
-								onClick={() => navigate(`/profile/${storageData.user.id}`)}
+								onClick={() => navigate(`/profile/${storageData?.model?.id}`)}
 							>
 								<span className="text-sm text-[#a3a3a3] hover:text-white">
 									프로필 전환 &gt;
@@ -213,6 +213,7 @@ function Header() {
 								onClick={async () => {
 									await signOut();
 									localStorage.removeItem("pocketbase_auth");
+									localStorage.removeItem("selectedProfile");
 									setShowLogoutPopup(false);
 									navigate("/onboarding");
 								}}
