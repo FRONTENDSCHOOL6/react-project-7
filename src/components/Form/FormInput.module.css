@@ -1,0 +1,14 @@
+.Wrapper{
+    @apply flex flex-col gap-2 w-full;
+}
+
+/* .label{
+    @apply dark:text-zinc-500 dark:hover:text-zinc-300;
+} */
+
+.input{
+    @apply bg-gray800 border h-16 border-none py-1.5 px-4 w-full rounded-sm;
+    @apply text-white font-semibold text-base placeholder-slate-600;
+
+}
+
