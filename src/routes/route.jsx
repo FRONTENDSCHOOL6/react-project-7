@@ -23,7 +23,7 @@ const Membership = lazy(() => import("./../pages/Membership"));
 const OnBoarding = lazy(() => import("./../pages/OnBoarding"));
 const Profile = lazy(() => import("./../pages/Profile"));
 const Program = lazy(() => import("./../pages/Program"));
-const Movie = lazy(() => import("./../pages/Movie"));
+const Movie = lazy(() => import("../pages/Movie"));
 //const Search = lazy(() => import("./../pages/Search"))
 import Search from "./../pages/Search";
 import { Navigate } from "react-router-dom";

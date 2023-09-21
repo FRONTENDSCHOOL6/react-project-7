@@ -8,7 +8,7 @@ import pb from "@/api/pocketbase";
 function Profile() {
 	const navigate = useNavigate();
 	const { authState } = useAuthStore();
-	const { profileData, setProfileData } = useProfileStore();
+	const { setProfileData } = useProfileStore();
 	const [isLoading, setIsLoading] = useState(true); // 초기에는 로딩 중으로 설정합니다.
 	const [profilesData, setProfilesData] = useState(null);
 
