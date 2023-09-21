@@ -9,7 +9,12 @@ const Home = lazy(() => import("./../pages/Home"));
 const SignIn = lazy(() => import("./../pages/SignIn"));
 const SignInList = lazy(() => import("./../pages/SignInList"));
 const SignUp = lazy(() => import("./../pages/SignUp"));
-const FindId = lazy(() => import("../pages/FindId"));
+// const FindId = lazy(() => import("../pages/FindId"));
+import FindId from "./../pages/FindId";
+import SuccessFindId from "./../pages/SuccessFindId";
+import FailedFindId from "./../pages/FailedFindId";
+// const SuccessFindId = lazy(() => import("../pages/SuccessFindId"));
+// const FailedFindId = lazy(() => import("../pages/FailedFindId"));
 const FindPassword = lazy(() => import("../pages/FindPassword"));
 const Contents = lazy(() => import("../pages/Contents"));
 const Favorite = lazy(() => import("./../pages/Favorite"));
@@ -41,6 +46,8 @@ const router = createHashRouter(
 			<Route path="/signinlist" element={<SignInList />} />
 			<Route path="/signup" element={<SignUp />} />
 			<Route path="/findid" element={<FindId />} />
+			<Route path="/successfindid" element={<SuccessFindId />} />
+			<Route path="/failedfindid" element={<FailedFindId />} />
 			<Route path="/findpw" element={<FindPassword />} />
 			<Route
 				path="/contents/:id"
