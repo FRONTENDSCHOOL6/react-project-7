@@ -11,11 +11,11 @@
 }
 
 .home {
-  @apply max-sm:hidden
+  @apply max-sm:hidden;
 }
 
 .profile {
-  @apply flex flex-row gap-10 ml-auto;
+  @apply flex flex-row justify-end gap-10 ml-auto;
   @apply max-md:gap-x-4;
 }
 
