@@ -1,4 +1,3 @@
-//! 실험 중인 코드
 import React, { useRef, useEffect, useState } from "react";
 import pb from "@/api/pocketbase";
 import { getPbImageURL } from "@/utils/getPbImageURL";
