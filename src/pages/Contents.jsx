@@ -12,6 +12,7 @@ import DetailArticle from "../components/detail/DetailData";
 import ReviewSection from "../components/detail/Review";
 
 function Contents() {
+	//@ 변수 초기화
 	const [state, setState] = useState({
 		showFullDescription: false,
 		title: "",
@@ -42,6 +43,7 @@ function Contents() {
 		twelve: "12세",
 		fifteen: "15세",
 		seven: "7세",
+		nineteen: "19세",
 	};
 
 	const versionText = {
@@ -49,11 +51,12 @@ function Contents() {
 		subtitle: "자막판",
 	};
 
+	//@ ID 값
 	const { id } = useParams();
 	const [comment, setComment] = useState([]);
 	const [contentType, setContentType] = useState("");
 
-	//@ 포켓베이스 데이터 가져오기
+	//@ 포켓베이스 데이터
 	useEffect(() => {
 		const handleData = async (type) => {
 			try {
@@ -61,7 +64,6 @@ function Contents() {
 					.collection(type)
 					.getOne(id, { expand: "reviews,reviews.writer" });
 				setContentType(data.collectionName);
-				console.log(data);
 				const { expand } = data;
 				if (expand) {
 					setComment(expand.reviews);
@@ -179,10 +181,6 @@ function Contents() {
 	const [isShareOpen, setIsShareOpen] = useState(false);
 
 	//@ 찜
-	const [isChanged, setChanged] = useState(false); //? 찜 버튼 상태
-	const handleHeart = () => {
-		setChanged(!isChanged);
-	}; //? 찜 버튼 클릭시 호출
 
 	return (
 		<main className={`text-gray300 ${S.main} w-screen overflow-hidden`}>
@@ -191,10 +189,10 @@ function Contents() {
 				state={state}
 				ratingText={ratingText}
 				versionText={versionText}
-				handleHeart={handleHeart}
-				isChanged={isChanged}
 				setIsShareOpen={setIsShareOpen}
 				isShareOpen={isShareOpen}
+				contentType={contentType}
+				id={id}
 			/>
 			<div>
 				{contentType !== "movie" && (
