@@ -44,6 +44,10 @@ export function SearchedResultSwiper({
 				setIsBeginning(swiper.isBeginning);
 				setIsEnd(swiper.isEnd);
 			}}
+			onSlideChange={(swiper) => {
+				setIsBeginning(swiper.isBeginning);
+				setIsEnd(swiper.isEnd);
+			}}
 			className={`mySwiper w-full searchResult overflow-y-visible relative pr-7 ${
 				isFullView ? "hide-pagination" : ""
 			}`}
