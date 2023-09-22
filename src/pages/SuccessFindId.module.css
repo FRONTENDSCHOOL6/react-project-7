@@ -41,9 +41,14 @@
     @apply text-[130%]
 }
 
+.accountType{
+    @apply absolute pt-[4px] left-[38%];
+    @apply text-gray500 text-xl;
+}
+
 .idForm {
-    @apply flex h-16 pt-5 bg-[#191919] justify-center bg-no-repeat;
-    @apply text-white font-semibold text-lg
+    @apply flex h-16 pt-4 bg-[#191919] justify-center bg-no-repeat;
+    @apply text-white font-semibold text-2xl
 }
 
 .description3 {
