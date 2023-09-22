@@ -1,5 +1,6 @@
 import S from "./Category.module.css";
 import useButtonStore from "./../../store/buttonStore";
+import propTypes, { number, string } from "prop-types";
 
 function NavButton({ content, index, id, activeIndex, setActiveIndex }) {
 	const { buttonId, setButtonId } = useButtonStore();
@@ -26,5 +27,13 @@ function NavButton({ content, index, id, activeIndex, setActiveIndex }) {
 		</button>
 	);
 }
+
+NavButton.propTypes = {
+	content: string.isRequired,
+	index: number.isRequired,
+	id: string.isRequired,
+	activeIndex: string.isRequired,
+	setActiveIndex: string.isRequired,
+};
 
 export default NavButton;
