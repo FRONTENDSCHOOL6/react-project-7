@@ -1,9 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import pb from "@/api/pocketbase";
-import PocketBase from "pocketbase";
-import { useParams } from "react-router-dom";
-import PropTypes from "prop-types";
-import CurrentTime from "../search/util/CurrentTime";
+import { string, number } from "prop-types";
+import S from "../detail/Contents.module.css";
 
 export default function ReviewItem({
 	star = "별점",
@@ -16,13 +14,13 @@ export default function ReviewItem({
 	const [editedComment, setEditedComment] = useState(comment);
 	const [realComment, setRealComment] = useState(comment);
 
-	const handleDeleteClick = () => {
-		setIsRemoved(true);
-	};
-
-	const handleCancelClick = () => {
-		setIsEditMode(false);
-		setEditedComment(realComment);
+	const handleDeleteClick = async () => {
+		try {
+			await pb.collection("review").delete(commentId);
+			setIsRemoved(true);
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	const handleEditClick = () => {
@@ -47,7 +45,7 @@ export default function ReviewItem({
 	return (
 		<>
 			{!isRemoved ? (
-				<div className=" text-white  w-[50%] rounded-[0.3em] border-solid pl-[1rem] pt-[0.625rem] mt-[0.625rem] ml-[3rem]">
+				<div className={S.editItem}>
 					<div>
 						{Array.from({ length: star }, (_, index) => (
 							<span key={index}>⭐</span>
@@ -72,9 +70,6 @@ export default function ReviewItem({
 									<li className=" ml-[0.3125rem] mt-[0.2em]">
 										<button onClick={() => handleSave(commentId)}>수정</button>
 									</li>
-									<li className=" ml-[0.3125rem] mt-[0.2em]">
-										<button onClick={handleCancelClick}>취소</button>
-									</li>
 								</ul>
 							</div>
 						)}
@@ -82,14 +77,14 @@ export default function ReviewItem({
 							<>
 								<span
 									onClick={handleEditClick}
-									className="cursor-pointer text-sm text-[gray] ml-[0.3125rem] mt-[0.2em]  rounded-[0.3em]"
+									className={`${S.deleteBtn} text-[gray]`}
 								>
 									수정
 								</span>
 
 								<span
 									onClick={handleDeleteClick}
-									className="cursor-pointer ml-[0.3125rem] mt-[0.2em]  rounded-[0.3em] text-sm text-red-500"
+									className={`${S.deleteBtn} text-red-500`}
 								>
 									삭제
 								</span>
@@ -109,8 +104,8 @@ export default function ReviewItem({
 }
 
 ReviewItem.propTypes = {
-	star: PropTypes.number.isRequired,
-	writer: PropTypes.string.isRequired,
-	comment: PropTypes.string.isRequired,
-	commentId: PropTypes.string.isRequired,
+	star: number.isRequired,
+	writer: string.isRequired,
+	comment: string.isRequired,
+	commentId: string.isRequired,
 };

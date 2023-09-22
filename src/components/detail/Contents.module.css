@@ -37,6 +37,15 @@
 .shareImg {
   @apply w-[25%] h-[65%] cursor-pointer;
 }
+.facebookIcon {
+  @apply w-[30px];
+}
+.twitterIcon {
+  @apply w-[30px];
+}
+.linkIcon {
+  @apply w-[30px];
+}
 .poster {
   @apply h-full w-full bg-cover bg-center bg-no-repeat blur-[100px] brightness-[50%];
 }
@@ -44,7 +53,7 @@
   @apply flex-wrap font-semibold mt-[0.6875rem];
 }
 .playBtn {
-  @apply w-[15.625rem] h-[4.0625rem] rounded text-lg leading-7 font-bold bg-[white] text-[black] mr-4 mt-[1.5625rem];
+  @apply w-[15.625rem] h-[4.0625rem] rounded text-lg leading-7 font-bold bg-white text-[black] mr-4 mt-[1.5625rem];
 }
 .likeBtn {
   @apply w-[4.1328rem] h-[4.1328rem] font-semibold mt-6 mb-[0.3125rem];
@@ -134,9 +143,15 @@
 .reviewBox {
   @apply flex flex-row pl-[3rem] justify-between;
 }
+.editItem {
+  @apply text-white  w-[50%] rounded-[0.3em] border-solid pl-[1rem] pt-[0.625rem] mt-[0.625rem] ml-[3rem];
+}
 
 .reviewItem {
   @apply ml-12;
+}
+.deleteBtn {
+  @apply cursor-pointer text-sm ml-[0.3125rem] mt-[0.2em] rounded-[0.3em];
 }
 .editBtn {
   @apply text-[white] ml-[0.3125rem] mt-[0.5em] p-px rounded-[0.3em] border-[solid] border-[none] hover:bg-[gray];

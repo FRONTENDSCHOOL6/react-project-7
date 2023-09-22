@@ -1,8 +1,8 @@
 import { Helmet } from "react-helmet-async";
-import S from "./Program.module.css";
 import { Link } from "react-router-dom";
 import React, { useRef, useEffect, useState } from "react";
-import { ProgramNav, ProgramContent } from "./ProgramNav";
+import ProgramNav from "./../components/category/ProgramNav";
+import ProgramContent from "./../components/category/ProgramContent";
 
 export default function Movie() {
 	return (
