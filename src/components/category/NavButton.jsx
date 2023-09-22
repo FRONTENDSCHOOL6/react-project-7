@@ -1,6 +1,6 @@
 import S from "./Category.module.css";
 import useButtonStore from "./../../store/buttonStore";
-import propTypes, { number, string } from "prop-types";
+import propTypes, { number, string, func } from "prop-types";
 
 function NavButton({ content, index, id, activeIndex, setActiveIndex }) {
 	const { buttonId, setButtonId } = useButtonStore();
@@ -32,8 +32,9 @@ NavButton.propTypes = {
 	content: string.isRequired,
 	index: number.isRequired,
 	id: string.isRequired,
-	activeIndex: string.isRequired,
-	setActiveIndex: string.isRequired,
+	activeIndex: propTypes.oneOfType([propTypes.string, propTypes.number])
+		.isRequired,
+	setActiveIndex: func.isRequired,
 };
 
 export default NavButton;
