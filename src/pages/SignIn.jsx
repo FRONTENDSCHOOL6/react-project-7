@@ -7,6 +7,9 @@ import showPasswordIcon from "/assets/eye.svg";
 import hidePasswordIcon from "/assets/hide-password.svg";
 import AutoLogin from "/assets/red-check.svg";
 import unAutoLogin from "/assets/unactive-check.svg";
+import InputForm from "./../components/findid/InputForm";
+import SubmitButton from "./../components/signin/SubmitButton";
+import S from "./SignIn.module.css";
 
 function SignIn() {
 	const { authState, signIn } = useAuthStore();
@@ -44,10 +47,6 @@ function SignIn() {
 					user: record,
 					token: token,
 				};
-				//localStorage.setItem(
-				//	"pocketbase_auth",
-				//	JSON.stringify(updatedStorageData)
-				//);
 				console.log(updatedStorageData);
 				// Zustand 상태를 업데이트합니다.
 				await useAuthStore.setState({ authState: updatedStorageData });
@@ -76,9 +75,8 @@ function SignIn() {
 	};
 
 	//@아이디 비밀번호 유효성 검사용 정규표현식
-
-	const idRegex = /^.{6,15}$/; // 아이디 정규표현식 : 영문 3~15자
-	const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/; // 비밀번호 정규표현식 : 영문+숫자 8~16자
+	const idRegex = /^.{6,15}$/;
+	const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
 
 	const [formState, setFormState] = useState({
 		id: "",
@@ -151,94 +149,78 @@ function SignIn() {
 			<Helmet>
 				<title>Sign In - Taing</title>
 			</Helmet>
-			<div className="contentWrapper w-full">
-				<div className="bg-black min-h-screen flex items-center justify-center">
-					<div className="pt-10 pb-16 text-white login-title container w-1/3 mx-auto">
-						<div className="pb-[60px] font-bold text-lg md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-center">
-							TVING ID 로그인
-						</div>
-						<form onSubmit={handleSignIn} className="flex flex-col gap-2">
-							<input
-								type="text"
-								label="아이디"
-								name="id"
-								className="font-light h-14 bg-[#212121] text-gray600 login-form px-4 w-full rounded-sm
-                        "
-								onChange={handleInput}
-								placeholder="아이디"
-							/>
-							{loginValidation.id && (
-								<div style={{ color: "red" }}>
-									올바른 아이디 형식을 입력하세요.
-								</div>
-							)}
+			<div className={S.content}>
+				<div className={S.contentWrapper}>
+					<div className={S.title}>TVING ID 로그인</div>
+					<form onSubmit={handleSignIn} className={S.formWrapper}>
+						<InputForm
+							type="text"
+							name="id"
+							onChange={handleDebounceInput}
+							placeholder="아이디"
+						/>
+						{loginValidation.id && (
+							<div style={{ color: "red" }}>
+								올바른 아이디 형식을 입력하세요.
+							</div>
+						)}
 
-							<label className="relative">
-								<input
-									type={isPasswordHidden ? "password" : "text"}
-									label="비밀번호"
-									name="password"
-									onChange={handleDebounceInput}
-									className="h-14  bg-[#212121] text-gray600 login-form px-4 w-full rounded-sm"
-									placeholder="비밀번호"
-								/>
-								<img
-									src={isPasswordHidden ? hidePasswordIcon : showPasswordIcon}
-									alt="비밀번호 숨김/표시 아이콘"
-									onClick={togglePasswordHidden}
-									className="cursor-pointer absolute right-6 top-1/2 first-line:transform -translate-y-1/2"
-								/>
-							</label>
-							{loginValidation.password && (
-								<div style={{ color: "red" }}>
-									올바른 비밀번호 형식이 아닙니다.
-								</div>
-							)}
-							<label className="flex text-left text-gray500 text-sm pt-[7px] pb-[10px]">
-								<img
-									src={isLoginClicked ? AutoLogin : unAutoLogin}
-									alt="자동 로그인"
-									onClick={handleAutoLogin}
-									className="pr-[7px]"
-								/>
-								자동로그인
-							</label>
-							{/*//@ 로그인 */}
-							<button
-								type="submit"
-								className="h-14 bg-[#FF153C] font-bold dark:hover:bg-[#cc1030] text-white login-button w-full rounded-sm"
-							>
-								로그인하기
-							</button>
-							<span className="text-gray300 text-center pt-[20px] pb-[10px] md:text-xs lg:text-base xl:text-md 2xl:text-lg">
-								<Link
-									to="/findid"
-									className="text-gray400 dark:hover:text-zinc-300 pr-[13px]"
-								>
-									아이디 찾기{" "}
-								</Link>
-								|{" "}
-								<Link
-									to="/findpw"
-									className="text-gray400 pl-[10px] dark:hover:text-zinc-300"
-								>
-									비밀번호 찾기
-								</Link>
-							</span>
-						</form>
-						<div
-							className="flex justify-center pt-[30px] pl-[60px] pb-[100px] border-slate-600 dark:border-slate-200/30
-             sm:text-xs md:text-base lg:text-base xl:text-md 2xl:text-lg
-             "
-						>
-							아직 계정이 없으신가요?
+						<label className="relative">
+							<InputForm
+								type={isPasswordHidden ? "password" : "text"}
+								name="password"
+								onChange={handleDebounceInput}
+								placeholder="비밀번호"
+							/>
+							<img
+								src={isPasswordHidden ? hidePasswordIcon : showPasswordIcon}
+								alt="비밀번호 숨김/표시 아이콘"
+								onClick={togglePasswordHidden}
+								className={S.showPassword}
+							/>
+						</label>
+						{loginValidation.password && (
+							<div style={{ color: "red" }}>
+								올바른 비밀번호 형식이 아닙니다.
+							</div>
+						)}
+						<label className={S.showPasswordLabel}>
+							<img
+								src={isLoginClicked ? AutoLogin : unAutoLogin}
+								alt="자동 로그인"
+								onClick={handleAutoLogin}
+								className="pr-[7px]"
+							/>
+							자동로그인
+						</label>
+						{/*//@ 로그인 */}
+						<SubmitButton type="submit" text="로그인하기" />
+						<span className={S.linkGroup}>
 							<Link
-								to="/signup"
-								className="dark:text-zinc-500 w-36 text-l dark:hover:text-zinc-300 flex pl-[10px]"
+								to="/findid"
+								className={S.findId}
 							>
-								회원가입
+								아이디 찾기{" "}
 							</Link>
-						</div>
+							|{" "}
+							<Link
+								to="/findpw"
+								className={S.findPw}
+							>
+								비밀번호 찾기
+							</Link>
+						</span>
+					</form>
+					<div
+						className={S.signUpText}
+					>
+						아직 계정이 없으신가요?
+						<Link
+							to="/signup"	
+							className={S.signUp}
+						>
+							회원가입
+						</Link>
 					</div>
 				</div>
 			</div>

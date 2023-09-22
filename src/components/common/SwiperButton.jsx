@@ -1,17 +1,12 @@
-import { handleEnterKeyDown } from "@/utils/keyDown";
-
-function SwiperButton({ className, id, onKeyDown, role, tabIndex }) {
+/* eslint-disable react/prop-types */
+import { forwardRef } from "react";
+function _SwiperButton({ className, type = "button" }, ref) {
 	return (
 		<>
-			<div
-				className={className}
-				id={id}
-				onKeyDown={handleEnterKeyDown}
-				role="button"
-				tabIndex={0}
-			/>
+			<button className={className} type={type} ref={ref} />
 		</>
 	);
 }
 
+const SwiperButton = forwardRef(_SwiperButton);
 export default SwiperButton;

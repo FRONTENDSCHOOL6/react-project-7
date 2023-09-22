@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
+import PendingPage from "./components/common/PendingPage";
 
 const queryClient = new QueryClient();
 
@@ -14,7 +15,7 @@ function App() {
 			<HelmetProvider>
 				<QueryClientProvider client={queryClient}>
 					<div className="App">
-						<Suspense fallback="페이지 로딩 중...">
+						<Suspense fallback={<PendingPage />}>
 							<RouterProvider router={router} />
 						</Suspense>
 					</div>
