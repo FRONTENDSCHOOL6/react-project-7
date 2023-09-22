@@ -1,12 +1,13 @@
 import { Helmet } from "react-helmet-async";
 import bigbang from "/assets/bigbang.png";
 import { useNavigate } from "react-router-dom";
-import useAuthStore from "@/store/useAuthStore";
 import S from "./FailedFindId.module.css";
+import LoginButton from "@/components/findid/LoginButton";
+
 function FailedFindId() {
 	const navigate = useNavigate();
 
-	const handleRefinedId = () => {
+	const handleRefindId = () => {
 		navigate("/findid");
 	};
 
@@ -31,9 +32,12 @@ function FailedFindId() {
 							아이디 찾기 기능이 일시적으로 제한됩니다.
 						</span>
 					</div>
-					<button type="button" className={S.button} onClick={handleRefinedId}>
-						아이디 다시 찾기
-					</button>
+					<LoginButton
+							type="button"
+							className={S.loginButton}
+							onClick={handleRefindId}
+							text="아이디 다시 찾기"/>
+					
 				</div>
 			</div>
 		</>

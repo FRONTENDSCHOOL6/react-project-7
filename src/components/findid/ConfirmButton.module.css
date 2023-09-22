@@ -1,3 +1,13 @@
-.confirmButton{
-    
+button.confirmButton {
+    @apply h-16 w-full rounded-sm bg-gray500;
+    @apply text-white font-extrabold;
+}
+
+button.eventSubmitButton {
+    /* @eventSubmitButton
+    @apply cursor-pointer;
+    @apply dark:hover:bg-zinc-100; */
+    @apply h-16 bg-gray100 w-full rounded-sm;
+    @apply text-black font-extrabold;
+    @apply hover:bg-zinc-100;
 }

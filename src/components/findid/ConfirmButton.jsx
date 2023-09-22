@@ -1,21 +1,24 @@
-import {oneOf, string}from "prop-types";
+import PropTypes from "prop-types";
 import S from "./ConfirmButton.module.css";
 
-export function ConfirmButton({type="text"}){
+function ConfirmButton({ type = "text", onClick, text }) {
+	const className = type === "primary" ? S.primary : S.secondary;
 
-    return (
-        <div>
-            <button
-            type={type}
-            className={S.confirmButton}
+	return (
+		<button 
+            type={type} 
+            onClick={onClick} 
+            className={S.confirmButton} 
             >
-            </button>
-        </div>
-    )
+                {text}
+        </button>
+	);
 }
 
-ConfirmButton.propTypes={
-    type: oneOf(["submit", "button"]),
+ConfirmButton.propTypes = {
+    onClick : PropTypes.func,
+	type: PropTypes.oneOf(["submit", "button"]).isRequired, 
+    text: PropTypes.string.isRequired,
 };
 
 export default ConfirmButton;

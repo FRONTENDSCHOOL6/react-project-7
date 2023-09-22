@@ -6,6 +6,7 @@ import bigcheck from "/assets/big-check.svg";
 import S from "./SuccessFindId.module.css";
 import idStore from "../store/idStore";
 import tvingLogo from "/assets/tving-login.svg";
+import LoginButton from "@/components/findid/LoginButton";
 
 function SuccessFindId() {
 	const navigate = useNavigate();
@@ -46,7 +47,14 @@ function SuccessFindId() {
 								backgroundPosition: 30,
 							}}
 						>
-							{idState.id}{" "}
+							<span className="flex">
+								{/* <p
+									className=""
+								>
+									TVING ID
+								</p> */}
+								{idState.id}
+							</span>
 						</div>
 						<span className={S.description3}>
 							※SNS 회원은 해당 SNS 아이디가 아닌 티빙 가입 시 등록한 이메일을
@@ -54,13 +62,12 @@ function SuccessFindId() {
 						</span>
 					</div>
 					<div>
-						<button
+						<LoginButton
 							type="button"
 							className={S.loginButton}
 							onClick={handleLogin}
-						>
-							로그인 하러 가기
-						</button>
+							text="로그인 하러 가기"
+						/>
 					</div>
 				</div>
 			</div>

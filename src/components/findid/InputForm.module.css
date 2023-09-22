@@ -1,5 +1,5 @@
-.input {
-    @apply h-16 bg-gray800 placeholder-slate-600 px-4 w-full rounded-sm;
+input.input{
+    @apply  relative h-16 bg-gray800 placeholder-slate-600 px-4 w-full rounded-sm;
     @apply text-white;
 
 }
