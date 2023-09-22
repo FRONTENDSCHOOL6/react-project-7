@@ -1,5 +1,5 @@
-import S from "@/components/OnBoarding/OnBoarding.module.css";
-import LoopSlide from "@/components/onBoarding/LoopSlide";
+import S from "./OnBoarding.module.css";
+import LoopSlide from "./LoopSlide";
 
 function Find() {
 	return (
