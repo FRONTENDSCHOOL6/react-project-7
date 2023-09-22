@@ -25,22 +25,54 @@ html {
 
 /* detail 스와이퍼 css */
 
-.detailSwiper .swiper-button-prev,
 .detailSwiper .swiper-button-next {
   top: 0;
   height: 100%;
   color: white;
   opacity: 0.6;
   z-index: 999;
+  right: -0.5%;
+  background: center / contain no-repeat,
+    radial-gradient(
+      106.25% 50% at 106.25% 50%,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.6) 52.6%,
+      rgba(0, 0, 0, 0) 100%
+    );
 }
-
-.detailSwiper:hover .swiper-button-prev,
-.detailSwiper:hover .swiper-button-next {
-  opacity: 1;
+.detailSwiper .swiper-button-prev {
+  top: 0;
+  height: 100%;
+  color: white;
+  opacity: 0.6;
+  z-index: 999;
+  left: -0.5%;
+  background: center / contain no-repeat,
+    radial-gradient(
+      106.25% 50% at 106.25% 50%,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.6) 52.6%,
+      rgba(0, 0, 0, 0) 100%
+    );
 }
 
 .detailSwiper .swiper-button-prev {
   transform: scaleX(-1);
+}
+
+.detailSwiper .swiper-button-prev.swiper-button-disabled,
+.detailSwiper .swiper-button-next.swiper-button-disabled {
+  opacity: 0 !important;
+}
+
+.detailSwiper:hover .swiper-button-prev:not(.swiper-button-disabled),
+.detailSwiper:hover .swiper-button-next:not(.swiper-button-disabled) {
+  opacity: 1;
+}
+
+.detailSwiper .swiper-button-prev:not(.swiper-button-disabled),
+.detailSwiper .swiper-button-next:not(.swiper-button-disabled) {
+  opacity: 0.6;
 }
 
 .detailSwiper .swiper-button-prev:after,
