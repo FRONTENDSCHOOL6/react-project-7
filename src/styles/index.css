@@ -179,6 +179,7 @@ html {
 }
 .searchResult .swiper-button-prev {
   position: absolute;
+
   background: center / contain no-repeat,
     radial-gradient(
       106.25% 50% at 106.25% 50%,
@@ -191,17 +192,24 @@ html {
   top: 50%;
   width: 4%;
   height: 100%;
-
   z-index: 10;
   transition: all 0.3s;
   cursor: pointer;
 }
+.searchResult .swiper-button-prev.swiper-button-disabled,
+.searchResult .swiper-button-next.swiper-button-disabled {
+  opacity: 0 !important;
+}
 
-.searchResult:hover .swiper-button-prev,
-.searchResult:hover .swiper-button-next {
+.searchResult:hover .swiper-button-prev:not(.swiper-button-disabled),
+.searchResult:hover .swiper-button-next:not(.swiper-button-disabled) {
   opacity: 1;
 }
 
+.searchResult .swiper-button-prev:not(.swiper-button-disabled),
+.searchResult .swiper-button-next:not(.swiper-button-disabled) {
+  opacity: 0.6;
+}
 /* 페이지네이션 관련 */
 .searchResult .swiper-pagination {
   opacity: 0;
