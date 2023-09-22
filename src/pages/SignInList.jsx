@@ -8,12 +8,13 @@ import "swiper/css";
 import pb from "@/api/pocketbase";
 import mainImg from "/assets/main.webp";
 import tvingLogo from "/assets/tving-login.svg";
-import naverLogo from "/assets/naver-login.svg";
+import naverLogo  from "/assets/naver-login.svg";
 import kakaoLogo from "/assets/kakao-login.svg";
 import facebookLogo from "/assets/facebook-login.svg";
 import twitterLogo from "/assets/twitter-login.svg";
 import appleLogo from "/assets/apple-login.svg";
 import cjLogo from "/assets/cjone-login.png";
+import SnsLoginButton from "./../components/snslogin/SnsLogin";
 
 function SignInList() {
 	//@ 버튼 클릭 시 로그인 페이지로 이동
@@ -34,16 +35,19 @@ function SignInList() {
 				provider: "kakao",
 			});
 			// navigate("/");
-			//@ 권한 부여를 위한 역할 설정 ... 멤버쉽 type
-			// const role = await pb.collection("membership").getFirstListItem('type="standard"');
-			// console.log(user);
-			// const { username: name, email } = user.meta;
-
-			// const updateUser = {
-			// 	name,
-			// 	username: email.split("@")[0],
-			// 	role: role.id,
-			// };
+			//@ 권한 부여를 위한 역할 설정 ... 멤버쉽을 type으로 넣어보려고 했는데 불필요하시면 지우셔도 괜찮을거 같아요,,
+			//const role = await pb
+			//	.collection("membership")
+			//	.getFirstListItem('type="standard"');
+			//console.log(user);
+			  const { username: name, email } = user.meta;
+				
+   const updateUser = {
+      name,
+      username: email.split('@')[0],
+      // ※ 권한(Authorization) 부여를 위한 역할(role)이 설정된 경우
+      // role: role.id,
+    };
 			// const updateUser = {
 			// 	name,
 			// 	username: email.split("@")[0],
@@ -52,9 +56,11 @@ function SignInList() {
 
 			// console.log("updateUser:", updateUser);
 			//@update=create
-			// return await pb.collection("users").updatewo(user.record.id, updateUser);
+			 await pb.collection("users").update(user.record.id, updateUser);
 		} catch (error) {
-			throw new Error(error.message);
+			// throw new Error(error.message);
+				console.log("오류", error.response);
+			
 		}
 	};
 	// const handleKakaoLogout = async () => {
@@ -95,6 +101,16 @@ function SignInList() {
 						>
 							<span>TVING ID로 시작하기</span>
 						</button>
+						<SnsLoginButton
+							type="button"
+							onClick={navigateToLogin}
+							style={{
+								backgroundImage: `url(${naverLogo})`,
+								backgroundPosition: 30,
+							}}
+							text="네이버로 시작하기"
+						/>
+
 						<button
 							type="button"
 							style={{
