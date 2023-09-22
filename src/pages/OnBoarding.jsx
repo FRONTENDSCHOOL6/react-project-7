@@ -1,13 +1,13 @@
 import { Helmet } from "react-helmet-async";
 import "swiper/css";
-import JoinMain from "@/components/onBoarding/JoinMain";
-import OnlyTaing from "@/components/onBoarding/OnlyTaing";
-import YouTube from "@/components/onBoarding/Youtube";
-import Smart from "@/components/onBoarding/Smart";
-import Together from "@/components/onBoarding/Together";
-import Find from "@/components/onBoarding/Find";
-import StartNow from "@/components/onBoarding/StartNow";
-import QnA from "@/components/onBoarding/QnA";
+import JoinMain from "../components/onBoarding/JoinMain";
+import OnlyTaing from "../components/onBoarding/OnlyTaing";
+import YouTube from "../components/onBoarding/Youtube";
+import Smart from "../components/onBoarding/Smart";
+import Together from "../components/onBoarding/Together";
+import Find from "../components/onBoarding/Find";
+import StartNow from "../components/onBoarding/StartNow";
+import QnA from "../components/onBoarding/QnA";
 
 export default function OnBoarding() {
 	return (
@@ -21,7 +21,7 @@ export default function OnBoarding() {
 				<meta property="og:type" content="website" />
 				<meta property="og:title" content="타잉 랜딩페이지" />
 				<meta property="og:description" content="프로젝트 타잉 랜딩페이지" />
-				<meta property="og:image" content="@/assets/metaImgOnBoarding.png" />
+				<meta property="og:image" content="/assets/metaImgOnBoarding.png" />
 				<meta
 					property="og:url"
 					content="http://localhost:5173/react-project-7/#/onboarding"
