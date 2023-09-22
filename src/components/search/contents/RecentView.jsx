@@ -1,21 +1,21 @@
 import XIcon from "/assets/x-icon.svg";
 import useSearchStore from "../../../store/useSearchStore";
-
+import { string } from "prop-types";
+import S from "./../Search.module.css";
 //@ 최근 검색어 컴포넌트
 export default function RecentView({ searchTerm }) {
 	const removeRecentSearch = useSearchStore(
 		(state) => state.removeRecentSearch
 	);
+
 	const handleRemoveRecentSearch = () => {
-		removeRecentSearch(searchTerm);
+		removeRecentSearch(searchTerm); // 해당 검색어만 삭제하도록 수정
 	};
 	return (
 		<li key={searchTerm} className="mt-2">
-			<button className="whitespace-nowrap overflow-hidden text-ellipsis cursor-pointer text-[#a6a6a6] text-[1.25rem]">
-				{searchTerm}
-			</button>
+			<button className={S.recentViewItem}>{searchTerm}</button>
 			<button
-				className="min-w-[1rem] min-h-[1rem] bg-no-repeat bg-[50%_50%] opacity-70 leading-[normal] text-base cursor-pointer align-middle ml-4 pb-2"
+				className={S.xButton}
 				style={{
 					backgroundImage: `url(${XIcon})`,
 					position: "relative",
@@ -26,3 +26,7 @@ export default function RecentView({ searchTerm }) {
 		</li>
 	);
 }
+
+RecentView.propTypes = {
+	searchTerm: string.isRequired,
+};

@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import pb from "@/api/pocketbase";
 import idStore from "../store/idStore";
 import S from "./FindId.module.css";
+import InputForm from "./../components/findid/inputForm";
+import ConfirmButton from "@/components/findid/ConfirmButton";
+import LoginButton from "@/components/findid/LoginButton";
+import resetButton from "./../../public/assets/clear-all.svg";
 
 function FindId() {
 	const navigate = useNavigate();
@@ -82,7 +86,8 @@ function FindId() {
 	//@ 확인버튼
 	const handleConfirmButton = async (e) => {
 		e.preventDefault();
-
+		console.log("isEmailValid:", isEmailValid);
+		console.log("!isEmailValid:", !isEmailValid);
 		if (!isEmailValid) {
 			setErrorMessage((prevErrors) => ({
 				...prevErrors,
@@ -149,29 +154,38 @@ function FindId() {
 						</div>
 					</div>
 					<form onSubmit={handleInput}>
-						<input
-							type="email"
-							label="이메일"
-							name="email"
-							className={`${S.inputForm} ${
-								validationErrors.email ? `${S.formBorder}` : ""
-							}`}
-							placeholder="이메일"
-							onChange={handleInput}
-						/>
+						<span>
+							<InputForm
+								type="email"
+								name="email"
+								label="이메일"
+								placeholder="이메일"
+								className={` ${S.inputForm} ${
+									validationErrors.email ? `${S.formBorder}` : ""
+								}
+						}`}
+								onChange={handleInput}
+							/>
+							<img
+								src={resetButton}
+								className={InputForm.value !== null
+										? "hidden"
+										: "cursor-pointer absolute right-[24px] top-3 first-line:transform -translate-y-1/2"
+								}
+							/>
+						</span>
 						{/* 이메일 유효성 에러 메시지 표시 */}
 						{validationErrors.email && (
 							<p className={S.errorMessage}>이메일을 올바르게 입력해주세요.</p>
 						)}
 						<div className="h-8"></div>
-						<button
+						<ConfirmButton
 							type="submit"
-							className={`${S.submitButton}
-						${!isEmailValid && disable ? "" : `${S.eventSubmitButton}`}`}
+							className={`${S.ConfirmButton}
+					${!isEmailValid ? "" : `${S.eventSubmitButton}`}`}
 							onClick={handleConfirmButton}
-						>
-							확인
-						</button>
+							text="확인"
+						/>
 					</form>
 					<div className={S.horizonSection}>
 						<span className={S.horizonLine}></span>
@@ -183,10 +197,7 @@ function FindId() {
 						<p className={S.findText2}>
 							이미 본인인증이 완료된 계정에 한하여 아이디찾기가 가능합니다
 						</p>
-
-						<button type="submit" className={S.authButton}>
-							본인인증하기
-						</button>
+						<LoginButton type="button" text="본인인증으로 찾기" />
 					</div>
 				</div>
 			</div>
