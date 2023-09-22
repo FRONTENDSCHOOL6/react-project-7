@@ -1,10 +1,12 @@
-import DefaultProfile from "/assets/default-profile.png";
-import S from "./EditProfiles.module.css";
-import { useNavigate, useLocation } from "react-router-dom";
-import useAuthStore from "@/store/authStore";
-import { useState, useEffect } from "react";
 import pb from "@/api/pocketbase";
+import useAuthStore from "@/store/useAuthStore";
 import { getPbImageURL } from "@/utils/getPbImageURL";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import ButtonSection from "../components/editProfile/ButtonSection";
+import EditProfileSection from "../components/editProfile/EditProfileSection";
+import TitleSection from "../components/editProfile/TitleSection";
+import DefaultProfile from "/assets/default-profile.png";
 
 function EditProfile() {
 	const navigate = useNavigate();
@@ -116,86 +118,26 @@ function EditProfile() {
 				"이 페이지를 벗어나면 변경된 내용은 저장되지 않습니다. 그래도 진행하시겠습니까?"
 			)
 		) {
-			navigate(`/editprofiles/${authState?.user?.id}`);
+			navigate(`/editprofiles/${authState?.model?.id}`);
 		} else {
 			console.log("프로필 편집 취소");
 		}
 	};
-	console.log(updatedUser);
-	console.log(profileData);
 	return (
 		<section className="bg-black w-screen h-screen flex items-center justify-center text-white my-auto relative pt-[2rem] lg:pt-[1.5rem] md:pt-[1rem]">
 			<div className="flex flex-col justify-center items-center min-h-full gap-10 w-2/3">
-				<div className="flex flex-col gap-1">
-					<h2 className="text-4xl text-center font-bold">프로필 편집</h2>
-				</div>
-				<div className="editPoster w-full flex flex-col items-center justify-center gap-1">
-					<button
-						type="button"
-						className={`${S.editButton} border-solid block w-2/6 h-2/6 overflow-hidden transition-all duration-[0.3s] p-0 rounded-[3px] hover:-translate-y-3 relative object-cover`}
-					>
-						{isLoading ? (
-							<div>Loading...</div>
-						) : (
-							<>
-								<label htmlFor="poster" className="cursor-pointer">
-									<img
-										src={
-											updatedUser?.poster
-												? updatedUser?.poster
-												: getPbImageURL(profileData, "poster")
-										}
-										alt="유저 프로필 이미지"
-										onError={(e) => {
-											e.target.onerror = null;
-											e.target.src = DefaultProfile;
-										}}
-										className="w-[13.87rem] h-[13.875rem] object-cover opacity-50"
-									/>
-								</label>
-								<input
-									type="file"
-									id="poster"
-									accept=".jpg,.png,.svg,.webp"
-									onChange={handlePosterChange}
-									style={{ display: "none" }}
-								/>
-							</>
-						)}
-					</button>
-				</div>
-				<div className="editName w-1/2">
-					<label htmlFor="username">
-						<input
-							type="text"
-							name="username"
-							id="username"
-							value={updatedUser.username}
-							onChange={handleNameChange}
-							maxLength="10"
-							className="w-full h-12 bg-[#191919] text-base leading-normal text-[#4d4d4d] pl-4 py-4 rounded-[3px] border-[solid] border-[#191919] focus:border-[#808080] focus:text-white"
-						/>
-					</label>
-					<p className="text-xs text-neutral-400 my-2">
-						* 2자 이상 10자 이내의 한글, 영문, 숫자 입력 가능합니다.
-					</p>
-				</div>
-				<div className="buttonWrapper w-1/2 flex justify-between gap-3">
-					<button
-						type="button"
-						onClick={handleSaveProfile}
-						className="block w-2/5 box-border border font-bold text-center mt-2 px-0 py-3 border-solid rounded bg-[#dedede] text-black border-[#dedede] hover:border-white hover:bg-white flex-grow"
-					>
-						확인
-					</button>
-					<button
-						type="button"
-						onClick={handleCancel}
-						className="block w-2/5 box-border border font-bold text-center mt-2 px-0 py-3 border-solid rounded bg-black text-neutral-400 border-[#4e4e4e] hover:border-[#a3a3a3] hover:text-[#dedede] flex-grow"
-					>
-						취소
-					</button>
-				</div>
+				<TitleSection />
+				<EditProfileSection
+					isLoading={isLoading}
+					updatedUser={updatedUser}
+					profileData={profileData}
+					handlePosterChange={handlePosterChange}
+					handleNameChange={handleNameChange}
+				/>
+				<ButtonSection
+					handleSaveProfile={handleSaveProfile}
+					handleCancel={handleCancel}
+				/>
 			</div>
 		</section>
 	);

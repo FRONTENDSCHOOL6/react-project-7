@@ -1,0 +1,11 @@
+.profileListSection {
+  @apply w-full flex flex-col items-center justify-center gap-10;
+}
+.profileListWrapper {
+  @apply flex items-center justify-center gap-7 w-2/3;
+}
+
+.editButton {
+  @apply relative border-gray-100 border overflow-hidden w-[13.87rem] h-[13.875rem];
+  @apply before:content-[""] before:bg-[url(/assets/icon-edit.svg)] before:bg-no-repeat before:bg-center before:w-full before:h-full before:absolute before:-translate-x-2/4 before:-translate-y-2/4 before:transition-all before:duration-[0.3s] before:ease-[ease-in-out] before:border-[solid] before:border-[white] before:left-2/4 before:top-2/4 hover:before:-translate-x-2/4 hover:before:translate-y-[-54%] hover:translate-y-[-10%] transition-all duration-[0.3s] ease-[ease-in-out];
+}

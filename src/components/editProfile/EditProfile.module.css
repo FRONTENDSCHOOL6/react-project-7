@@ -1,0 +1,22 @@
+.profileListSection {
+  @apply w-full flex-col flex items-center justify-center gap-10;
+}
+.profileListWrapper {
+  @apply flex items-center justify-center gap-7 w-2/3;
+}
+
+.editProfileSection {
+  @apply w-full flex flex-col items-center justify-center gap-12;
+}
+
+.editButton {
+  @apply relative border-gray-100 border overflow-hidden w-[13.87rem] h-[13.875rem]  p-0 border-solid block object-cover;
+
+  @apply before:content-[""] before:bg-[url(/assets/icon-edit.svg)] before:bg-no-repeat before:bg-center before:w-full before:h-full before:absolute before:-translate-x-2/4 before:-translate-y-2/4 before:transition-all before:duration-[0.3s] before:ease-[ease-in-out] before:border-[solid] before:border-[white] before:left-2/4 before:top-2/4 hover:before:-translate-x-2/4 hover:before:translate-y-[-54%] transition-all duration-[0.3s] ease-[ease-in-out] overflow-hidden rounded-[3px] hover:-translate-y-3;
+}
+
+.editInput {
+  @apply w-full h-12 bg-[#191919]  pl-4 py-4 rounded-[3px] border-[solid] border-[#191919];
+  @apply text-lg leading-normal text-[#4d4d4d];
+  @apply focus:border-[#808080] focus:text-white;
+}

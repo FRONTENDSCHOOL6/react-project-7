@@ -3,6 +3,10 @@
   @apply text-white text-2xl font-light;
 }
 
+.homeGradient {
+  @apply before:absolute before:w-full before:h-full before:content-[""] before:bg-gradient-to-b before:z-10 before:from-transparent before:from-80% before:to-black;
+}
+
 .mainBannerMoreBtn {
   @apply absolute px-[2.7%] py-5 bottom-[17%] right-[5%] border border-gray-300 rounded bg-transparent saturate-100 backdrop-blur-3xl z-10 hover:border-white;
   @apply text-gray-200 text-xl font-light;
@@ -26,8 +30,4 @@
 .mainButtonNext,
 .popularButtonNext {
   @apply hover:opacity-80 hover:bg-gradient-to-r hover:from-transparent hover:to-black/80 duration-300;
-}
-
-.eventBanner {
-  @apply px-[5%] mb-[4%];
 }

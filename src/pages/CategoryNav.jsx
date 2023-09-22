@@ -128,10 +128,10 @@ export function CategoryContent() {
 						item
 							.filter((item) => item.genre === buttonId)
 							.map((item) => (
-								<div key={item.id} className="w-[20%]">
+								<div key={item.id} className={S.listContent}>
 									<Link to={`/contents/${item.id}`}>
 										<img src={getPbImageURL(item, "poster")} alt={item.title} />
-										<p className="text-gray200 text-xl mt-2  whitespace-nowrap overflow-hidden text-ellipsis">
+										<p className="text-xl mt-2  whitespace-nowrap overflow-hidden text-ellipsis">
 											{item.title}
 										</p>
 									</Link>
@@ -147,10 +147,10 @@ export function CategoryContent() {
 				{contents?.map((contentCategory) =>
 					contentCategory.data.map((item) =>
 						item.map((item) => (
-							<div key={item.id} className="w-[20%]">
+							<div key={item.id} className={S.listContent}>
 								<Link to={`/contents/${item.id}`}>
 									<img src={getPbImageURL(item, "poster")} alt={item.title} />
-									<p className="text-gray200 text-xl mt-2  whitespace-nowrap overflow-hidden text-ellipsis">
+									<p className="text-xl mt-2  whitespace-nowrap overflow-hidden text-ellipsis">
 										{item.title}
 									</p>
 								</Link>

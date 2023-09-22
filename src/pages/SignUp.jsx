@@ -1,16 +1,14 @@
+import pb from "@/api/pocketbase";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link, useNavigate } from "react-router-dom";
-import pb from "@/api/pocketbase";
+import { useNavigate } from "react-router-dom";
+import clearButton from "/assets/clear-all.svg";
 import showPasswordIcon from "/assets/eye.svg";
 import hidePasswordIcon from "/assets/hide-password.svg";
-import unAutoLogin from "/assets/unactive-check.svg";
 import AutoLogin from "/assets/red-check.svg";
-import redCheck from "/assets/small-red-check.svg";
 import grayCheck from "/assets/small-gray-check.svg";
-import popUp from "/assets/popup-menu.svg";
-import clearButton from "/assets/clear-all.svg";
-import { LocalAuthStore } from "pocketbase";
+import redCheck from "/assets/small-red-check.svg";
+import unAutoLogin from "/assets/unactive-check.svg";
 
 function SignUp() {
 	const navigate = useNavigate();
@@ -21,7 +19,6 @@ function SignUp() {
 	const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$/; // 8~15글자 영문+숫자
 
 	console.log(pb);
-
 
 	const [imageSrc, setImageSrc] = useState(false);
 	const [isAgreeClicked, setIsAgreeClicked] = useState(false);
@@ -82,24 +79,44 @@ function SignUp() {
 	const handleRegister = async (e) => {
 		e.preventDefault();
 
-		const { password, passwordConfirm } = formState;
+		const { password, passwordConfirm, email, ...userData } = formState;
 
 		if (password !== passwordConfirm) {
 			alert("비밀번호가 일치하지 않습니다. 다시 입력하세요.");
 			return;
 		}
 		//@ 회원 가입 API 호출 및 처리
-		await pb
-			.collection("users")
-			.create({ ...formState, emailVisibility: true });
+		try {
+			const createdUser = await pb
+				.collection("users")
+				.create({ ...formState, emailVisibility: true });
+			const readUser = await pb
+				.collection("users")
+				.getFirstListItem(`email = "${email}"`);
+			console.log(readUser);
+			const profileData = {
+				username: formState.username,
+				userInfo: [readUser.id],
+			};
+			const createProfile = await pb.collection("profile").create(profileData);
+			const readProfile = await pb
+				.collection("profile")
+				.getFirstListItem(`username = "${formState.username}"`);
+			const updateUser = await pb
+				.collection("users")
+				.update(readUser.id, { profiles: [readProfile.id] });
+		} catch (error) {
+			console.error("회원 가입 중 오류 발생:", error);
+			// 오류 처리 로직 추가
+		}
 
-			console.log(pb.authStore);
-      console.log("pb.authStore.id=", pb.authStore.model.id);
-      console.log("pb.authStore.email=", pb.authStore.model.email);
-      console.log("pb.authStore.password=", pb.authStore.model.password);
-      console.log("pb.auStore.token=", pb.authStore.token);
-      console.log("pb.auStore.fovaoriteMovie=", pb.authStore.model.favoriteMovie);
-		navigate("/");
+		//console.log(pb.authStore);
+		//console.log("pb.authStore.id=", pb.authStore.model.id);
+		//console.log("pb.authStore.email=", pb.authStore.model.email);
+		//console.log("pb.authStore.password=", pb.authStore.model.password);
+		//console.log("pb.auStore.token=", pb.authStore.token);
+		//console.log("pb.auStore.fovaoriteMovie=", pb.authStore.model.favoriteMovie);
+		navigate("/signin");
 	};
 
 	const handleInput = (e) => {
@@ -244,7 +261,7 @@ function SignUp() {
 									validationErrors.passwordConfirm
 										? "border-red-500"
 										: !validationErrors.passwordConfirm &&
-										formState.passwordConfirm !== ""
+										  formState.passwordConfirm !== ""
 										? "border-green-600"
 										: "border-slate-400"
 								}
