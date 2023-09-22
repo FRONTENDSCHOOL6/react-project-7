@@ -1,5 +1,5 @@
 import S from "@/components/OnBoarding/OnBoarding.module.css";
-import StartButton from "@/components/onBoarding/StartButton";
+import StartButton from "./StartButton";
 import tvingLogoBig from "/assets/no1-tving.svg";
 
 function StartNow() {

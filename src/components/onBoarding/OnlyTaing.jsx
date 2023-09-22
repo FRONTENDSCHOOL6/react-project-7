@@ -1,4 +1,4 @@
-import S from "@/components/OnBoarding/OnBoarding.module.css";
+import S from "./OnBoarding.module.css";
 import hotel from "/assets/hotel.webp";
 import afterschool from "/assets/after-school.webp";
 import dessert from "/assets/dessert.webp";

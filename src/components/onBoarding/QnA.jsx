@@ -1,5 +1,5 @@
 import { useState } from "react";
-import S from "@/components/OnBoarding/OnBoarding.module.css";
+import S from "./OnBoarding.module.css";
 import arrowUp from "/assets/arrow-up.svg";
 import arrowDown from "/assets/arrow-down.svg";
 

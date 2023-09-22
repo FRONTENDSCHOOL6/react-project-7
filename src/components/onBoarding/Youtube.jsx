@@ -1,4 +1,4 @@
-import S from "@/components/OnBoarding/OnBoarding.module.css";
+import S from "./OnBoarding.module.css";
 
 function YouTube() {
 	return (
