@@ -124,7 +124,7 @@ function Header() {
 				<li
 					onMouseEnter={() => setIsImgHovered(true)}
 					onMouseLeave={() => setIsImgHovered(false)}
-					className="h-full"
+					className="h-[2.813rem] w-[2.813rem]"
 				>
 					<img
 						src={profileImg ? profileImg : profileIcon}
@@ -142,7 +142,7 @@ function Header() {
 			>
 				<div className="flex flex-col px-5">
 					<div className="flex gap-3 items-center">
-						<div className="w-10 h-10 object-cover">
+						<div className="w-10 h-10">
 							<img
 								src={profileImg ? profileImg : profileIcon}
 								alt="프로필"
