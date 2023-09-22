@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
+import { string } from "prop-types";
 
-export default function EventBanner({ imgSrc, imgAlt }) {
+function EventBanner({ imgSrc, imgAlt }) {
 	return (
 		<section className="px-[5%] mb-[4%]">
 			<div className="w-full">
@@ -11,3 +12,10 @@ export default function EventBanner({ imgSrc, imgAlt }) {
 		</section>
 	);
 }
+
+EventBanner.propTypes = {
+	imgSrc: string.isRequired,
+	imgAlt: string.isRequired,
+};
+
+export default EventBanner;
