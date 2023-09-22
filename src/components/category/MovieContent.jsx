@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import pb from "@/api/pocketbase";
-import { getPbImageURL } from "@/utils/getPbImageURL";
+import { getPbImageURL } from "./../../utils/getPbImageURL";
 import S from "./Category.module.css";
 import { Link } from "react-router-dom";
-import useButtonStore from "@/store/buttonStore";
+import useButtonStore from "./../../store/buttonStore";
+import useMovieStore from "./../../store/useMovieStore";
+import Spinner from "../common/Spinner";
 
 function MovieContent() {
 	//? 버튼 클릭에 관련된 변수
@@ -11,23 +13,12 @@ function MovieContent() {
 	const { isButtonClicked, setIsButtonClicked } = useButtonStore();
 
 	//? pb에서 데이터를 가져오는 변수
-	const [contents, setContents] = useState([]);
-	const [status, setStatus] = useState("pending");
-	const [error, setError] = useState(null);
+	const { contents, status } = useMovieStore();
+	useMovieStore();
+	if (status === "loading") {
+		return <Spinner />;
+	}
 
-	useEffect(() => {
-		setStatus("loading");
-
-		Promise.all([pb.collection("movie").getFullList()])
-			.then((movieList) => {
-				setContents([{ title: "영화", data: movieList }]);
-				setStatus("success");
-			})
-			.catch((error) => {
-				setError(error);
-				setStatus("error");
-			});
-	}, []);
 	if (isButtonClicked === true) {
 		return (
 			<>

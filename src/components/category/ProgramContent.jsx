@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import pb from "@/api/pocketbase";
-import { getPbImageURL } from "@/utils/getPbImageURL";
+import { getPbImageURL } from "./../../utils/getPbImageURL";
 import S from "./Category.module.css";
 import { Link } from "react-router-dom";
 import useButtonStore from "./../../store/buttonStore";
+import useProgramStore from "./../../store/useProgramStore";
+import Spinner from "../common/Spinner";
 
 function ProgramContent() {
 	//? 버튼 클릭에 관련된 변수
@@ -11,23 +13,12 @@ function ProgramContent() {
 	const { isButtonClicked, setIsButtonClicked } = useButtonStore();
 
 	//? pb에서 데이터를 가져오는 변수
-	const [contents, setContents] = useState([]);
-	const [status, setStatus] = useState("pending");
-	const [error, setError] = useState(null);
+	const { contents, status } = useProgramStore();
+	useProgramStore();
+	if (status === "loading") {
+		return <Spinner />;
+	}
 
-	useEffect(() => {
-		setStatus("loading");
-
-		Promise.all([pb.collection("program").getFullList()])
-			.then((programList) => {
-				setContents([{ title: "TV 프로그램", data: programList }]);
-				setStatus("success");
-			})
-			.catch((error) => {
-				setError(error);
-				setStatus("error");
-			});
-	}, []);
 	if (isButtonClicked === true) {
 		return (
 			<>
