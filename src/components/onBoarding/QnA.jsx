@@ -317,7 +317,7 @@ function QnA() {
 		}`;
 
 		return (
-			<li className={S.qnaItem}>
+			<li className={S.qnaItem} key={index}>
 				<input type="checkbox" className="hidden" id={`qna-${index}`} />
 				<label
 					htmlFor={`qna-${index}`}
