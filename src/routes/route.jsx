@@ -29,6 +29,7 @@ import Search from "../pages/Search";
 import ProtectRoute from "./ProtectRoute";
 const EditProfiles = lazy(() => import("../pages/EditProfiles"));
 const EditProfile = lazy(() => import("../pages/EditProfile"));
+const NotFound = lazy(() => import("../pages/NotFound"));
 
 const router = createHashRouter(
 	createRoutesFromElements(
@@ -126,6 +127,14 @@ const router = createHashRouter(
 				element={
 					<ProtectRoute>
 						<Movie />
+					</ProtectRoute>
+				}
+			/>
+			<Route
+				path="/notfound"
+				element={
+					<ProtectRoute>
+						<NotFound />
 					</ProtectRoute>
 				}
 			/>

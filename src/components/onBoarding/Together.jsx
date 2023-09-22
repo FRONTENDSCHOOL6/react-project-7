@@ -1,4 +1,4 @@
-import S from "@/components/OnBoarding/OnBoarding.module.css";
+import S from "./OnBoarding.module.css";
 import devices from "/assets/devices.mp4";
 
 function Together() {

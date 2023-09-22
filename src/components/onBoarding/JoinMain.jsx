@@ -1,6 +1,6 @@
-import StartButton from "@/components/onBoarding/StartButton";
+import StartButton from "./StartButton";
 import mainImg from "/assets/main.webp";
-import S from "@/components/OnBoarding/OnBoarding.module.css";
+import S from "./OnBoarding.module.css";
 
 function JoinMain() {
 	return (

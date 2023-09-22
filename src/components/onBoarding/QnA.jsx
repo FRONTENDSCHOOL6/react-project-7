@@ -1,5 +1,5 @@
 import { useState } from "react";
-import S from "@/components/OnBoarding/OnBoarding.module.css";
+import S from "./OnBoarding.module.css";
 import arrowUp from "/assets/arrow-up.svg";
 import arrowDown from "/assets/arrow-down.svg";
 
@@ -317,7 +317,7 @@ function QnA() {
 		}`;
 
 		return (
-			<li className={S.qnaItem}>
+			<li className={S.qnaItem} key={index}>
 				<input type="checkbox" className="hidden" id={`qna-${index}`} />
 				<label
 					htmlFor={`qna-${index}`}

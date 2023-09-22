@@ -1,4 +1,4 @@
-import S from "@/components/OnBoarding/OnBoarding.module.css";
+import S from "./OnBoarding.module.css";
 import mobile from "/assets/mobile.mp4";
 import quickVod from "/assets/quick-vod.png";
 
