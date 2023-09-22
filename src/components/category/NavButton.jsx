@@ -34,7 +34,8 @@ NavButton.propTypes = {
 	id: string.isRequired,
 	activeIndex: propTypes.oneOfType([propTypes.string, propTypes.number])
 		.isRequired,
-	setActiveIndex: func.isRequired,
+	setActiveIndex: propTypes.oneOfType([propTypes.string, propTypes.number])
+		.isRequired,
 };
 
 export default NavButton;
