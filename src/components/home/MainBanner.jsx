@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import S from "./Home.module.css";
+import { useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import street from "/assets/streetwoman.webp";
 import uquiz from "/assets/dongwon-uquiz.webp";
 import lie from "/assets/lie.webp";
-import SwiperButton from "@/components/common/SwiperButton";
+import SwiperButton from "./../common/SwiperButton";
 
 function MainBanner() {
 	const bannerContents = [
@@ -28,14 +29,23 @@ function MainBanner() {
 			desc: "김소현X황민현의 쌍방구원 로맨스",
 		},
 	];
+	const [isBeginning, setIsBeginning] = useState(true);
+	const [isEnd, setIsEnd] = useState(false);
+	const prevRef = useRef(null);
+	const nextRef = useRef(null);
+
+	const handleSlideChange = (swiper) => {
+		setIsBeginning(swiper.isBeginning);
+		setIsEnd(swiper.isEnd);
+	};
 
 	return (
 		<Swiper
 			className={"mySwiper homeMain"}
 			loop="true"
 			navigation={{
-				nextEl: "#homeNextButton",
-				prevEl: "#homePrevButton",
+				nextEl: prevRef.current,
+				prevEl: nextRef.current,
 				keyboard: true,
 				onlyInViewport: false,
 			}}
@@ -43,7 +53,9 @@ function MainBanner() {
 			effect={"fade"}
 			pagination={{ clickable: true }}
 			modules={[Navigation, EffectFade, Autoplay, Pagination]}
-			tabIndex={0}
+			onSlideChange={(swiper) => {
+				handleSlideChange(swiper);
+			}}
 		>
 			{bannerContents &&
 				bannerContents.map((item) => (
@@ -62,8 +74,8 @@ function MainBanner() {
 						</SwiperSlide>
 					</div>
 				))}
-			<SwiperButton className="swiper-button-next" id="homePrevButton" />
-			<SwiperButton className="swiper-button-prev" id="homeNextButton" />
+			<SwiperButton className="swiper-button-next" ref={prevRef} />
+			<SwiperButton className="swiper-button-prev" ref={nextRef} />
 		</Swiper>
 	);
 }

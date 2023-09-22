@@ -104,8 +104,10 @@ html {
 .categoryNav .swiper-button-prev::after,
 .searchResult .swiper-button-next::after,
 .searchResult .swiper-button-prev::after {
-  content: url(/assets/main-next.svg);
-  background: url(/assets/main-next.svg);
+  background: url(/assets/main-next.svg) no-repeat center center / contain;
+  content: "";
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   left: 0;
@@ -158,6 +160,20 @@ html {
   background: white;
 }
 
+.mainSwiper .swiper-button-prev.swiper-button-disabled,
+.mainSwiper .swiper-button-next.swiper-button-disabled {
+  opacity: 0 !important;
+}
+
+.mainSwiper:hover .swiper-button-prev:not(.swiper-button-disabled),
+.mainSwiper:hover .swiper-button-next:not(.swiper-button-disabled) {
+  opacity: 1;
+}
+
+.mainSwiper .swiper-button-prev:not(.swiper-button-disabled),
+.mainSwiper .swiper-button-next:not(.swiper-button-disabled) {
+  opacity: 0.6;
+}
 /* 내비게이션 관련 */
 .searchResult .swiper-button-next {
   position: absolute;

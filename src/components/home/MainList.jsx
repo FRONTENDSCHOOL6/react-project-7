@@ -1,16 +1,43 @@
 import { Link } from "react-router-dom";
-import pb from "@/api/pocketbase";
-import { getPbImageURL } from "@/utils/getPbImageURL";
+import { useState, useRef, useEffect } from "react";
+import { getPbImageURL } from "./../../utils/getPbImageURL";
 import S from "./Home.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { string } from "prop-types";
-import SwiperButton from "@/components/common/SwiperButton";
-import useContentsStore from "@/store/useContentsStore";
-import Spinner from "@/components/common/Spinner";
+import SwiperButton from "./../common/SwiperButton";
+import useContentsStore from "./../../store/useContentsStore";
+import Spinner from "./../common/Spinner";
 
 function MainList({ classTitle, listTitle, genre, genreId }) {
 	const { contents, status } = useContentsStore();
+	const [isBeginning, setIsBeginning] = useState(true);
+	const [isEnd, setIsEnd] = useState(false);
+	const prevRef = useRef(null);
+	const nextRef = useRef(null);
+
+	const handleSlideChange = (swiper) => {
+		setIsBeginning(swiper.isBeginning);
+		setIsEnd(swiper.isEnd);
+	};
+	useEffect(() => {
+		if (prevRef.current || nextRef.current) {
+			if (isBeginning) {
+				prevRef.current.classList.add("swiper-button-disabled");
+			} else {
+				prevRef.current.classList.remove("swiper-button-disabled");
+			}
+
+			if (isEnd) {
+				nextRef.current.classList.add("swiper-button-disabled");
+			} else {
+				nextRef.current.classList.remove("swiper-button-disabled");
+			}
+		}
+	}, [isBeginning, isEnd]);
 
 	if (status === "loading") {
 		return <Spinner />;
@@ -39,14 +66,22 @@ function MainList({ classTitle, listTitle, genre, genreId }) {
 							slidesPerGroup={7}
 							spaceBetween={10}
 							navigation={{
-								nextEl: "#mainNextButton",
-								prevEl: "#mainPrevButton",
+								prevEl: prevRef.current,
+								nextEl: nextRef.current,
 								keyboard: true,
 								onlyInViewport: false,
 							}}
 							pagination={{ clickable: true }}
 							modules={[Navigation, Pagination]}
-							tabIndex={0}
+							onInit={(swiper) => {
+								handleSlideChange(swiper);
+								if (swiper.isBeginning) {
+									prevRef.current.classList.add("swiper-button-disabled");
+								}
+							}}
+							onSlideChange={(swiper) => {
+								handleSlideChange(swiper);
+							}}
 							className="overflow-y-visible mb-[4%] px-10"
 						>
 							{contentCategory.data
@@ -64,13 +99,17 @@ function MainList({ classTitle, listTitle, genre, genreId }) {
 									</SwiperSlide>
 								))}
 							<SwiperButton
-								className="swiper-button-prev ${S.mainButtonPrev}"
-								id="mainPrevButton"
-							></SwiperButton>
+								className={`swiper-button-prev ${
+									!isBeginning ? "opacity-60" : "opacity-0"
+								} ${S.mainButtonPrev}`}
+								ref={prevRef}
+							/>
 							<SwiperButton
-								className={`swiper-button-next ${S.mainButtonNext}`}
-								id="mainNextButton"
-							></SwiperButton>
+								className={`swiper-button-next ${
+									!isEnd ? "opacity-60" : "opacity-0"
+								} ${S.mainButtonNext}`}
+								ref={nextRef}
+							/>
 						</Swiper>
 					)
 			)}

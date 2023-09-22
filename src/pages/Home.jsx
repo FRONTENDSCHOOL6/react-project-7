@@ -3,10 +3,10 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import MainList from "@/components/home/MainList";
-import { MainBanner } from "@/components/home/MainBanner";
-import PopularList from "@/components/home/PopularList";
-import EventBanner from "@/components/home/EventBanner";
+import MainList from "./../components/home/MainList";
+import MainBanner from "./../components/home/MainBanner";
+import PopularList from "./../components/home/PopularList";
+import EventBanner from "./../components/home/EventBanner";
 import kbo from "/assets/kbo.jpeg";
 import ufc from "/assets/ufc.jpeg";
 
