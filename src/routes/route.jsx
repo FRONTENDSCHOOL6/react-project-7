@@ -4,32 +4,32 @@ import {
 	createHashRouter,
 	createRoutesFromElements,
 } from "react-router-dom";
+import FailedFindId from "../pages/FailedFindId";
 const RootLayout = lazy(() => import("./../layout/RootLayout"));
-const Home = lazy(() => import("./../pages/Home"));
-const SignIn = lazy(() => import("./../pages/SignIn"));
-const SignInList = lazy(() => import("./../pages/SignInList"));
-const SignUp = lazy(() => import("./../pages/SignUp"));
+const Home = lazy(() => import("../pages/Home"));
+const SignIn = lazy(() => import("../pages/SignIn"));
+const SignInList = lazy(() => import("../pages/SignInList"));
+const SignUp = lazy(() => import("../pages/SignUp"));
 // const FindId = lazy(() => import("../pages/FindId"));
-import FindId from "./../pages/FindId";
-import SuccessFindId from "./../pages/SuccessFindId";
-import FailedFindId from "./../pages/FailedFindId";
+import FindId from "../pages/FindId";
+import SuccessFindId from "../pages/SuccessFindId";
 // const SuccessFindId = lazy(() => import("../pages/SuccessFindId"));
 // const FailedFindId = lazy(() => import("../pages/FailedFindId"));
 const FindPassword = lazy(() => import("../pages/FindPassword"));
 const Contents = lazy(() => import("../pages/Contents"));
-const Favorite = lazy(() => import("./../pages/Favorite"));
-const Live = lazy(() => import("./../pages/Live"));
-const Membership = lazy(() => import("./../pages/Membership"));
-const OnBoarding = lazy(() => import("./../pages/OnBoarding"));
-const Profile = lazy(() => import("./../pages/Profile"));
-const Program = lazy(() => import("./../pages/Program"));
+const Favorite = lazy(() => import("../pages/Favorite"));
+const Live = lazy(() => import("../pages/Live"));
+const Membership = lazy(() => import("../pages/Membership"));
+const OnBoarding = lazy(() => import("../pages/OnBoarding"));
+const Profile = lazy(() => import("../pages/Profile"));
+const Program = lazy(() => import("../pages/Program"));
 const Movie = lazy(() => import("../pages/Movie"));
 //const Search = lazy(() => import("./../pages/Search"))
-import Search from "./../pages/Search";
-import { Navigate } from "react-router-dom";
+import Search from "../pages/Search";
 import ProtectRoute from "./ProtectRoute";
 const EditProfiles = lazy(() => import("../pages/EditProfiles"));
 const EditProfile = lazy(() => import("../pages/EditProfile"));
+const NotFound = lazy(() => import("../pages/NotFound"));
 
 const router = createHashRouter(
 	createRoutesFromElements(
@@ -90,7 +90,14 @@ const router = createHashRouter(
 				}
 			/>
 			<Route path="/onboarding" element={<OnBoarding />} />
-			<Route path="/profile/:id" element={<Profile />} />
+			<Route
+				path="/profile/:id"
+				element={
+					<ProtectRoute>
+						<Profile />
+					</ProtectRoute>
+				}
+			/>
 			<Route
 				path="/editprofiles/:id"
 				element={
@@ -120,6 +127,14 @@ const router = createHashRouter(
 				element={
 					<ProtectRoute>
 						<Movie />
+					</ProtectRoute>
+				}
+			/>
+			<Route
+				path="/notfound"
+				element={
+					<ProtectRoute>
+						<NotFound />
 					</ProtectRoute>
 				}
 			/>

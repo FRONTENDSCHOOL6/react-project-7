@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import S from "./Header.module.css";
+import S from "@/components/header/Header.module.css";
 import logo from "/assets/logo.svg";
 
 function Header() {

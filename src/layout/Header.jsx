@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import S from "./Header.module.css";
+import S from "@/components/header/Header.module.css";
 import xIcon from "/assets/headerX.svg";
 import logo from "/assets/logo.svg";
 import profileIcon from "/assets/profile.png";
 import searchIcon from "/assets/search.png";
-
 import useStorage from "@/hooks/useStorage";
 import authStore from "@/store/useAuthStore";
 import useProfileStore from "@/store/useProfileStore";
 import { getPbImageURL } from "@/utils/getPbImageURL";
+import HeaderContents from "..//components/header/headerContents";
+import HoverBox from "../components/header/HoverBox";
 
 function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
-	const [isHovered, setIsHovered] = useState(false);
+	const [isImgHovered, setIsImgHovered] = useState(false);
+	const [isDivHovered, setIsDivHovered] = useState(false);
 	const [showLogoutPopup, setShowLogoutPopup] = useState(false);
 	const { authState, signOut } = authStore();
 	const { storageData } = useStorage("pocketbase_auth");
@@ -72,10 +74,10 @@ function Header() {
 			try {
 				let imageUrl;
 
-				if (profileData) {
+				if (profileData && profileData.poster) {
 					// profileData가 있을 경우 profileData를 사용
 					imageUrl = await getPbImageURL(profileData, "poster");
-				} else if (selectedProfile) {
+				} else if (selectedProfile && selectedProfile.poster) {
 					// profileData가 없고 selectedProfile이 있을 경우 selectedProfile을 사용
 					imageUrl = await getPbImageURL(selectedProfile, "poster");
 				} else {
@@ -91,10 +93,6 @@ function Header() {
 
 		fetchProfileImage();
 	}, [profileData, selectedProfile]);
-
-	const handleHover = () => {
-		setIsHovered(!isHovered);
-	};
 
 	const handleLogoutClick = () => {
 		handleShowLogoutPopup();
@@ -116,55 +114,40 @@ function Header() {
 					<img src={logo} alt="타잉" className="w-full" />
 				</Link>
 			</h1>
-			<ul className={S.content}>
-				<li>
-					<Link href="/" className={S.home}>
-						홈
-					</Link>
-				</li>
-				<li>
-					<Link to="program">TV 프로그램</Link>
-				</li>
-				<li>
-					<Link to="movie">영화</Link>
-				</li>
-				<li>
-					<Link to="live">내가 찜한 콘텐츠</Link>
-				</li>
-			</ul>
+			<HeaderContents />
 			<ul className={S.profile}>
-				<li onClick={handleIconClick}>
+				<li onClick={handleIconClick} className="h-full w-auto">
 					<Link to="search">
 						<img src={searchIconSrc} alt={searchAlt} className={S.profileImg} />
 					</Link>
 				</li>
 				<li
-					onMouseEnter={handleHover}
-					onMouseLeave={handleHover}
-					className="w-10 h-10 object-cover "
+					onMouseEnter={() => setIsImgHovered(true)}
+					onMouseLeave={() => setIsImgHovered(false)}
+					className="h-[2.813rem] w-[2.813rem]"
 				>
 					<img
 						src={profileImg ? profileImg : profileIcon}
 						alt="프로필"
 						className={S.profileImg}
-						onClick={() => navigate(`/profile/${storageData.user.id}`)}
+						onClick={() => navigate(`/profile/${storageData?.model?.id}`)}
 					/>
 				</li>
 			</ul>
 			<div
 				className={`leading-[1.15] text-base text-white fixed min-w-[15rem] box-border shadow-[0px_5px_10px_0_rgba(0,0,0,0.5)] bg-[#212121] translate-x-0 -translate-y-2.5 -mt-0.5 pt-6 pb-[1.167rem] px-0 rounded-sm border-solid border-[#4d4d4d] border right-[3.5rem] top-[5.833rem] transition-all z-50 
-            ${isHovered ? "" : "invisible opacity-0"}`}
-				onMouseEnter={handleHover}
-				onMouseLeave={handleHover}
+				${isImgHovered || isDivHovered ? "" : "invisible opacity-0"}`}
+				onMouseEnter={() => setIsDivHovered(true)}
+				onMouseLeave={() => setIsDivHovered(false)}
 			>
 				<div className="flex flex-col px-5">
 					<div className="flex gap-3 items-center">
-						<div className="w-11 h-11 object-cover">
+						<div className="w-10 h-10">
 							<img
 								src={profileImg ? profileImg : profileIcon}
 								alt="프로필"
 								className={`${S.profileImg} `}
-								onClick={() => navigate(`/profile/${storageData.user.id}`)}
+								onClick={() => navigate(`/profile/${storageData?.model?.id}`)}
 							/>
 						</div>
 						<div className="flex flex-col">
@@ -175,7 +158,7 @@ function Header() {
 							<button
 								type="button"
 								className="pt-1 text-sm text-left"
-								onClick={() => navigate(`/profile/${storageData.user.id}`)}
+								onClick={() => navigate(`/profile/${storageData?.model?.id}`)}
 							>
 								<span className="text-sm text-[#a3a3a3] hover:text-white">
 									프로필 전환 &gt;
@@ -187,13 +170,13 @@ function Header() {
 				<hr className="border-[#2e2e2e] border-t h-[0.0625rem] bg-[#2e2e2e] my-4" />
 				<ul className="py-2 flex flex-col justify-center gap-3">
 					<li
-						className="inline-block w-full text-lg leading-normal text-neutral-400 transition-[color] duration-[0.1s] px-[1.667rem] py-2 hover:text-white hover:bg-[#2e2e2e]"
+						className="inline-block w-full text-lg leading-normal text-neutral-400 transition-[color] duration-[0.1s] px-[1.667rem] py-2 hover:text-white hover:bg-[#2e2e2e] cursor-pointer"
 						onClick={() => navigate("/membership")}
 					>
 						이용권
 					</li>
 					<li
-						className="inline-block w-full text-lg leading-normal text-neutral-400 transition-[color] duration-[0.1s] px-[1.667rem] py-2 hover:text-white hover:bg-[#2e2e2e]"
+						className="inline-block w-full text-lg leading-normal text-neutral-400 transition-[color] duration-[0.1s] px-[1.667rem] py-2 hover:text-white hover:bg-[#2e2e2e] cursor-pointer"
 						onClick={handleLogoutClick}
 					>
 						로그아웃
@@ -213,6 +196,7 @@ function Header() {
 								onClick={async () => {
 									await signOut();
 									localStorage.removeItem("pocketbase_auth");
+									localStorage.removeItem("selectedProfile");
 									setShowLogoutPopup(false);
 									navigate("/onboarding");
 								}}
@@ -231,6 +215,7 @@ function Header() {
 					</div>
 				</div>
 			)}
+			<HoverBox />
 		</header>
 	);
 }

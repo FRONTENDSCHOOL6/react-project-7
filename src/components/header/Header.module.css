@@ -10,16 +10,20 @@
   @apply md:max-xl:gap-x-10 max-lg:ml-7 max-md:ml-4 ml-11 max-md:gap-x-4 max-md:text-base max-sm:ml-0;
 }
 
+.contentList {
+  @apply hover:text-white duration-300;
+}
+
 .home {
-  @apply max-sm:hidden
+  @apply max-sm:hidden;
 }
 
 .profile {
-  @apply flex flex-row gap-10 ml-auto;
-  @apply max-md:gap-x-4;
+  @apply flex flex-row justify-end gap-10 ml-auto h-[60%] items-center;
+  @apply max-md:gap-x-4 max-md:h-[80%];
 }
 
 .profileImg {
-  @apply w-full h-auto;
-  @apply max-md:w-4/5;
+  @apply h-full w-full object-cover;
+  @apply max-md:w-4/5 cursor-pointer;
 }

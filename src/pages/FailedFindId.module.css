@@ -21,7 +21,7 @@
 }
 
 .textSection {
-    @apply text-center pb-[20px];
+    @apply text-center pb-14;
     @apply text-gray400 font-medium
 }
 

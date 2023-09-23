@@ -1,7 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Autoplay } from "swiper/modules";
-import PropTypes from "prop-types";
 import uquiz from "/assets/uquiz.webp";
 import danceSinger from "/assets/dance-singer.jpeg";
 import earth from "/assets/earth.jpeg";
@@ -13,7 +12,7 @@ import thisLife from "/assets/this-life.jpeg";
 import kingTheLand from "/assets/king-the-land.jpeg";
 import busan from "/assets/busan.jpeg";
 
-export function LoopSlide() {
+function LoopSlide() {
 	const groupTop = [
 		{
 			title: "유퀴즈 온 더 블럭",
@@ -124,3 +123,5 @@ export function LoopSlide() {
 		</>
 	);
 }
+
+export default LoopSlide;

@@ -1,0 +1,5 @@
+button.LoginButton {
+    @apply h-16 bg-gray100 w-full rounded-sm;
+    @apply text-black font-extrabold;
+    @apply dark:hover:bg-zinc-100;
+}

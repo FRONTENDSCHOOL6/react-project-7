@@ -7,6 +7,7 @@ export default function RootLayout() {
 	const location = useLocation();
 	const simpleHeaderOn = [
 		"/signin",
+		"/signinlist",
 		"/onboarding",
 		"/signup",
 		"/findid",
@@ -14,12 +15,17 @@ export default function RootLayout() {
 		"/editprofiles",
 		"/editprofile",
 		"/profile",
+		"/signinlist",
+		"/suceessfindid",
+		"/failedfindid",
 	];
 	useLocation;
+	const pathSegments = location.pathname.split("/");
+	const currentPath = pathSegments[1];
 
 	return (
 		<>
-			{!simpleHeaderOn.includes(location.pathname) ? (
+			{!simpleHeaderOn.includes("/" + currentPath) ? (
 				<Header />
 			) : (
 				<SimpleHeader />

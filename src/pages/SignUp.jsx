@@ -1,12 +1,11 @@
+import pb from "@/api/pocketbase";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link, useNavigate } from "react-router-dom";
-import pb from "@/api/pocketbase";
+import { useNavigate } from "react-router-dom";
+import clearButton from "/assets/clear-all.svg";
 import showPasswordIcon from "/assets/eye.svg";
 import hidePasswordIcon from "/assets/hide-password.svg";
-import unAutoLogin from "/assets/unactive-check.svg";
 import AutoLogin from "/assets/red-check.svg";
-import redCheck from "/assets/small-red-check.svg";
 import grayCheck from "/assets/small-gray-check.svg";
 import popUp from "/assets/popup-menu.svg";
 import clearButton from "/assets/clear-all.svg";
@@ -86,7 +85,7 @@ function SignUp() {
 	const handleRegister = async (e) => {
 		e.preventDefault();
 
-		const { password, passwordConfirm } = formState;
+		const { password, passwordConfirm, email, ...userData } = formState;
 
 		if (password !== passwordConfirm) {
 			alert("비밀번호가 일치하지 않습니다. 다시 입력하세요.");
