@@ -3,7 +3,6 @@
 }
 
 .joinGradient {
-    /* @apply absolute bg-black/70 brightness-50 w-full h-full bg-gradient-to-b from-transparent to-black; */
     @apply before:content-[''] before:w-full before:h-full before:absolute before:bg-gradient-to-b before:from-transparent before:to-black before:bg-black/80 before:top-0 before:left-0 before:z-0;
 }
 
@@ -23,10 +22,6 @@
     @apply flex py-3 flex-row border rounded w-full justify-center border-slate-600 content-center bg-no-repeat;
     @apply text-gray-400;
     @apply hover:border-slate-100;
-    /* justify-self-start */
-    /* @apply relative left-1/2 -translate-x-1/2 top-5 bg-primary w-[100%] py-5 rounded;
-  @apply text-white text-2xl font-semibold;
-  @apply before:bg-[url('/assets/tving-symbol.svg')] before:bg-no-repeat before:absolute before:top-0 before:left-0 before:w-20 before:h-full; */
 }
 
 
@@ -43,7 +38,8 @@
 }
 
 .textBig {
-    @apply text-[3.3rem] font-semibold mb-2;
+    @apply mb-2;
+    @apply text-[3.3rem] font-semibold;
 }
 
 .textMedium {
@@ -75,7 +71,8 @@
 }
 
 .no1 {
-    @apply relative w-full bg-black text-center text-white pb-[calc(10%+20rem)];
+    @apply relative w-full bg-black pb-[calc(10%+20rem)];
+    @apply text-center text-white;
 }
 
 .no1Wrapper {
@@ -83,11 +80,13 @@
 }
 
 .qna {
-    @apply w-full bg-black text-gray300 px-[3%];
+    @apply w-full bg-black px-[3%];
+    @apply text-gray300;
 }
 
 .qnaTitle {
-    @apply text-white text-[3rem] font-semibold tracking-wide text-center;
+    @apply tracking-wide text-center;
+    @apply text-white text-[3rem] font-semibold;
 }
 
 .qnaItem {
@@ -95,9 +94,11 @@
 }
 
 .question {
-    @apply flex flex-row px-2 justify-between cursor-pointer text-2xl;
+    @apply flex flex-row px-2 justify-between cursor-pointer;
+    @apply text-2xl;
 }
 
 .answer {
-    @apply px-4 pt-4 overflow-hidden text-lg leading-6;
+    @apply px-4 pt-4 overflow-hidden leading-6;
+    @apply text-lg;
 }
