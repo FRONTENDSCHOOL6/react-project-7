@@ -1,5 +1,5 @@
 import pb from "@/api/pocketbase";
-import useAuthStore from "@/store/useAuthStore";
+import useStorage from "@/hooks/useStorage";
 import { getPbImageURL } from "@/utils/getPbImageURL";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -13,8 +13,7 @@ function EditProfile() {
 	const location = useLocation();
 	const pathSegments = location.pathname.split("/");
 	const profileId = pathSegments.pop();
-
-	const { authState } = useAuthStore();
+	const { storageData } = useStorage("pocketbase_auth");
 	const [profileData, setProfileData] = useState({ username: "" });
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -23,20 +22,20 @@ function EditProfile() {
 		poster: "",
 		posterFile: null,
 	});
-
+	console.log(profileId);
 	useEffect(() => {
 		const fetchProfile = async () => {
 			try {
 				setIsLoading(true);
 				const data = await pb.collection("profile").getOne(profileId);
 				setProfileData(data);
-
+				console.log(profileData);
 				const updatedPoster =
 					updatedUser.poster ||
-					(data.poster ? getPbImageURL(data, "poster") : DefaultProfile);
+					(data?.poster ? getPbImageURL(data, "poster") : DefaultProfile);
 
 				setUpdatedUser({
-					username: data.username,
+					username: data?.username,
 					poster: updatedPoster,
 					posterFile: null,
 				});
@@ -46,9 +45,10 @@ function EditProfile() {
 				setIsLoading(false);
 			}
 		};
-		fetchProfile(authState?.user?.id);
-	}, [authState, profileId]);
-
+		fetchProfile(storageData?.model?.id);
+	}, [profileId, storageData]);
+	console.log(profileData);
+	console.log(updatedUser);
 	//@ 프로필 업데이트 유틸 함수
 	const updateProfile = async (recordId, updatedData) => {
 		try {
@@ -90,8 +90,10 @@ function EditProfile() {
 			}
 
 			await updateProfile(profileData.id, formData);
-
+			//const readUser = await pb.collection("users").getOne(profileId);
+			//console.log(readUser);
 			const refreshedProfile = await pb.collection("profile").getOne(profileId);
+			console.log(refreshedProfile);
 			//console.log(refreshedProfile);
 			const posterUrl = pb.files.getUrl(
 				refreshedProfile,
@@ -105,20 +107,19 @@ function EditProfile() {
 			});
 
 			alert("저장 완료!");
-			navigate(`/profile/${authState?.user?.id}`);
+			navigate(`/profile/${storageData?.model?.id}`);
 		} catch (error) {
 			console.error(error);
 		}
 	};
 	console.log(profileData);
-	useEffect(() => {}, []);
 	const handleCancel = () => {
 		if (
 			window.confirm(
 				"이 페이지를 벗어나면 변경된 내용은 저장되지 않습니다. 그래도 진행하시겠습니까?"
 			)
 		) {
-			navigate(`/editprofiles/${authState?.model?.id}`);
+			navigate(`/editprofiles/${storageData?.model?.id}`);
 		} else {
 			console.log("프로필 편집 취소");
 		}

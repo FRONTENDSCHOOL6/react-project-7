@@ -1,9 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import { shape, bool, string, number, object, func } from "prop-types";
 import TwitterIcon from "/assets/twitter-logo.png";
 import ShareIcon from "/assets/share-logo.png";
 import FacebookIcon from "/assets/facebook-logo.png";
 import CopyLink from "../../components/detail/ShareLink";
+import pb from "@/api/pocketbase";
 import S from "../detail/Contents.module.css";
 
 export default function DetailArticle({
@@ -11,11 +12,82 @@ export default function DetailArticle({
 	setState,
 	ratingText,
 	versionText,
-	handleHeart,
-	isChanged,
 	setIsShareOpen,
 	isShareOpen,
+	contentType,
+	id,
 }) {
+	//@ 상태 관리
+	const [isChanged, setChanged] = useState(false); //? 찜 버튼 상태
+	const [userId, setUserId] = useState(null);
+
+	//@ 로컬 스토리지 정보
+	useEffect(() => {
+		const userFromLocalStorage = JSON.parse(
+			localStorage.getItem("pocketbase_auth") || "{}"
+		);
+		const loggedInUserId = userFromLocalStorage?.model?.id;
+
+		if (loggedInUserId) {
+			setUserId(loggedInUserId);
+		}
+	}, []);
+
+	//@ 찜 상태 관리
+	const [favorites, setFavorites] = useState({
+		favoriteProgram: [],
+		favoriteMovie: [],
+	});
+
+	//@ 찜 버튼 핸들러
+	const handleHeart = async () => {
+		let newFavorites;
+
+		try {
+			const userData = await pb.collection("users").getOne(userId);
+			let updatedFavorites = {
+				favoriteProgram: [...userData.favoriteProgram],
+				favoriteMovie: [...userData.favoriteMovie],
+			};
+
+			//? 프로그램
+			if (contentType === "program") {
+				newFavorites = updatedFavorites.favoriteProgram
+					? [...updatedFavorites.favoriteProgram]
+					: [];
+
+				if (!isChanged) {
+					newFavorites.push(id);
+				} else {
+					newFavorites = newFavorites.filter((programId) => programId !== id);
+				}
+
+				updatedFavorites.favoriteProgram = newFavorites;
+
+				//? 영화
+			} else if (contentType === "movie") {
+				newFavorites = updatedFavorites.favoriteMovie
+					? [...updatedFavorites.favoriteMovie]
+					: [];
+
+				if (!isChanged) {
+					newFavorites.push(id);
+				} else {
+					newFavorites = newFavorites.filter((movieId) => movieId !== id);
+				}
+
+				updatedFavorites.favoriteMovie = newFavorites;
+			}
+
+			await pb.collection("users").update(userId, updatedFavorites);
+
+			setChanged(!isChanged);
+			setFavorites(updatedFavorites);
+		} catch (error) {
+			console.error(`Failed to update favorites`, error);
+		}
+	};
+
 	return (
 		<article className={S.article}>
 			<div className={`${S.gradation} -translate-x-1/2 -translate-y-1/2`}>
@@ -124,27 +196,29 @@ export default function DetailArticle({
 }
 
 DetailArticle.propTypes = {
-	state: PropTypes.shape({
-		showFullDescription: PropTypes.bool,
-		title: PropTypes.string,
-		producer: PropTypes.bool,
-		poster: PropTypes.string,
-		actor: PropTypes.string,
-		creator: PropTypes.string,
-		description: PropTypes.string,
-		release: PropTypes.string,
-		rating: PropTypes.string,
-		version: PropTypes.string,
-		season: PropTypes.bool,
-		subtitle: PropTypes.bool,
-		isDRM: PropTypes.bool,
-		runningTime: PropTypes.bool,
+	state: shape({
+		showFullDescription: bool,
+		title: string,
+		producer: bool,
+		poster: string,
+		actor: string,
+		creator: string,
+		description: string,
+		release: string,
+		rating: number,
+		version: string,
+		season: bool,
+		subtitle: bool,
+		isDRM: bool,
+		runningTime: number,
 	}).isRequired,
-	ratingText: PropTypes.object.isRequired,
-	versionText: PropTypes.object.isRequired,
-	handleHeart: PropTypes.func.isRequired,
-	isChanged: PropTypes.bool.isRequired,
-	setIsShareOpen: PropTypes.func.isRequired,
-	setState: PropTypes.func.isRequired,
-	isShareOpen: PropTypes.bool.isRequired,
+	ratingText: object.isRequired,
+	versionText: object.isRequired,
+	handleHeart: func.isRequired,
+	isChanged: bool.isRequired,
+	setIsShareOpen: func.isRequired,
+	setState: func.isRequired,
+	isShareOpen: bool.isRequired,
+	contentType: string.isRequired,
+	id: string.isRequired,
 };

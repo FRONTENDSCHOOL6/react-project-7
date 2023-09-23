@@ -1,0 +1,21 @@
+.membershipTypeWrapper {
+  @apply flex flex-col gap-3 py-6 px-4 flex-grow bg-[#191919] rounded relative;
+}
+.membershipRecommend {
+  @apply absolute -top-1 right-0 w-[4rem] h-[4rem] block bg-no-repeat bg-[50%_50%] bg-contain;
+}
+.membershipTitle {
+  @apply text-xl font-bold leading-4 text-white;
+}
+.membershipType {
+  @apply flex justify-between items-center p-2 px-4 border rounded  min-h-[3rem] border-solid border-[#5e5e5e];
+  @apply transition-all duration-[0.05s] ease-[ease] delay-[0s];
+}
+.arrow {
+  @apply inline-block pb-[0.125rem];
+  @apply text-[#dedede] text-base font-light;
+}
+.discount {
+  @apply absolute bg-[#ff153c] rounded-ss-sm rounded-ee-sm  -top-4 -left-[1.0625rem] px-0.5;
+  @apply font-bold text-[0.625rem];
+}

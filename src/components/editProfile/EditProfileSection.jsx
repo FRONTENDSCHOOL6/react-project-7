@@ -10,6 +10,7 @@ export default function EditProfileSection({
 	handlePosterChange,
 	handleNameChange,
 }) {
+	console.log(profileData);
 	return (
 		<div className={S.editProfileSection}>
 			<button type="button" className={`${S.editButton} `}>
@@ -48,7 +49,9 @@ export default function EditProfileSection({
 						type="text"
 						name="username"
 						id="username"
-						value={updatedUser.username}
+						value={
+							updatedUser.username ? updatedUser.username : profileData.username
+						}
 						onChange={handleNameChange}
 						maxLength="10"
 						className={S.editInput}

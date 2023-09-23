@@ -5,12 +5,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import HighlightedText from "../util/HighlightedText";
 import S from "./../Search.module.css";
 
-export function SearchingResultSwiper({ contents, searchData }) {
+function SearchingResultSwiper({ contents, searchData }) {
 	return (
 		<Swiper
 			slidesPerView={6}
 			spaceBetween={10}
-			className="mySwiper w-full"
+			className="mySwiper w-full mt-8"
 			breakpoints={{
 				480: { slidesPerView: 5.1 },
 				768: { slidesPerView: 6.1 },

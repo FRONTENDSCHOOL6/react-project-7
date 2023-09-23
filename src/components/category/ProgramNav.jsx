@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import pb from "@/api/pocketbase";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -8,23 +8,39 @@ import NavButton from "./NavButton";
 import SwiperButton from "../common/SwiperButton";
 
 function ProgramNav() {
-	const [activeIndex, setActiveIndex] = useState(null);
+	const [activeIndex, setActiveIndex] = useState("");
+	const [isBeginning, setIsBeginning] = useState(true);
+	const [isEnd, setIsEnd] = useState(false);
+	const prevRef = useRef(null);
+	const nextRef = useRef(null);
+
+	const handleSlideChange = (swiper) => {
+		setIsBeginning(swiper.isBeginning);
+		setIsEnd(swiper.isEnd);
+	};
 
 	const [contents, setContents] = useState([]);
 	const [status, setStatus] = useState("pending");
 	const [error, setError] = useState(null);
 	useEffect(() => {
-		setStatus("loading");
+		let isMounted = true; // Mounted flag
 
+		setStatus("loading");
 		Promise.all([pb.collection("genre").getFullList()])
 			.then(([genreList]) => {
+				if (!isMounted) return;
 				setContents([{ title: "프로그램 장르명", data: genreList }]);
 				setStatus("success");
 			})
 			.catch((error) => {
+				if (!isMounted) return;
 				setError(error);
 				setStatus("error");
 			});
+
+		return () => {
+			isMounted = false;
+		}; // Cleanup function
 	}, []);
 
 	return (
@@ -45,12 +61,15 @@ function ProgramNav() {
 				}}
 				slidesPerGroup={4}
 				navigation={{
-					nextEl: "#categoryNextButton",
-					prevEl: "#categoryPrevButton",
+					prevEl: prevRef.current,
+					nextEl: nextRef.current,
 					keyboard: true,
 					onlyInViewport: false,
 				}}
 				modules={[Navigation]}
+				onSlideChange={(swiper) => {
+					handleSlideChange(swiper);
+				}}
 			>
 				{contents?.map((contentCategory) =>
 					contentCategory.data
@@ -58,23 +77,21 @@ function ProgramNav() {
 							(item) => item.programCode && item.programCode.trim() !== ""
 						)
 						.map((item, index) => (
-							<>
-								<SwiperSlide key={item.id}>
-									<div>
-										<NavButton
-											content={item.genreKR}
-											index={index}
-											id={item.id}
-											activeIndex={activeIndex}
-											setActiveIndex={setActiveIndex}
-										/>
-									</div>
-								</SwiperSlide>
-							</>
+							<SwiperSlide key={item.id}>
+								<div>
+									<NavButton
+										content={item.genreKR}
+										index={index}
+										id={item.id}
+										activeIndex={activeIndex}
+										setActiveIndex={setActiveIndex}
+									/>
+								</div>
+							</SwiperSlide>
 						))
 				)}
-				<SwiperButton className="swiper-button-prev" id="categoryPrevButton" />
-				<SwiperButton className="swiper-button-next" id="categoryNextButton" />
+				<SwiperButton className="swiper-button-prev" ref={prevRef} />
+				<SwiperButton className="swiper-button-next" ref={nextRef} />
 			</Swiper>
 		</nav>
 	);

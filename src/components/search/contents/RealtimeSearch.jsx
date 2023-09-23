@@ -1,3 +1,4 @@
+import { shape, string } from "prop-types";
 import useSearchStore from "../../../store/useSearchStore";
 
 //@ 인기 검색어 컴포넌트
@@ -29,3 +30,10 @@ export default function RealtimeSearch({ item }) {
 		</li>
 	);
 }
+
+RealtimeSearch.propTypes = {
+	item: shape({
+		id: string.isRequired,
+		title: string.isRequired,
+	}).isRequired,
+};

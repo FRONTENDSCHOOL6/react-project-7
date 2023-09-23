@@ -6,11 +6,7 @@ function ProfileItem({ profile, onClick }) {
 	console.log(profile);
 	return (
 		<li key={profile?.username} className={S.listWrapper}>
-			<button
-				type="button"
-				className={S.profileButton}
-				onClick={onClick} // 여기서 받은 onClick 함수를 실행합니다.
-			>
+			<button type="button" className={S.profileButton} onClick={onClick}>
 				<img
 					src={
 						profile?.poster ? getPbImageURL(profile, "poster") : DefaultProfile
@@ -23,6 +19,7 @@ function ProfileItem({ profile, onClick }) {
 		</li>
 	);
 }
+
 export default ProfileItem;
 
 ProfileItem.propTypes = {
@@ -30,4 +27,5 @@ ProfileItem.propTypes = {
 		username: string,
 	}),
 	onClick: func,
+	isDefault: string,
 };

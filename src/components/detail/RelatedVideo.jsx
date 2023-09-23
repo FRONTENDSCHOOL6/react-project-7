@@ -4,6 +4,7 @@ import { string, arrayOf, func, any, shape } from "prop-types";
 import { Navigation, Pagination } from "swiper/modules";
 import S from "../detail/Contents.module.css";
 import LoopBtn from "../detail/EpisodeToggle";
+import SwiperButton from "../../components/common/SwiperButton";
 
 export default function EpisodeSection({
 	state,
@@ -12,6 +13,34 @@ export default function EpisodeSection({
 	episodeThumbs,
 	sortKey,
 }) {
+	//@ 스와이퍼 상태 설정
+	const [isBeginning, setIsBeginning] = useState(true);
+	const [isEnd, setIsEnd] = useState(false);
+	const prevRef = useRef(null);
+	const nextRef = useRef(null);
+
+	//@ 스와이퍼 변경 핸들러
+	const handleSlideChange = (swiper) => {
+		setIsBeginning(swiper.isBeginning);
+		setIsEnd(swiper.isEnd);
+	};
+	//@ 영화 스와이퍼 활성화 처리
+	useEffect(() => {
+		if (prevRef.current || nextRef.current) {
+			if (isBeginning) {
+				prevRef.current.classList.add("swiper-button-disabled");
+			} else {
+				prevRef.current.classList.remove("swiper-button-disabled");
+			}
+
+			if (isEnd) {
+				nextRef.current.classList.add("swiper-button-disabled");
+			} else {
+				nextRef.current.classList.remove("swiper-button-disabled");
+			}
+		}
+	}, [isBeginning, isEnd]);
+
 	const [isSorted, setIsSorted] = useState(true);
 	const [isToggled, setIsToggled] = useState(false);
 
@@ -19,7 +48,9 @@ export default function EpisodeSection({
 		setIsToggled(!isToggled);
 	};
 
+	//@ 회차 정렬 핸들러
 	const handleSortAsc = () => {
+		//? 오름차순
 		const sortedEpisodes = [...state.episodes].sort((a, b) => {
 			const titleA = parseInt(a.title.split(",")[0]);
 			const titleB = parseInt(b.title.split(",")[0]);
@@ -35,6 +66,7 @@ export default function EpisodeSection({
 	};
 
 	const handleSortDesc = () => {
+		//? 내림차순
 		const sortedEpisodes = [...state.episodes].sort((a, b) => {
 			const titleA = parseInt(a.title.split(",")[0]);
 			const titleB = parseInt(b.title.split(",")[0]);
@@ -109,12 +141,21 @@ export default function EpisodeSection({
 						1024: { slidesPerView: 4 },
 					}}
 					navigation={{
-						nextEl: "#nextButton",
-						prevEl: "#prevButton",
+						prevEl: prevRef.current,
+						nextEl: nextRef.current,
 						keyboard: {
 							enabled: true,
 							onlyInViewport: false,
 						},
+					}}
+					onInit={(swiper) => {
+						handleSlideChange(swiper);
+						if (swiper.isBeginning) {
+							prevRef.current.classList.add("swiper-button-disabled");
+						}
+					}}
+					onSlideChange={(swiper) => {
+						handleSlideChange(swiper);
 					}}
 				>
 					{state.episodes.map((episode, index) => (
@@ -131,23 +172,17 @@ export default function EpisodeSection({
 							</figure>
 						</SwiperSlide>
 					))}
-					<div
-						className="swiper-button-prev"
-						id="prevButton"
-						role="button"
-						tabIndex={0}
-						onKeyDown={(e) => {
-							if (e.key === "Enter") e.currentTarget.click();
-						}}
+					<SwiperButton
+						className={`swiper-button-prev ${
+							!isBeginning ? "opacity-60" : "opacity-0"
+						}`}
+						ref={prevRef}
 					/>
-					<div
-						className="swiper-button-next"
-						id="nextButton"
-						role="button"
-						tabIndex={0}
-						onKeyDown={(e) => {
-							if (e.key === "Enter") e.currentTarget.click();
-						}}
+					<SwiperButton
+						className={`swiper-button-next ${
+							!isEnd ? "opacity-60" : "opacity-0"
+						}`}
+						ref={nextRef}
 					/>
 				</Swiper>
 			</div>
