@@ -22,7 +22,10 @@ function Home() {
 				<meta property="og:type" content="website" />
 				<meta property="og:title" content="타잉 메인페이지" />
 				<meta property="og:description" content="프로젝트 타잉 메인페이지" />
-				<meta property="og:image" content="@/assets/metaImg.png" />
+				<meta
+					property="og:image"
+					content="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/116864776/455cdd7d-89f3-4732-ab66-ec12392b8a0a"
+				/>
 				<meta
 					property="og:url"
 					content="https://frontendschool6.github.io/react-project-7/"
