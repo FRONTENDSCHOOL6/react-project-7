@@ -8,13 +8,29 @@ export default function ReviewItem({
 	writer = "글쓴이",
 	comment = "리뷰",
 	commentId,
+	writerId,
 }) {
+	//@ 수정 상태 설정
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [isRemoved, setIsRemoved] = useState(false);
+
+	//@ 코멘트 상태 설정
 	const [editedComment, setEditedComment] = useState(comment);
 	const [realComment, setRealComment] = useState(comment);
 
+	const userFromLocalStorage = JSON.parse(
+		localStorage.getItem("pocketbase_auth") || "{}"
+	);
+	const currentUserId = userFromLocalStorage?.model?.id;
+
+	//@ 리뷰 삭제 핸들러
 	const handleDeleteClick = async () => {
+		console.log(currentUserId, writerId);
+		if (currentUserId !== writerId) {
+			alert("본인의 리뷰만 삭제할 수 있습니다.");
+			return;
+		}
+
 		try {
 			await pb.collection("review").delete(commentId);
 			setIsRemoved(true);
@@ -23,9 +39,16 @@ export default function ReviewItem({
 		}
 	};
 
+	//@ 리뷰 수정 핸들러
 	const handleEditClick = () => {
+		if (currentUserId !== writerId) {
+			alert("본인의 리뷰만 수정할 수 있습니다.");
+			return;
+		}
+
 		setIsEditMode(true);
 	};
+	//@ 리뷰 저장 핸들러
 	const handleSave = async (commentId) => {
 		if (!isEditMode) return;
 
@@ -108,4 +131,5 @@ ReviewItem.propTypes = {
 	writer: string.isRequired,
 	comment: string.isRequired,
 	commentId: string.isRequired,
+	writerId: string.isRequired,
 };
