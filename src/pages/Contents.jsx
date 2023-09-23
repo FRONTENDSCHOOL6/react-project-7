@@ -1,4 +1,5 @@
 import S from "../components/detail/Contents.module.css";
+import { Helmet } from "react-helmet-async";
 import React, { useRef, useState, useEffect } from "react";
 import { getPbImageURL } from "@/utils/getPbImageURL";
 import pb from "@/api/pocketbase";
@@ -184,6 +185,21 @@ function Contents() {
 
 	return (
 		<main className={`text-gray300 ${S.main} w-screen overflow-hidden`}>
+			<Helmet>
+				<title>상세 페이지</title>
+				<meta
+					name="description"
+					content="멋쟁이 사자처럼 6기 7조의 파이널 프로젝트 - 티빙 클론코딩 상세 페이지"
+				/>
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="타잉 상세 페이지" />
+				<meta property="og:description" content="프로젝트 타잉 상세 페이지" />
+				<meta property="og:image" content="@/assets/metaImgDetail.png" />
+				<meta
+					property="og:url"
+					content="http://localhost:5173/react-project-7/#/contents/:id"
+				/>
+			</Helmet>
 			<DetailArticle
 				setState={setState}
 				state={state}
