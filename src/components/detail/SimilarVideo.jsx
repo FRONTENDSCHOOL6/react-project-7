@@ -3,35 +3,68 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { string, shape, arrayOf } from "prop-types";
 import { Navigation, Pagination } from "swiper/modules";
 import S from "../detail/Contents.module.css";
+import SwiperButton from "../../components/common/SwiperButton";
 
 export default function SimilarSection({ similar }) {
+	//@ 스와이퍼 상태 설정
+	const [isBeginning, setIsBeginning] = useState(true);
+	const [isEnd, setIsEnd] = useState(false);
+	const prevRef = useRef(null);
+	const nextRef = useRef(null);
+
+	//@ 스와이퍼 변경 핸들러
+	const handleSlideChange = (swiper) => {
+		setIsBeginning(swiper.isBeginning);
+		setIsEnd(swiper.isEnd);
+	};
+
+	//@ 영화 스와이퍼 활성화 처리
+	useEffect(() => {
+		if (prevRef.current || nextRef.current) {
+			if (isBeginning) {
+				prevRef.current.classList.add("swiper-button-disabled");
+			} else {
+				prevRef.current.classList.remove("swiper-button-disabled");
+			}
+
+			if (isEnd) {
+				nextRef.current.classList.add("swiper-button-disabled");
+			} else {
+				nextRef.current.classList.remove("swiper-button-disabled");
+			}
+		}
+	}, [isBeginning, isEnd]);
+
 	return (
 		<section className={S.section}>
 			<span className={S.sectionTitle}>비슷한 TV 프로그램</span>
 			<div className={S.programFont}>
 				<Swiper
-					className="detailSwiper detailPagenation px-[3rem]  overflow-y-visible   "
-					modules={[Navigation, Pagination]}
+					className="detailSwiper detailPagenation px-[3rem]  overflow-y-visible  "
 					slidesPerView={7}
 					spaceBetween={10}
 					slidesPerGroup={7}
-					tabIndex={0}
-					freeMode={true}
 					breakpoints={{
 						480: { slidesPerView: 5 },
 						768: { slidesPerView: 6 },
 						1024: { slidesPerView: 7 },
 					}}
 					navigation={{
-						nextEl: "#nextButton",
-						prevEl: "#prevButton",
-						keyboard: {
-							enabled: true,
-							onlyInViewport: false,
-						},
+						prevEl: prevRef.current,
+						nextEl: nextRef.current,
+						keyboard: true,
+						onlyInViewport: false,
 					}}
-					pagination={{
-						clickable: true,
+					pagination={{ clickable: true }}
+					modules={[Navigation, Pagination]}
+					onInit={(swiper) => {
+						handleSlideChange(swiper);
+						if (swiper.isBeginning) {
+							prevRef.current.classList.add("swiper-button-disabled");
+						}
+					}}
+					onSlideChange={(swiper) => {
+						handleSlideChange(swiper);
 					}}
 				>
 					{similar.map((similarItem, index) => (
@@ -47,23 +80,17 @@ export default function SimilarSection({ similar }) {
 							</figure>
 						</SwiperSlide>
 					))}
-					<div
-						className="swiper-button-prev"
-						id="prevButton"
-						role="button"
-						tabIndex={0}
-						onKeyDown={(e) => {
-							if (e.key === "Enter") e.currentTarget.click();
-						}}
+					<SwiperButton
+						className={`swiper-button-prev ${
+							!isBeginning ? "opacity-60" : "opacity-0"
+						}`}
+						ref={prevRef}
 					/>
-					<div
-						className="swiper-button-next"
-						id="nextButton"
-						role="button"
-						tabIndex={0}
-						onKeyDown={(e) => {
-							if (e.key === "Enter") e.currentTarget.click();
-						}}
+					<SwiperButton
+						className={`swiper-button-next ${
+							!isEnd ? "opacity-60" : "opacity-0"
+						}`}
+						ref={nextRef}
 					/>
 				</Swiper>
 			</div>

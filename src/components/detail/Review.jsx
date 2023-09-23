@@ -6,16 +6,21 @@ import S from "../detail/Contents.module.css";
 import ReviewItem from "../detail/EditReview";
 
 export default function ReviewSection({ id, contentType }) {
+	//@ 리뷰 상태 설정
+	//? 별점
 	const [stars, setStars] = useState(0);
 	const [hoverRating, setHoverRating] = useState(0);
+	//? 리뷰 수정
 	const [reviewText, setReviewText] = useState("");
 	const [reviews, setReviews] = useState([]);
 	const [editingReviewIndex, setEditingReviewIndex] = useState(null);
-	const [editedComment, setEditedComment] = useState("");
-	const formref = useRef(null);
+	//? 수정된 리뷰
 	const [comment, setComment] = useState([]);
+	const [editedComment, setEditedComment] = useState("");
+	//? 폼 참조
+	const formref = useRef(null);
 
-	// 리뷰 입력
+	//@ 리뷰 입력 핸들러
 	const handleReviewChange = (e) => {
 		if (editingReviewIndex !== null) {
 			setEditedComment(e.target.value);
@@ -24,6 +29,25 @@ export default function ReviewSection({ id, contentType }) {
 		}
 	};
 
+	//@ 포켓베이스에 저장된 리뷰 렌더링
+	useEffect(() => {
+		const fetchReviews = async () => {
+			try {
+				const data = await pb
+					.collection(contentType)
+					.getOne(id, { expand: "reviews,reviews.writer" });
+				if (data?.expand?.reviews) {
+					setReviews(data.expand.reviews);
+				}
+			} catch (error) {
+				console.error("Failed to fetch reviews", error);
+			}
+		};
+
+		fetchReviews();
+	}, [id, contentType]);
+
+	//@ 리뷰 전송 핸들러
 	const handleReviewSubmit = async (e) => {
 		e.preventDefault();
 
@@ -36,11 +60,13 @@ export default function ReviewSection({ id, contentType }) {
 			try {
 				let reviewData;
 				if (editingReviewIndex !== null) {
+					//? 수정중인 리뷰
 					reviewData = {
 						text: editedComment,
 						stars: stars.toString(),
 					};
 				} else {
+					//? 새로운 리뷰
 					reviewData = {
 						text: reviewText,
 						stars: stars.toString(),
@@ -54,6 +80,7 @@ export default function ReviewSection({ id, contentType }) {
 					programId: id,
 				};
 
+				//? 리뷰 추가
 				let record = await pb.collection("review").create(data);
 
 				if (record) {
@@ -65,9 +92,8 @@ export default function ReviewSection({ id, contentType }) {
 
 				let newData = await pb
 					.collection("review")
-					.getOne(record.id, { expand: "writer" });
+					.getOne(record.id, { expand: "writer, reviews.writer" });
 
-				// 새로운 리뷰 추가
 				setReviews((prev) => [...prev, newData]);
 			} catch (error) {
 				console.error(error);
@@ -111,12 +137,12 @@ export default function ReviewSection({ id, contentType }) {
 				<div>
 					<ul className="">
 						{reviews.map((item) => {
-							console.log(item);
 							return (
 								<ReviewItem
 									key={item.id}
 									star={item.star}
 									writer={item.expand.writer.username}
+									writerId={item.expand.writer.id}
 									comment={item.contents}
 									commentId={item.id}
 									onCommentChange={setComment}

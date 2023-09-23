@@ -1,91 +1,220 @@
 import { number, string, arrayOf } from "prop-types";
 
-function Spinner({
-	size = 200,
-	message = "로딩 중...",
-	colors = ["#93dbe9", "#689cc5", "#5e6fa3"],
-	...restProps
-}) {
+function Spinner() {
 	return (
-		<svg
-			width={size}
-			height={size}
-			display="block"
-			preserveAspectRatio="xMidYMid"
-			viewBox="0 0 100 100"
-			{...restProps}
-		>
-			<title>{message}</title>
-			<circle cx="80" cy="50" r="5" fill={colors[0]}>
-				<animate
-					attributeName="cx"
-					dur="1.282051282051282s"
-					keyTimes="0;1"
-					repeatCount="indefinite"
-					values="80;35.00000000000001"
-				></animate>
-				<animate
-					attributeName="cy"
-					dur="1.282051282051282s"
-					keyTimes="0;1"
-					repeatCount="indefinite"
-					values="50;75.98076211353316"
-				></animate>
-				<animate
-					attributeName="fill"
-					dur="1.282051282051282s"
-					keyTimes="0;1"
-					repeatCount="indefinite"
-					values="#93dbe9;#689cc5"
-				></animate>
-			</circle>
-			<circle cx="35" cy="75.981" r="5" fill={colors[1]}>
-				<animate
-					attributeName="cx"
-					dur="1.282051282051282s"
-					keyTimes="0;1"
-					repeatCount="indefinite"
-					values="35.00000000000001;34.999999999999986"
-				></animate>
-				<animate
-					attributeName="cy"
-					dur="1.282051282051282s"
-					keyTimes="0;1"
-					repeatCount="indefinite"
-					values="75.98076211353316;24.019237886466847"
-				></animate>
-				<animate
-					attributeName="fill"
-					dur="1.282051282051282s"
-					keyTimes="0;1"
-					repeatCount="indefinite"
-					values="#689cc5;#5e6fa3"
-				></animate>
-			</circle>
-			<circle cx="35" cy="24.019" r="5" fill={colors[2]}>
-				<animate
-					attributeName="cx"
-					dur="1.282051282051282s"
-					keyTimes="0;1"
-					repeatCount="indefinite"
-					values="34.999999999999986;80"
-				></animate>
-				<animate
-					attributeName="cy"
-					dur="1.282051282051282s"
-					keyTimes="0;1"
-					repeatCount="indefinite"
-					values="24.019237886466847;49.99999999999999"
-				></animate>
-				<animate
-					attributeName="fill"
-					dur="1.282051282051282s"
-					keyTimes="0;1"
-					repeatCount="indefinite"
-					values="#5e6fa3;#93dbe9"
-				></animate>
-			</circle>
-		</svg>
+		<div className="my-[5%] text-center">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				style={{
+					margin: "auto",
+					background: "transparent",
+					display: "block",
+				}}
+				width="100px"
+				height="100px"
+				viewBox="0 0 100 100"
+				preserveAspectRatio="xMidYMid"
+			>
+				<g transform="translate(72,50)">
+					<g transform="rotate(0)">
+						<circle cx="0" cy="0" r="3" fill="#6a6a6a" fillOpacity="1">
+							<animateTransform
+								attributeName="transform"
+								type="scale"
+								begin="-1.098901098901099s"
+								values="1.33 1.33;1 1"
+								keyTimes="0;1"
+								dur="1.282051282051282s"
+								repeatCount="indefinite"
+							></animateTransform>
+							<animate
+								attributeName="fill-opacity"
+								keyTimes="0;1"
+								dur="1.282051282051282s"
+								repeatCount="indefinite"
+								values="1;0"
+								begin="-1.098901098901099s"
+							></animate>
+						</circle>
+					</g>
+				</g>
+				<g transform="translate(63.71677564089214,67.20029261429666)">
+					<g transform="rotate(51.42857142857143)">
+						<circle
+							cx="0"
+							cy="0"
+							r="3"
+							fill="#6a6a6a"
+							fillOpacity="0.8571428571428571"
+						>
+							<animateTransform
+								attributeName="transform"
+								type="scale"
+								begin="-0.9157509157509157s"
+								values="1.33 1.33;1 1"
+								keyTimes="0;1"
+								dur="1.282051282051282s"
+								repeatCount="indefinite"
+							></animateTransform>
+							<animate
+								attributeName="fill-opacity"
+								keyTimes="0;1"
+								dur="1.282051282051282s"
+								repeatCount="indefinite"
+								values="1;0"
+								begin="-0.9157509157509157s"
+							></animate>
+						</circle>
+					</g>
+				</g>
+				<g transform="translate(45.104539452961085,71.44841406800012)">
+					<g transform="rotate(102.85714285714286)">
+						<circle
+							cx="0"
+							cy="0"
+							r="3"
+							fill="#6a6a6a"
+							fillOpacity="0.7142857142857143"
+						>
+							<animateTransform
+								attributeName="transform"
+								type="scale"
+								begin="-0.7326007326007326s"
+								values="1.33 1.33;1 1"
+								keyTimes="0;1"
+								dur="1.282051282051282s"
+								repeatCount="indefinite"
+							></animateTransform>
+							<animate
+								attributeName="fill-opacity"
+								keyTimes="0;1"
+								dur="1.282051282051282s"
+								repeatCount="indefinite"
+								values="1;0"
+								begin="-0.7326007326007326s"
+							></animate>
+						</circle>
+					</g>
+				</g>
+				<g transform="translate(30.17868490614678,59.545442260586285)">
+					<g transform="rotate(154.2857142857143)">
+						<circle
+							cx="0"
+							cy="0"
+							r="3"
+							fill="#6a6a6a"
+							fillOpacity="0.5714285714285714"
+						>
+							<animateTransform
+								attributeName="transform"
+								type="scale"
+								begin="-0.5494505494505495s"
+								values="1.33 1.33;1 1"
+								keyTimes="0;1"
+								dur="1.282051282051282s"
+								repeatCount="indefinite"
+							></animateTransform>
+							<animate
+								attributeName="fill-opacity"
+								keyTimes="0;1"
+								dur="1.282051282051282s"
+								repeatCount="indefinite"
+								values="1;0"
+								begin="-0.5494505494505495s"
+							></animate>
+						</circle>
+					</g>
+				</g>
+				<g transform="translate(30.178684906146778,40.45455773941372)">
+					<g transform="rotate(205.71428571428572)">
+						<circle
+							cx="0"
+							cy="0"
+							r="3"
+							fill="#6a6a6a"
+							fillOpacity="0.42857142857142855"
+						>
+							<animateTransform
+								attributeName="transform"
+								type="scale"
+								begin="-0.3663003663003663s"
+								values="1.33 1.33;1 1"
+								keyTimes="0;1"
+								dur="1.282051282051282s"
+								repeatCount="indefinite"
+							></animateTransform>
+							<animate
+								attributeName="fill-opacity"
+								keyTimes="0;1"
+								dur="1.282051282051282s"
+								repeatCount="indefinite"
+								values="1;0"
+								begin="-0.3663003663003663s"
+							></animate>
+						</circle>
+					</g>
+				</g>
+				<g transform="translate(45.10453945296108,28.55158593199988)">
+					<g transform="rotate(257.1428571428571)">
+						<circle
+							cx="0"
+							cy="0"
+							r="3"
+							fill="#6a6a6a"
+							fillOpacity="0.2857142857142857"
+						>
+							<animateTransform
+								attributeName="transform"
+								type="scale"
+								begin="-0.18315018315018314s"
+								values="1.33 1.33;1 1"
+								keyTimes="0;1"
+								dur="1.282051282051282s"
+								repeatCount="indefinite"
+							></animateTransform>
+							<animate
+								attributeName="fill-opacity"
+								keyTimes="0;1"
+								dur="1.282051282051282s"
+								repeatCount="indefinite"
+								values="1;0"
+								begin="-0.18315018315018314s"
+							></animate>
+						</circle>
+					</g>
+				</g>
+				<g transform="translate(63.71677564089214,32.79970738570334)">
+					<g transform="rotate(308.5714285714286)">
+						<circle
+							cx="0"
+							cy="0"
+							r="3"
+							fill="#6a6a6a"
+							fillOpacity="0.14285714285714285"
+						>
+							<animateTransform
+								attributeName="transform"
+								type="scale"
+								begin="0s"
+								values="1.33 1.33;1 1"
+								keyTimes="0;1"
+								dur="1.282051282051282s"
+								repeatCount="indefinite"
+							></animateTransform>
+							<animate
+								attributeName="fill-opacity"
+								keyTimes="0;1"
+								dur="1.282051282051282s"
+								repeatCount="indefinite"
+								values="1;0"
+								begin="0s"
+							></animate>
+						</circle>
+					</g>
+				</g>
+			</svg>
+			<span className="text-gray-400 text-sm">로딩 중...</span>
+		</div>
 	);
 }
 

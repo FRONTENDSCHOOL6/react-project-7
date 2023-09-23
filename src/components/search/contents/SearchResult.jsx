@@ -2,8 +2,8 @@ import { useState } from "react";
 import useSearchStore from "../../../store/useSearchStore";
 import HighlightedText from "../util/HighlightedText";
 import S from "./../Search.module.css";
-import { SearchedResultSwiper } from "./SearchedResultSwiper";
-import { SearchingResultSwiper } from "./SearchingResultSwiper";
+import SearchedResultSwiper from "./SearchedResultSwiper";
+import SearchingResultSwiper from "./SearchingResultSwiper";
 
 //@ 검색 결과 컴포넌트
 export default function SearchResult() {

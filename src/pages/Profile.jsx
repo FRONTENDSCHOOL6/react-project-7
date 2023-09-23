@@ -53,7 +53,7 @@ function Profile() {
 			<div className={S.contentsWrapper}>
 				<ProfileTitle />
 				<ProfileList
-					profiles={profilesData?.expand?.profiles}
+					profiles={profilesData ? profilesData : storageData}
 					onSelect={handleProfileSelect}
 				/>
 				<ProfileEditButton />

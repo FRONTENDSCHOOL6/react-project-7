@@ -14,7 +14,7 @@ function EditProfiles() {
 	const [isLoading, setIsLoading] = useState(true);
 	const [profileData, setProfileData] = useState(null);
 	const handleProfileClick = (profile) => {
-		navigate(`/editprofile/${authState?.model?.id}/${profile.id}`);
+		navigate(`/editprofile/${storageData?.model?.id}/${profile.id}`);
 	};
 	useEffect(() => {
 		const fetchProfiles = async () => {
@@ -22,7 +22,7 @@ function EditProfiles() {
 				setIsLoading(true);
 				const data = await pb
 					.collection("users")
-					.getOne(storageData.model.id, { expand: "profiles" });
+					.getOne(storageData?.model?.id, { expand: "profiles" });
 				setProfileData(data);
 			} catch (error) {
 				console.log(error);

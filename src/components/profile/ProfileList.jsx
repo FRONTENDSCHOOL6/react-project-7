@@ -5,13 +5,21 @@ function ProfileList({ profiles, onSelect }) {
 	console.log(profiles);
 	return (
 		<ul className="flex items-center justify-center gap-7 w-2/3">
-			{profiles?.map((profile) => (
+			{profiles?.expand ? (
+				profiles?.expand.profiles.map((profile) => (
+					<ProfileItem
+						key={profile?.username}
+						profile={profile}
+						onClick={onSelect(profile)} // onClick으로 onSelect 함수를 전달합니다.
+					/>
+				))
+			) : (
 				<ProfileItem
-					key={profile?.username}
-					profile={profile}
-					onClick={onSelect(profile)} // onClick으로 onSelect 함수를 전달합니다.
+					key={profiles?.username}
+					profile={profiles}
+					onClick={onSelect(profiles)} // onClick으로 onSelect 함수를 전달합니다.
 				/>
-			))}
+			)}
 		</ul>
 	);
 }

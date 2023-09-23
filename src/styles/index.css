@@ -25,22 +25,54 @@ html {
 
 /* detail 스와이퍼 css */
 
-.detailSwiper .swiper-button-prev,
 .detailSwiper .swiper-button-next {
   top: 0;
   height: 100%;
   color: white;
   opacity: 0.6;
   z-index: 999;
+  right: -0.5%;
+  background: center / contain no-repeat,
+    radial-gradient(
+      106.25% 50% at 106.25% 50%,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.6) 52.6%,
+      rgba(0, 0, 0, 0) 100%
+    );
 }
-
-.detailSwiper:hover .swiper-button-prev,
-.detailSwiper:hover .swiper-button-next {
-  opacity: 1;
+.detailSwiper .swiper-button-prev {
+  top: 0;
+  height: 100%;
+  color: white;
+  opacity: 0.6;
+  z-index: 999;
+  left: -0.5%;
+  background: center / contain no-repeat,
+    radial-gradient(
+      106.25% 50% at 106.25% 50%,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.6) 52.6%,
+      rgba(0, 0, 0, 0) 100%
+    );
 }
 
 .detailSwiper .swiper-button-prev {
   transform: scaleX(-1);
+}
+
+.detailSwiper .swiper-button-prev.swiper-button-disabled,
+.detailSwiper .swiper-button-next.swiper-button-disabled {
+  opacity: 0 !important;
+}
+
+.detailSwiper:hover .swiper-button-prev:not(.swiper-button-disabled),
+.detailSwiper:hover .swiper-button-next:not(.swiper-button-disabled) {
+  opacity: 1;
+}
+
+.detailSwiper .swiper-button-prev:not(.swiper-button-disabled),
+.detailSwiper .swiper-button-next:not(.swiper-button-disabled) {
+  opacity: 0.6;
 }
 
 .detailSwiper .swiper-button-prev:after,
@@ -104,8 +136,10 @@ html {
 .categoryNav .swiper-button-prev::after,
 .searchResult .swiper-button-next::after,
 .searchResult .swiper-button-prev::after {
-  content: url(/assets/main-next.svg);
-  background: url(/assets/main-next.svg);
+  background: url(/assets/main-next.svg) no-repeat center center / contain;
+  content: "";
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   left: 0;
@@ -158,6 +192,20 @@ html {
   background: white;
 }
 
+.mainSwiper .swiper-button-prev.swiper-button-disabled,
+.mainSwiper .swiper-button-next.swiper-button-disabled {
+  opacity: 0 !important;
+}
+
+.mainSwiper:hover .swiper-button-prev:not(.swiper-button-disabled),
+.mainSwiper:hover .swiper-button-next:not(.swiper-button-disabled) {
+  opacity: 1;
+}
+
+.mainSwiper .swiper-button-prev:not(.swiper-button-disabled),
+.mainSwiper .swiper-button-next:not(.swiper-button-disabled) {
+  opacity: 0.6;
+}
 /* 내비게이션 관련 */
 .searchResult .swiper-button-next {
   position: absolute;
@@ -179,6 +227,7 @@ html {
 }
 .searchResult .swiper-button-prev {
   position: absolute;
+
   background: center / contain no-repeat,
     radial-gradient(
       106.25% 50% at 106.25% 50%,
@@ -191,17 +240,24 @@ html {
   top: 50%;
   width: 4%;
   height: 100%;
-
   z-index: 10;
   transition: all 0.3s;
   cursor: pointer;
 }
+.searchResult .swiper-button-prev.swiper-button-disabled,
+.searchResult .swiper-button-next.swiper-button-disabled {
+  opacity: 0 !important;
+}
 
-.searchResult:hover .swiper-button-prev,
-.searchResult:hover .swiper-button-next {
+.searchResult:hover .swiper-button-prev:not(.swiper-button-disabled),
+.searchResult:hover .swiper-button-next:not(.swiper-button-disabled) {
   opacity: 1;
 }
 
+.searchResult .swiper-button-prev:not(.swiper-button-disabled),
+.searchResult .swiper-button-next:not(.swiper-button-disabled) {
+  opacity: 0.6;
+}
 /* 페이지네이션 관련 */
 .searchResult .swiper-pagination {
   opacity: 0;

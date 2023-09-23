@@ -9,8 +9,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import SwiperButton from "./../../../components/common/SwiperButton";
 import S from "./../Search.module.css";
+import { useEffect } from "react";
 
-export function SearchedResultSwiper({
+export default function SearchedResultSwiper({
 	contentCategory,
 	setIsFullView, // isFullView를 전달받음
 	setCurrentCategory,
@@ -22,6 +23,26 @@ export function SearchedResultSwiper({
 	const [isEnd, setIsEnd] = useState(false);
 	const prevRef = useRef(null);
 	const nextRef = useRef(null);
+
+	const handleSlideChange = (swiper) => {
+		setIsBeginning(swiper.isBeginning);
+		setIsEnd(swiper.isEnd);
+	};
+	useEffect(() => {
+		if (prevRef.current || nextRef.current) {
+			if (isBeginning) {
+				prevRef.current.classList.add("swiper-button-disabled");
+			} else {
+				prevRef.current.classList.remove("swiper-button-disabled");
+			}
+
+			if (isEnd) {
+				nextRef.current.classList.add("swiper-button-disabled");
+			} else {
+				nextRef.current.classList.remove("swiper-button-disabled");
+			}
+		}
+	}, [isBeginning, isEnd]);
 	return (
 		<Swiper
 			slidesPerView={7}
@@ -41,8 +62,13 @@ export function SearchedResultSwiper({
 			pagination={{ clickable: true }}
 			modules={[Navigation, Pagination]}
 			onInit={(swiper) => {
-				setIsBeginning(swiper.isBeginning);
-				setIsEnd(swiper.isEnd);
+				handleSlideChange(swiper);
+				if (swiper.isBeginning) {
+					prevRef.current.classList.add("swiper-button-disabled");
+				}
+			}}
+			onSlideChange={(swiper) => {
+				handleSlideChange(swiper);
 			}}
 			className={`mySwiper w-full searchResult overflow-y-visible relative pr-7 ${
 				isFullView ? "hide-pagination" : ""
