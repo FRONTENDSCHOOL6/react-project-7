@@ -1,4 +1,5 @@
 import S from "../components/detail/Contents.module.css";
+import { Helmet } from "react-helmet-async";
 import React, { useRef, useState, useEffect } from "react";
 import { getPbImageURL } from "@/utils/getPbImageURL";
 import pb from "@/api/pocketbase";
@@ -12,6 +13,7 @@ import DetailArticle from "../components/detail/DetailData";
 import ReviewSection from "../components/detail/Review";
 
 function Contents() {
+	//@ 변수 초기화
 	const [state, setState] = useState({
 		showFullDescription: false,
 		title: "",
@@ -42,6 +44,7 @@ function Contents() {
 		twelve: "12세",
 		fifteen: "15세",
 		seven: "7세",
+		nineteen: "19세",
 	};
 
 	const versionText = {
@@ -49,11 +52,12 @@ function Contents() {
 		subtitle: "자막판",
 	};
 
+	//@ ID 값
 	const { id } = useParams();
 	const [comment, setComment] = useState([]);
 	const [contentType, setContentType] = useState("");
 
-	//@ 포켓베이스 데이터 가져오기
+	//@ 포켓베이스 데이터
 	useEffect(() => {
 		const handleData = async (type) => {
 			try {
@@ -61,7 +65,6 @@ function Contents() {
 					.collection(type)
 					.getOne(id, { expand: "reviews,reviews.writer" });
 				setContentType(data.collectionName);
-				console.log(data);
 				const { expand } = data;
 				if (expand) {
 					setComment(expand.reviews);
@@ -179,22 +182,33 @@ function Contents() {
 	const [isShareOpen, setIsShareOpen] = useState(false);
 
 	//@ 찜
-	const [isChanged, setChanged] = useState(false); //? 찜 버튼 상태
-	const handleHeart = () => {
-		setChanged(!isChanged);
-	}; //? 찜 버튼 클릭시 호출
 
 	return (
 		<main className={`text-gray300 ${S.main} w-screen overflow-hidden`}>
+			<Helmet>
+				<title>상세 페이지</title>
+				<meta
+					name="description"
+					content="멋쟁이 사자처럼 6기 7조의 파이널 프로젝트 - 티빙 클론코딩 상세 페이지"
+				/>
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="타잉 상세 페이지" />
+				<meta property="og:description" content="프로젝트 타잉 상세 페이지" />
+				<meta property="og:image" content="@/assets/metaImgDetail.png" />
+				<meta
+					property="og:url"
+					content="http://localhost:5173/react-project-7/#/contents/:id"
+				/>
+			</Helmet>
 			<DetailArticle
 				setState={setState}
 				state={state}
 				ratingText={ratingText}
 				versionText={versionText}
-				handleHeart={handleHeart}
-				isChanged={isChanged}
 				setIsShareOpen={setIsShareOpen}
 				isShareOpen={isShareOpen}
+				contentType={contentType}
+				id={id}
 			/>
 			<div>
 				{contentType !== "movie" && (

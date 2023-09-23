@@ -1,0 +1,5 @@
+.SnsLoginButton {
+    @apply flex py-3 flex-row border rounded w-full justify-center border-slate-600 content-center bg-no-repeat;
+    @apply text-gray-400;
+    @apply hover:border-slate-100;
+}
