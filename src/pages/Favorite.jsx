@@ -119,7 +119,7 @@ export default function Favorites() {
 	return (
 		<main className={`${S.main} `}>
 			<Helmet>
-				<title>내가 찜한 콘텐츠</title>
+				<title>타잉 7조 - 상세 페이지</title>
 				<meta
 					name="description"
 					content="멋쟁이 사자처럼 6기 7조의 파이널 프로젝트 - 티빙 클론코딩 내가 찜한 콘텐츠 페이지"
@@ -130,7 +130,7 @@ export default function Favorites() {
 				<meta property="og:image" content="@/assets/metaImgFavorite.png" />
 				<meta
 					property="og:url"
-					content="http://localhost:5173/react-project-7/#/favorite"
+					content="https://frontendschool6.github.io/react-project-7/#/favorite"
 				/>
 			</Helmet>
 			<section className={S.section}>

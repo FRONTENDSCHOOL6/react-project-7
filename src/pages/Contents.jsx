@@ -184,9 +184,9 @@ function Contents() {
 	//@ 찜
 
 	return (
-		<main className={`text-gray300 ${S.main} w-screen overflow-hidden`}>
+		<main className={`text-gray300 ${S.main} w-screen overflow-hidden px-[3%]`}>
 			<Helmet>
-				<title>상세 페이지</title>
+				<title>타잉 7조 - 상세 페이지</title>
 				<meta
 					name="description"
 					content="멋쟁이 사자처럼 6기 7조의 파이널 프로젝트 - 티빙 클론코딩 상세 페이지"
@@ -197,7 +197,7 @@ function Contents() {
 				<meta property="og:image" content="@/assets/metaImgDetail.png" />
 				<meta
 					property="og:url"
-					content="http://localhost:5173/react-project-7/#/contents/:id"
+					content="https://frontendschool6.github.io/react-project-7/#/contents/:id"
 				/>
 			</Helmet>
 			<DetailArticle
