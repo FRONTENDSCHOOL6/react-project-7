@@ -1,6 +1,4 @@
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
-import React, { useRef, useEffect, useState } from "react";
 import ProgramNav from "./../components/category/ProgramNav";
 import ProgramContent from "./../components/category/ProgramContent";
 
@@ -19,7 +17,10 @@ export default function Movie() {
 					property="og:description"
 					content="프로젝트 타잉 TV 프로그램 페이지"
 				/>
-				<meta property="og:image" content="@/assets/metaImgProgram.png" />
+				<meta
+					property="og:image"
+					content="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/116864776/8e577312-bacb-4000-baab-b1e54ce0116a"
+				/>
 				<meta
 					property="og:url"
 					content="http://localhost:5173/react-project-7/#/program"
