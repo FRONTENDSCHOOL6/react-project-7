@@ -32,7 +32,7 @@ function SignInList() {
 			const user = await pb.collection("users").authWithOAuth2({
 				provider: "kakao",
 			});
-			// navigate("/");
+			navigate("/");
 			//@ 권한 부여를 위한 역할 설정 ... 멤버쉽을 type으로 넣어보려고 했는데 불필요하시면 지우셔도 괜찮을거 같아요,,
 			// const role = await pb
 			// 	.collection("membership")
