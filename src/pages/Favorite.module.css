@@ -19,3 +19,7 @@
 .sectionTitle {
   @apply text-xl leading-7 font-semibold text-[gray] px-12;
 }
+
+.figureHoverEffect {
+  @apply text-gray200 cursor-pointer hover:-translate-y-2 duration-300 hover:text-[white];
+}

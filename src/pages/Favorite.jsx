@@ -1,8 +1,10 @@
 import S from "../pages/Favorite.module.css";
+import { Helmet } from "react-helmet-async";
 import React, { useRef, useState, useEffect } from "react";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { getPbImageURL } from "@/utils/getPbImageURL";
+import { Link } from "react-router-dom";
 import SwiperButton from "../components/common/SwiperButton";
 import pb from "@/api/pocketbase";
 
@@ -116,6 +118,21 @@ export default function Favorites() {
 
 	return (
 		<main className={`${S.main} `}>
+			<Helmet>
+				<title>내가 찜한 콘텐츠</title>
+				<meta
+					name="description"
+					content="멋쟁이 사자처럼 6기 7조의 파이널 프로젝트 - 티빙 클론코딩 내가 찜한 콘텐츠 페이지"
+				/>
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="타잉 내가 찜한 콘텐츠 페이지" />
+				<meta property="og:description" content="프로젝트 타잉 내찜콘 페이지" />
+				<meta property="og:image" content="@/assets/metaImgFavorite.png" />
+				<meta
+					property="og:url"
+					content="http://localhost:5173/react-project-7/#/favorite"
+				/>
+			</Helmet>
 			<section className={S.section}>
 				<h2 className={`${S.favoriteTitle} pl-[3rem]`}>내가 찜한 콘텐츠</h2>
 				<span className={`${S.sectionTitle} pl-[3rem]`}>찜한 영화</span>
@@ -151,12 +168,17 @@ export default function Favorites() {
 					>
 						{state.favoriteMovie.map((movie, index) => (
 							<SwiperSlide key={index}>
-								<figure>
-									<img src={getPbImageURL(movie, "poster")} alt={movie.title} />
-									<figcaption className=" pt-[0.5651rem]">
-										<h2>{movie.title}</h2>
-									</figcaption>
-								</figure>
+								<Link to={`/contents/${movie.id}`}>
+									<figure className={`pt-[0.5625rem] ${S.figureHoverEffect}`}>
+										<img
+											src={getPbImageURL(movie, "poster")}
+											alt={movie.title}
+										/>
+										<figcaption className=" pt-[0.5651rem]">
+											<h2>{movie.title}</h2>
+										</figcaption>
+									</figure>
+								</Link>
 							</SwiperSlide>
 						))}
 						<SwiperButton
@@ -206,15 +228,17 @@ export default function Favorites() {
 					>
 						{state.favoriteProgram.map((program, index) => (
 							<SwiperSlide key={index}>
-								<figure>
-									<img
-										src={getPbImageURL(program, "poster")}
-										alt={program.title}
-									/>
-									<figcaption className=" pt-[0.5615rem]">
-										<h2>{program.title}</h2>
-									</figcaption>
-								</figure>
+								<Link to={`/contents/${program.id}`}>
+									<figure className={`pt-[0.5625rem] ${S.figureHoverEffect}`}>
+										<img
+											src={getPbImageURL(program, "poster")}
+											alt={program.title}
+										/>
+										<figcaption className=" pt-[0.5615rem]">
+											<h2>{program.title}</h2>
+										</figcaption>
+									</figure>
+								</Link>
 							</SwiperSlide>
 						))}
 						<SwiperButton
