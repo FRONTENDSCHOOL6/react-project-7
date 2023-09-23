@@ -66,7 +66,10 @@ function Header() {
 		};
 	}, []);
 
-	let profileUsername = profileData?.username || selectedProfile?.username;
+	let profileUsername =
+		profileData?.username ||
+		selectedProfile?.username ||
+		storageData?.model?.username;
 
 	useEffect(() => {
 		// 비동기 함수를 이용하여 프로필 이미지 가져오기
@@ -80,6 +83,13 @@ function Header() {
 				} else if (selectedProfile && selectedProfile.poster) {
 					// profileData가 없고 selectedProfile이 있을 경우 selectedProfile을 사용
 					imageUrl = await getPbImageURL(selectedProfile, "poster");
+				} else if (
+					!profileData &&
+					!selectedProfile &&
+					storageData?.model?.avatar
+				) {
+					// profileData와 selectedProfile 모두 없을 경우 storageData를 사용
+					imageUrl = await getPbImageURL(storageData?.model, "avatar");
 				} else {
 					// profileData와 selectedProfile 모두 없을 경우 기본 이미지나 다른 로직을 사용
 					imageUrl = profileIcon; // 예시: 기본 이미지
