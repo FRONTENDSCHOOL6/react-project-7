@@ -1,14 +1,12 @@
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import S from "./SignInList.module.css";
 import React, { useState } from "react";
 import "swiper/css";
-// import { Autoplay } from "swiper/modules";
-// import { useRef } from "react";
-// import { LoopSlide } from "./LoopSlide";
 import pb from "@/api/pocketbase";
 import mainImg from "/assets/main.webp";
 import tvingLogo from "/assets/tving-login.svg";
-import naverLogo  from "/assets/naver-login.svg";
+import naverLogo from "/assets/naver-login.svg";
 import kakaoLogo from "/assets/kakao-login.svg";
 import facebookLogo from "/assets/facebook-login.svg";
 import twitterLogo from "/assets/twitter-login.svg";
@@ -36,46 +34,49 @@ function SignInList() {
 			});
 			// navigate("/");
 			//@ 권한 부여를 위한 역할 설정 ... 멤버쉽을 type으로 넣어보려고 했는데 불필요하시면 지우셔도 괜찮을거 같아요,,
-			//const role = await pb
-			//	.collection("membership")
-			//	.getFirstListItem('type="standard"');
-			//console.log(user);
-			  const { username: name, email } = user.meta;
-				
-   const updateUser = {
-      name,
-      username: email.split('@')[0],
-      // ※ 권한(Authorization) 부여를 위한 역할(role)이 설정된 경우
-      // role: role.id,
-    };
-			// const updateUser = {
-			// 	name,
-			// 	username: email.split("@")[0],
-			// 	// myMembership: role.id,
-			// };
+			// const role = await pb
+			// 	.collection("membership")
+			// 	.getFirstListItem('type="standard"');
+			console.log(user);
+			const { username: name, email } = user.meta;
 
-			// console.log("updateUser:", updateUser);
+			const updateUser = {
+				name,
+				username: email.split("@")[0],
+				// ※ 권한(Authorization) 부여를 위한 역할(role)이 설정된 경우
+				// role: role.id,
+			};
+
+			console.log("updateUser:", updateUser);
 			//@update=create
-			 await pb.collection("users").update(user.record.id, updateUser);
+			return await pb.collection("users").update(user.record.id, updateUser);
 		} catch (error) {
 			// throw new Error(error.message);
-				console.log("오류", error.response);
-			
+			console.log("오류", error.response);
 		}
 	};
 
-	// const handleKakaoLogout = async () => {
-	// 	try {
-	// 		location.replace(
-	// 			`https://kauth.kakao.com/oauth/logout?client_id=57bd642b7e25410be657c54313859839&logout_redirect_uri=https://final-taing.pockethost.io/api/oauth2-redirect`
-	// 		);
-	// 	} catch (error) {
-	// 		throw new Error(error.message);
-	// 	}
-	// };
-
 	return (
 		<>
+			<Helmet>
+				<title>타잉 7조 - SNS 로그인 페이지</title>
+				<meta
+					name="description"
+					content="멋쟁이 사자처럼 6기 7조의 파이널 프로젝트 - 티빙 클론코딩 SNS 연동 로그인 페이지"
+				/>
+
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="타잉 로그인 페이지" />
+				<meta
+					property="og:description"
+					content="프로젝트 타잉 SNS 계정 연동 로그인 페이지"
+				/>
+				<meta property="og:image" content="@/assets/metaImgSnsLogin.png" />
+				<meta
+					property="og:url"
+					content="http://127.0.0.1:5173/react-project-7/#/signinlist"
+				/>
+			</Helmet>
 			<section
 				className={S.join}
 				style={{
@@ -91,90 +92,53 @@ function SignInList() {
 						계정을 선택해주세요.
 					</p>
 					<div className="flex flex-col gap-5">
-						<button
+						<SnsLoginButton
 							type="button"
-							style={{
-								backgroundImage: `url(${tvingLogo})`,
-								backgroundPosition: 30,
-							}}
+							bgImgSrc={tvingLogo}
 							onClick={navigateToLogin}
-							className={S.joinButton}
-						>
-							<span>TVING ID로 시작하기</span>
-						</button>
+							text="TVING ID로 시작하기"
+						/>
+						<SnsLoginButton
+							type="button"
+							bgImgSrc={naverLogo}
+							onClick={navigateToLogin}
+							text="네이버로 시작하기"
+						/>
+						<SnsLoginButton
+							type="button"
+							bgImgSrc={kakaoLogo}
+							onClick={handleKakaoLogin}
+							text="카카오로 시작하기"
+						/>
+
 						<SnsLoginButton
 							type="button"
 							onClick={navigateToLogin}
-							style={{
-								backgroundImage: `url(${naverLogo})`,
-								backgroundPosition: 30,
-							}}
-							text="네이버로 시작하기"
+							bgImgSrc={facebookLogo}
+							text="페이스북으로 시작하기"
+						/>
+						<SnsLoginButton
+							type="button"
+							onClick={navigateToLogin}
+							bgImgSrc={twitterLogo}
+							text="트위터로 시작하기"
 						/>
 
-						<button
+						<SnsLoginButton
 							type="button"
-							style={{
-								backgroundImage: `url(${naverLogo})`,
-								backgroundPosition: 30,
-							}}
+							bgImgSrc={appleLogo}
 							onClick={navigateToLogin}
 							className={S.joinButton}
-						>
-							<span>네이버로 시작하기</span>
-						</button>
-						<button
-							type="button"
-							onClick={handleKakaoLogin}
-							style={{
-								backgroundImage: `url(${kakaoLogo})`,
-								backgroundPosition: 30,
-							}}
-							className={S.joinButton}
-						>
-							<span>카카오로 시작하기</span>
-						</button>
+							text="Apple로 시작하기"
+						/>
 						<button
 							type="button"
 							onClick={navigateToLogin}
-							style={{
-								backgroundImage: `url(${facebookLogo})`,
-								backgroundPosition: 30,
-							}}
-							className={S.joinButton}
-						>
-							<span>페이스북으로 시작하기</span>
-						</button>
-						<button
-							type="button"
-							onClick={navigateToLogin}
-							style={{
-								backgroundImage: `url(${twitterLogo})`,
-								backgroundPosition: 30,
-							}}
-							className={S.joinButton}
-						>
-							<span>트위터로 시작하기</span>
-						</button>
-						<button
-							type="button"
-							style={{
-								backgroundImage: `url(${appleLogo})`,
-								backgroundPosition: 30,
-							}}
-							onClick={navigateToLogin}
-							className={S.joinButton}
-						>
-							<span>Apple로 시작하기</span>
-						</button>
-						<button
-							type="button"
 							style={{
 								backgroundImage: `url(${cjLogo})`,
 								backgroundPosition: 30,
 								backgroundSize: 20,
 							}}
-							onClick={navigateToLogin}
 							className={`${S.joinButton} h-[10%]`}
 						>
 							<span>CJone으로 시작하기</span>
