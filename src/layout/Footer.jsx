@@ -12,7 +12,6 @@ function Footer() {
 			<Cs />
 			<Description />
 			<FooterSns />
-			{/* 저작권 */}
 			<small className={S.copyright}>
 				Copyright &copy; 주식회사 티빙 All right reserved.
 			</small>

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import authStore from "@/store/useAuthStore";
+import authStore from "./../../store/useAuthStore";
 import { func } from "prop-types";
-import S from "@/components/header/Header.module.css";
+import S from "./Header.module.css";
 export default function LogoutPopUp({
 	setShowLogoutPopup,
 	handleShowLogoutPopup,

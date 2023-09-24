@@ -24,7 +24,7 @@ function Home() {
 				<meta property="og:description" content="프로젝트 타잉 메인페이지" />
 				<meta
 					property="og:image"
-					content="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/116864776/455cdd7d-89f3-4732-ab66-ec12392b8a0a"
+					content="https://user-images.githubusercontent.com/116864776/270171794-e2d4b9aa-0d08-4a20-9845-791ac41b6506.png"
 				/>
 				<meta
 					property="og:url"

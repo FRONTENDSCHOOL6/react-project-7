@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import pb from "@/api/pocketbase";
 import { getPbImageURL } from "./../../utils/getPbImageURL";
 import S from "./Category.module.css";
 import { Link } from "react-router-dom";
