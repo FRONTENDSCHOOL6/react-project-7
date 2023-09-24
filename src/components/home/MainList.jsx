@@ -80,15 +80,16 @@ function MainList({ classTitle, listTitle, genre, genreId }) {
 								}
 							}}
 							onSlideChange={(swiper) => {
+								console.log(swiper);
 								handleSlideChange(swiper);
 							}}
-							className="overflow-y-visible mb-[4%] px-10"
+							className="mySwiper overflow-y-visible mb-[4%] px-10"
 						>
 							{contentCategory.data
 								.filter((movie) => movie.genre === genreId)
 								.map((item) => (
 									<SwiperSlide key={item.id} className={S.listContent}>
-										<Link to={`contents/${item.id}`}>
+										<Link to={`/contents/${item.id}`}>
 											<img
 												className="w-full"
 												src={getPbImageURL(item, "poster")}

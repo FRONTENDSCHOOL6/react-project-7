@@ -12,7 +12,6 @@ function OnlyTaing() {
 		{ image: witch, alt: "마녀사냥" },
 	];
 
-	// 배열을 복사하고 무작위로 섞습니다.
 	const shuffledImages = [...images].sort(() => Math.random() - 0.5);
 
 	return (

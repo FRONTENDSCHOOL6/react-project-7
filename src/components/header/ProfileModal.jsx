@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import S from "@/components/header/Header.module.css";
+import S from "./Header.module.css";
 import profileIcon from "/assets/profile.png";
-import useStorage from "@/hooks/useStorage";
+import useStorage from "./../../hooks/useStorage";
 import { bool, func, string } from "prop-types";
 
 export default function ProfileModal({
@@ -14,7 +14,6 @@ export default function ProfileModal({
 }) {
 	const navigate = useNavigate();
 	const { storageData } = useStorage("pocketbase_auth");
-	console.log(isDivHovered);
 	return (
 		<div
 			className={`${S.profileModal}

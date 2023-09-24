@@ -19,7 +19,7 @@ function Smart() {
 					<source src={mobile}></source>
 				</video>
 				<div className={S.vodImg}>
-					<img src={quickVod} alt="" />
+					<img src={quickVod} aria-hidden />
 				</div>
 			</div>
 		</section>

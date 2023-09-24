@@ -23,7 +23,7 @@ function ProgramNav() {
 	const [status, setStatus] = useState("pending");
 	const [error, setError] = useState(null);
 	useEffect(() => {
-		let isMounted = true; // Mounted flag
+		let isMounted = true;
 
 		setStatus("loading");
 		Promise.all([pb.collection("genre").getFullList()])
@@ -40,7 +40,7 @@ function ProgramNav() {
 
 		return () => {
 			isMounted = false;
-		}; // Cleanup function
+		};
 	}, []);
 
 	return (

@@ -130,14 +130,7 @@ const router = createHashRouter(
 					</ProtectRoute>
 				}
 			/>
-			<Route
-				path="/notfound"
-				element={
-					<ProtectRoute>
-						<NotFound />
-					</ProtectRoute>
-				}
-			/>
+			<Route path="*" element={<NotFound />} />
 		</Route>
 	)
 );

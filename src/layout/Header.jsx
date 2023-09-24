@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import S from "@/components/header/Header.module.css";
+import S from "./../components/header/Header.module.css";
 import xIcon from "/assets/headerX.svg";
 import logo from "/assets/logo.svg";
 import profileIcon from "/assets/profile.png";
 import searchIcon from "/assets/search.png";
-import useStorage from "@/hooks/useStorage";
-import authStore from "@/store/useAuthStore";
-import useProfileStore from "@/store/useProfileStore";
-import { getPbImageURL } from "@/utils/getPbImageURL";
-import HeaderContents from "..//components/header/headerContents";
-import HoverBox from "../components/header/HoverBox";
+import useStorage from "./../hooks/useStorage";
+import useProfileStore from "./../store/useProfileStore";
+import { getPbImageURL } from "./../utils/getPbImageURL";
+import HeaderContents from "../components/header/headerContents";
 import ProfileModal from "../components/header/ProfileModal";
 import LogoutPopUp from "../components/header/LogoutPopUp";
 
@@ -20,7 +18,6 @@ function Header() {
 	const [isDivHovered, setIsDivHovered] = useState(false);
 	const [showLogoutPopup, setShowLogoutPopup] = useState(false);
 	const { storageData } = useStorage("pocketbase_auth");
-	console.log(storageData);
 	const navigate = useNavigate();
 	const [searchIconSrc, setSearchIconSrc] = useState(searchIcon);
 	const [searchAlt, setSearchAlt] = useState("검색");
@@ -28,7 +25,7 @@ function Header() {
 	const selectedProfileData = localStorage.getItem("selectedProfile");
 	const selectedProfile = JSON.parse(selectedProfileData);
 	const { profileData } = useProfileStore();
-	const [profileImg, setProfileImg] = useState(null); // 프로필 이미지 상태 추가
+	const [profileImg, setProfileImg] = useState(null);
 
 	useEffect(() => {
 		if (location.pathname === "/search") {
@@ -45,11 +42,7 @@ function Header() {
 			navigate(-1);
 		}
 	};
-	//console.log(profileData);
-	//console.log(authState);
-	//console.log(authState.user);
 
-	//@ 스크롤 이벤트
 	useEffect(() => {
 		const handleScroll = () => {
 			if (window.scrollY > 150) {
@@ -72,27 +65,22 @@ function Header() {
 		storageData?.model?.username;
 
 	useEffect(() => {
-		// 비동기 함수를 이용하여 프로필 이미지 가져오기
 		const fetchProfileImage = async () => {
 			try {
 				let imageUrl;
 
 				if (profileData && profileData.poster) {
-					// profileData가 있을 경우 profileData를 사용
 					imageUrl = await getPbImageURL(profileData, "poster");
 				} else if (selectedProfile && selectedProfile.poster) {
-					// profileData가 없고 selectedProfile이 있을 경우 selectedProfile을 사용
 					imageUrl = await getPbImageURL(selectedProfile, "poster");
 				} else if (
 					!profileData &&
 					!selectedProfile &&
 					storageData?.model?.avatar
 				) {
-					// profileData와 selectedProfile 모두 없을 경우 storageData를 사용
 					imageUrl = await getPbImageURL(storageData?.model, "avatar");
 				} else {
-					// profileData와 selectedProfile 모두 없을 경우 기본 이미지나 다른 로직을 사용
-					imageUrl = profileIcon; // 예시: 기본 이미지
+					imageUrl = profileIcon;
 				}
 
 				setProfileImg(imageUrl);
@@ -158,7 +146,6 @@ function Header() {
 					handleShowLogoutPopup={handleShowLogoutPopup}
 				/>
 			)}
-			<HoverBox />
 		</header>
 	);
 }

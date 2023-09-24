@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import S from "@/components/header/Header.module.css";
+import S from "./../components/header/Header.module.css";
 import logo from "/assets/logo.svg";
 
 function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
 
-	//@ 스크롤 이벤트
 	useEffect(() => {
 		const handleScroll = () => {
 			if (window.scrollY > 150) {

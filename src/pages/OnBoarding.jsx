@@ -23,7 +23,7 @@ export default function OnBoarding() {
 				<meta property="og:description" content="프로젝트 타잉 랜딩페이지" />
 				<meta
 					property="og:image"
-					content="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/116864776/9a99a53e-6256-4622-8b26-3cecd8cddded"
+					content="https://user-images.githubusercontent.com/116864776/270171884-8ef0786e-e749-418a-8235-bb3443855148.png"
 				/>
 				<meta
 					property="og:url"

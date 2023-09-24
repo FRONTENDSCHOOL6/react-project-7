@@ -16,11 +16,11 @@ export default function Movie() {
 				<meta property="og:description" content="프로젝트 타잉 영화 페이지" />
 				<meta
 					property="og:image"
-					content="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/116864776/d9d8f412-6eeb-4437-9f26-4db6a19f39be"
+					content="https://user-images.githubusercontent.com/116864776/270171798-0906052e-fb4a-48d7-8722-9574d08c31eb.png"
 				/>
 				<meta
 					property="og:url"
-					content="http://localhost:5173/react-project-7/#/movie"
+					content="https://frontendschool6.github.io/react-project-7/#/movie"
 				/>
 			</Helmet>
 			<div className="bg-black pt-32 px-[5%]">

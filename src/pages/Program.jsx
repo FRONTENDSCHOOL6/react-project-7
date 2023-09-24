@@ -19,11 +19,11 @@ export default function Movie() {
 				/>
 				<meta
 					property="og:image"
-					content="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/116864776/8e577312-bacb-4000-baab-b1e54ce0116a"
+					content="https://user-images.githubusercontent.com/116864776/270171800-c41e18b6-a042-4d4e-b21a-d6661cf4eb0c.png"
 				/>
 				<meta
 					property="og:url"
-					content="http://localhost:5173/react-project-7/#/program"
+					content="https://frontendschool6.github.io/react-project-7/#/program"
 				/>
 			</Helmet>
 			<div className="bg-black pt-32 px-[5%]">
