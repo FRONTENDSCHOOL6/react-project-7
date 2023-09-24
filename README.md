@@ -179,14 +179,10 @@ src 📂
 │   ├── EditProfile.jsx
 │   ├── EditProfiles.jsx
 │   ├── FailedFindId.jsx
-│   ├── FailedFindId.module.css
 │   ├── Favorite.jsx
-│   ├── Favorite.module.css
 │   ├── FindId.jsx
-│   ├── FindId.module.css
 │   ├── FindPassword.jsx
 │   ├── Home.jsx
-│   ├── Live.jsx
 │   ├── Membership.jsx
 │   ├── Movie.jsx
 │   ├── NotFound.jsx
@@ -195,12 +191,9 @@ src 📂
 │   ├── Program.jsx
 │   ├── Search.jsx
 │   ├── SignIn.jsx
-│   ├── SignIn.module.css
 │   ├── SignInList.jsx
-│   ├── SignInList.module.css
 │   ├── SignUp.jsx
-│   ├── SuccessFindId.jsx
-│   └── SuccessFindId.module.css
+│   └── SuccessFindId.jsx
 ├── routes
 │   ├── ProtectRoute.jsx
 │   └── route.jsx
@@ -224,29 +217,40 @@ src 📂
 ```
 ## 기능 설명(시연영상 포함) 📢 🎥
 
-**결과물 gif**
 <table>
   <tr>
     <th> 페이지</th>
     <td>기능 </td>
   </tr>
 </table>
+
+**결과물 gif**
+
 <br>
 
-![검색 페이지](https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/2f018d92-d33a-40b0-8686-2fff8d94b9e8)
 <table>
     <th>검색 페이지</th>
      <td>최근 검색어 / 검색 전,중,후(다른 UI) / 스와이퍼 / 전역상태관리 </td>
       </tr>
 </table>
 
+![검색 페이지](https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/2f018d92-d33a-40b0-8686-2fff8d94b9e8)
 
-![프로필 관련 페이지](https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/b02c8109-0026-4908-bd00-bc526517400a)
+
+- 검색 전 / 중 / 후에 따라 조건부 렌더링으로 UI를 달리 하였습니다.
+- 검색버튼을 누른 데이터 들은 상태로서 최근 검색어에 유지됩니다. 
+-  전역상태관리로서 zustand를 활용했습니다.
+
+<br>
 <table>
     <th>프로필 관련 페이지</th>
      <td>전역상태관리</td>
       </tr>
 </table>
+
+![프로필 관련 페이지](https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/b02c8109-0026-4908-bd00-bc526517400a)
+
+- 프로필 편집(useranme, avatr) 기능을 구현하였습니다.
 
 ## 접근성 🚇
 

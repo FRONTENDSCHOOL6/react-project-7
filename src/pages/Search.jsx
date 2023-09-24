@@ -6,8 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import useSearchStore from "../store/useSearchStore";
-import S from "./Search.module.css";
-
+import S from "./../components/search/Search.module.css";
 function Search() {
 	const { searchData } = useSearchStore();
 	return (
