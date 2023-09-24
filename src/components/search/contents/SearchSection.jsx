@@ -3,7 +3,6 @@ import debounce from "../../../utils/debounce";
 import S from "./../Search.module.css";
 import SearchIcon from "/assets/search.png";
 
-//@ 검색창 부분 컴포넌트
 export default function SearchSection() {
 	const {
 		searchData,

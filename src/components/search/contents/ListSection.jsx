@@ -6,7 +6,6 @@ import RealtimeSearch from "./RealtimeSearch";
 import RecentView from "./RecentView";
 import XCircleIcon from "/assets/x-circle-icon.svg";
 
-//@ 리스트 부분 컴포넌트
 export default function ListSection() {
 	const recentSearches = useSearchStore((state) => state.recentSearches);
 	const clearRecentSearches = useSearchStore(
