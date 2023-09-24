@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import S from "./SignInList.module.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "swiper/css";
 import pb from "@/api/pocketbase";
 import mainImg from "/assets/main.webp";
@@ -20,11 +20,6 @@ function SignInList() {
 	const navigateToLogin = () => {
 		navigate("/signin");
 	};
-
-	//@ const response = await pb.authStore.clear(); 로그아웃 하는 부분 이걸로 로그아웃 하면
-	//계속 그냥 카카오 누르면 자동으로 넘어가지게 된다
-	// 캐시데이터 초기화시켜주는 건 야무쌤 로그아웃
-
 	//@카카오 연동 로그인
 	const handleKakaoLogin = async () => {
 		try {
@@ -32,29 +27,37 @@ function SignInList() {
 			const user = await pb.collection("users").authWithOAuth2({
 				provider: "kakao",
 			});
-			navigate("/");
-			//@ 권한 부여를 위한 역할 설정 ... 멤버쉽을 type으로 넣어보려고 했는데 불필요하시면 지우셔도 괜찮을거 같아요,,
-			// const role = await pb
-			// 	.collection("membership")
-			// 	.getFirstListItem('type="standard"');
+
 			console.log(user);
-			const { username: name, email } = user.meta;
+			const { username: name, email, nickname } = user.meta;			
 
 			const updateUser = {
 				name,
 				username: email.split("@")[0],
-				// ※ 권한(Authorization) 부여를 위한 역할(role)이 설정된 경우
-				// role: role.id,
+				nickname,
 			};
 
-			console.log("updateUser:", updateUser);
 			//@update=create
-			return await pb.collection("users").update(user.record.id, updateUser);
+			const response = await pb
+				.collection("users")
+				.update(user.record.id, updateUser);
+
+			const { token, record } = response;
+
+			const updatedStorageData = {
+				isAuth: !!record,
+				user: record,
+				token: token,
+			};
+
+			navigate(`/profile/${updatedStorageData?.user?.id}`);
+			console.log("Authentication successful.");
+			return;
 		} catch (error) {
-			// throw new Error(error.message);
 			console.log("오류", error.response);
 		}
 	};
+
 
 	return (
 		<>
@@ -71,10 +74,13 @@ function SignInList() {
 					property="og:description"
 					content="프로젝트 타잉 SNS 계정 연동 로그인 페이지"
 				/>
-				<meta property="og:image" content="@/assets/metaImgSnsLogin.png" />
+				<meta
+					property="og:image"
+					content="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/55738193/8cc80c0e-15b4-4a6b-9fdd-b939414320fb"
+				/>
 				<meta
 					property="og:url"
-					content="http://127.0.0.1:5173/react-project-7/#/signinlist"
+					content="https://frontendschool6.github.io/react-project-7/#/signinlist"
 				/>
 			</Helmet>
 			<section
@@ -123,7 +129,6 @@ function SignInList() {
 							bgImgSrc={twitterLogo}
 							text="트위터로 시작하기"
 						/>
-
 						<SnsLoginButton
 							type="button"
 							bgImgSrc={appleLogo}
@@ -131,18 +136,13 @@ function SignInList() {
 							className={S.joinButton}
 							text="Apple로 시작하기"
 						/>
-						<button
+						<SnsLoginButton
 							type="button"
+							bgImgSrc={cjLogo}
+							text="CJ one으로 시작하기"
 							onClick={navigateToLogin}
-							style={{
-								backgroundImage: `url(${cjLogo})`,
-								backgroundPosition: 30,
-								backgroundSize: 20,
-							}}
-							className={`${S.joinButton} h-[10%]`}
-						>
-							<span>CJone으로 시작하기</span>
-						</button>
+							className={S.joinButton}
+						/>
 					</div>
 				</div>
 			</section>
