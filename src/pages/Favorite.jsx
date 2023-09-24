@@ -1,7 +1,7 @@
 import S from "../components/favorite/Favorite.module.css";
 import { Helmet } from "react-helmet-async";
-import React, { useRef, useState, useEffect } from "react";
-import { Navigation, Pagination } from "swiper/modules";
+import { useRef, useState, useEffect } from "react";
+import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { getPbImageURL } from "@/utils/getPbImageURL";
 import { Link } from "react-router-dom";

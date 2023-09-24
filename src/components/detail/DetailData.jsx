@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { shape, bool, string, number, object, func } from "prop-types";
 import TwitterIcon from "/assets/twitter-logo.png";
 import ShareIcon from "/assets/share-logo.png";
