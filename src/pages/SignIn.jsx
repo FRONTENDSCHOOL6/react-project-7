@@ -53,15 +53,20 @@ function SignIn() {
 				console.log(useAuthStore.getState().authState);
 				// Authentication successful
 				console.log(updatedStorageData);
-				//await localStorage.setItem(
-				//	"pocketbase_auth",
-				//	JSON.stringify(updatedStorageData)
-				//);
-				navigate(`/profile/${updatedStorageData?.user?.id}`);
-				console.log("Authentication successful.");
+
+				if (!updatedStorageData.isAuth){
+					alert(
+						"로그인에 실패하였습니다😓 아이디와 비밀번호를 다시 확인해주세요."
+					);
+				}else {
+					navigate(`/profile/${updatedStorageData?.user?.id}`);
+					console.log("Authentication successful.");
+				}
+				
 			} else {
 				// Authentication failed
 				console.log("Authentication failed.");
+				
 			}
 		} catch (error) {
 			console.error("Error during authentication:", error);
@@ -147,14 +152,33 @@ function SignIn() {
 	return (
 		<>
 			<Helmet>
-				<title>Sign In - Taing</title>
+				<title>타잉 7조 - SNS 로그인 페이지</title>
+				<meta
+					name="description"
+					content="멋쟁이 사자처럼 6기 7조의 파이널 프로젝트 - 티빙 클론코딩 기본 계정 로그인 페이지"
+				/>
+
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="타잉 기본 로그인 페이지" />
+				<meta
+					property="og:description"
+					content="프로젝트 타잉 기본 계정 로그인 페이지"
+				/>
+				<meta
+					property="og:image"
+					content="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/55738193/97e6369f-6694-416c-b699-f1fe43946145"
+				/>
+				<meta
+					property="og:url"
+					content="https://frontendschool6.github.io/react-project-7/#/signin"
+				/>
 			</Helmet>
 			<div className={S.content}>
 				<div className={S.contentWrapper}>
 					<div className={S.title}>TVING ID 로그인</div>
 					<form onSubmit={handleSignIn} className={S.formWrapper}>
 						<InputForm
-							type="text"
+							type="username"
 							name="id"
 							onChange={handleDebounceInput}
 							placeholder="아이디"
@@ -196,29 +220,18 @@ function SignIn() {
 						{/*//@ 로그인 */}
 						<SubmitButton type="submit" text="로그인하기" />
 						<span className={S.linkGroup}>
-							<Link
-								to="/findid"
-								className={S.findId}
-							>
+							<Link to="/findid" className={S.findId}>
 								아이디 찾기{" "}
 							</Link>
 							|{" "}
-							<Link
-								to="/findpw"
-								className={S.findPw}
-							>
+							<Link to="/findpw" className={S.findPw}>
 								비밀번호 찾기
 							</Link>
 						</span>
 					</form>
-					<div
-						className={S.signUpText}
-					>
+					<div className={S.signUpText}>
 						아직 계정이 없으신가요?
-						<Link
-							to="/signup"	
-							className={S.signUp}
-						>
+						<Link to="/signup" className={S.signUp}>
 							회원가입
 						</Link>
 					</div>

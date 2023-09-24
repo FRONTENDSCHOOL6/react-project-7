@@ -6,7 +6,7 @@ import bigcheck from "/assets/big-check.svg";
 import S from "./SuccessFindId.module.css";
 import idStore from "../store/idStore";
 import tvingLogo from "/assets/tving-login.svg";
-import LoginButton from "@/components/findid/LoginButton";
+import LoginButton from "../components/findid/LoginButton";
 
 function SuccessFindId() {
 	const navigate = useNavigate();
@@ -20,8 +20,28 @@ function SuccessFindId() {
 	return (
 		<>
 			<Helmet>
-				<title>FindId - Taing</title>
+				<title>타잉 7조 - S아이디 찾기 성공 페이지</title>
+				<meta
+					name="description"
+					content="멋쟁이 사자처럼 6기 7조의 파이널 프로젝트 - 티빙 클론코딩 아이디 찾기 성공 페이지"
+				/>
+
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="타잉 아이디 찾기 성공 페이지" />
+				<meta
+					property="og:description"
+					content="프로젝트 타잉 아이디 찾기 성공 페이지"
+				/>
+				<meta
+					property="og:image"
+					content="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/55738193/7bc41697-4483-49aa-be97-838f90c0213a"
+				/>
+				<meta
+					property="og:url"
+					content="https://frontendschool6.github.io/react-project-7/#/successfindid"
+				/>
 			</Helmet>
+
 			<div className={S.content}>
 				<div className={S.contentWrapper}>
 					<div className={S.iconSection}>

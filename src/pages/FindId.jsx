@@ -5,8 +5,8 @@ import pb from "@/api/pocketbase";
 import idStore from "../store/idStore";
 import S from "./FindId.module.css";
 import InputForm from "./../components/findid/inputForm";
-import ConfirmButton from "@/components/findid/ConfirmButton";
-import LoginButton from "@/components/findid/LoginButton";
+import ConfirmButton from "../components/findid/ConfirmButton";
+import LoginButton from "../components/findid/LoginButton";
 import resetButton from "./../../public/assets/clear-all.svg";
 
 function FindId() {
@@ -127,7 +127,6 @@ function FindId() {
 					navigate("/successfindid");
 					console.log("Found UserID successful.");
 					return userID;
-					// setResult(null);
 				} else {
 					setResult(null);
 					navigate("/failedfindid");
@@ -142,7 +141,26 @@ function FindId() {
 	return (
 		<>
 			<Helmet>
-				<title>FindId - Taing</title>
+				<title>타잉 7조 - 아이디 찾기 페이지</title>
+				<meta
+					name="description"
+					content="멋쟁이 사자처럼 6기 7조의 파이널 프로젝트 - 티빙 클론코딩 아이디 찾기 페이지"
+				/>
+
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="타잉 아이디 찾기 페이지" />
+				<meta
+					property="og:description"
+					content="프로젝트 타잉 아이디 찾기 페이지"
+				/>
+				<meta
+					property="og:image"
+					content="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/55738193/ce03e7d0-480e-4e5e-854e-a4c0884f5103"
+				/>
+				<meta
+					property="og:url"
+					content="https://frontendschool6.github.io/react-project-7/#/findid"
+				/>
 			</Helmet>
 			<div className={S.contentSection}>
 				<div className={S.contentWrapper}>
@@ -168,7 +186,8 @@ function FindId() {
 							/>
 							<img
 								src={resetButton}
-								className={InputForm.value !== null
+								className={
+									InputForm.value !== null
 										? "hidden"
 										: "cursor-pointer absolute right-[24px] top-3 first-line:transform -translate-y-1/2"
 								}
