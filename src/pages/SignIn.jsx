@@ -1,5 +1,5 @@
 import pb from "@/api/pocketbase";
-import { default as useAuthStore } from "@/store/useAuthStore";
+import { default as useAuthStore } from "../store/useAuthStore";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,7 +9,6 @@ import AutoLogin from "/assets/red-check.svg";
 import unAutoLogin from "/assets/unactive-check.svg";
 import InputForm from "./../components/findid/InputForm";
 import SubmitButton from "./../components/signin/SubmitButton";
-import useProfileStore from "@/store/useProfileStore";
 import S from "./SignIn.module.css";
 
 function SignIn() {
@@ -38,17 +37,14 @@ function SignIn() {
 			const response = await signIn(id, password);
 			console.log("response:", response);
 			if (response) {
-				// 인증에 성공한 경우
 				console.log("인증에 성공했습니다.:", response);
 				const { token, record } = response;
-				// localStorage에 업데이트된 데이터를 저장합니다.
 				const updatedStorageData = {
 					isAuth: !!record,
 					user: record,
 					token: token,
 				};
 				console.log(updatedStorageData);
-				// Zustand 상태를 업데이트합니다.
 				await useAuthStore.setState({ authState: updatedStorageData });
 				console.log(useAuthStore.getState().authState);
 				console.log(updatedStorageData);
@@ -63,7 +59,6 @@ function SignIn() {
 				}
 				
 			} else {
-				// Authentication failed
 				alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
 				console.log("Authentication failed.");
 				
@@ -79,7 +74,6 @@ function SignIn() {
 			.authWithPassword("Your_USERNAME_OR_EMAIL", "YOUR_PASSWORD");
 	};
 
-	//@아이디 비밀번호 유효성 검사용 정규표현식
 	const idRegex = /^.{6,15}$/;
 	const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
 
@@ -87,14 +81,10 @@ function SignIn() {
 		id: "",
 		password: "",
 	});
-
-	//유효성 검사 상태 설정
 	const [loginValidation, setloginValidation] = useState({
 		id: false,
 		password: false,
 	});
-
-	//@비밀번호 보이기/숨기기
 	const togglePasswordHidden = () => {
 		setIsPasswordHidden(!isPasswordHidden);
 	};
@@ -105,10 +95,10 @@ function SignIn() {
 	const handleAutoLogin = () => {
 		if (isLoginClicked) {
 			setImageSrc(unAutoLogin);
-			setIsLoginClicked(false); // 초기 상태 false 일 땐 초기 상태 이미지 src
+			setIsLoginClicked(false); 
 		} else {
 			setImageSrc(AutoLogin);
-			setIsLoginClicked(true); // true일 땐 변경될 이미지 src
+			setIsLoginClicked(true);
 		}
 	};
 
@@ -217,7 +207,6 @@ function SignIn() {
 							/>
 							자동로그인
 						</label>
-						{/*//@ 로그인 */}
 						<SubmitButton type="submit" text="로그인하기" />
 						<span className={S.linkGroup}>
 							<Link to="/findid" className={S.findId}>

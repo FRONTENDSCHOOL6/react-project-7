@@ -23,10 +23,8 @@ function FindId() {
 		console.log(idState);
 	}, [idState]);
 
-	//@ 이메일 전역 변수
 	const [email, setEmail] = useState("");
 
-	//@ 유효성 검사 상태
 	const [validationErrors, setValidationErrors] = useState({
 		email: false,
 	});
@@ -41,7 +39,6 @@ function FindId() {
 		setResult(null); //? 페이지가 리로드될때마다 result 값 초기화
 	}, []);
 
-	//@유효성 검사 통과 확인
 	const isFormVaild = () => {
 		return Object.values(validationErrors).every((error) => error === false);
 	};
@@ -53,8 +50,6 @@ function FindId() {
 			cleanup = setTimeout(callback.bind(null, ...args), timeout);
 		};
 	};
-
-	//@ handleInput 함수
 	const handleInput = (e) => {
 		const { name, value } = e.target;
 		let isValid;
@@ -80,10 +75,7 @@ function FindId() {
 
 	const handleDebounceInput = debounce(handleInput, 500);
 
-	//@ 이메일이 유효한지 여부
 	const isEmailValid = emailRegex.test(email);
-
-	//@ 확인버튼
 	const handleConfirmButton = async (e) => {
 		e.preventDefault();
 		console.log("isEmailValid:", isEmailValid);
@@ -94,12 +86,10 @@ function FindId() {
 				email: "이메일을 올바르게 입력해주세요.",
 			}));
 		} else {
-			//@ 입력받은 이메일 형식이 유효한 경우 처리 로직 추가
-			//@ ex) 서버로 이메일 전송 등
 			setErrorMessage((prevErrors) => ({
 				...prevErrors,
 				email: "",
-			})); //@에러메시지 초기화
+			}));
 
 			try {
 				const result = await pb.collection("users").getList(1, 20, {

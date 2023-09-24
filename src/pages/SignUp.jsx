@@ -7,8 +7,14 @@ import showPasswordIcon from "/assets/eye.svg";
 import hidePasswordIcon from "/assets/hide-password.svg";
 import AutoLogin from "/assets/red-check.svg";
 import grayCheck from "/assets/small-gray-check.svg";
-import redCheck from "/assets/small-red-check.svg";
-import unAutoLogin from "/assets/unactive-check.svg";
+import popUp from "/assets/popup-menu.svg";
+import clearButton from "/assets/clear-all.svg";
+import { LocalAuthStore } from "pocketbase";
+import { FormInput } from "./../components/Form/FormInput";
+// import { FormTitle } from "./../components/Form/FormTitle";
+
+// import { Alert } from "react-native";
+import S from "./Signup.module.css";
 
 function SignUp() {
 	const navigate = useNavigate();
@@ -86,36 +92,12 @@ function SignUp() {
 			return;
 		}
 		//@ 회원 가입 API 호출 및 처리
-		try {
-			const createdUser = await pb
-				.collection("users")
-				.create({ ...formState, emailVisibility: true });
-			const readUser = await pb
-				.collection("users")
-				.getFirstListItem(`email = "${email}"`);
-			console.log(readUser);
-			const profileData = {
-				username: formState.username,
-				userInfo: [readUser.id],
-			};
-			const createProfile = await pb.collection("profile").create(profileData);
-			const readProfile = await pb
-				.collection("profile")
-				.getFirstListItem(`username = "${formState.username}"`);
-			const updateUser = await pb
-				.collection("users")
-				.update(readUser.id, { profiles: [readProfile.id] });
-		} catch (error) {
-			console.error("회원 가입 중 오류 발생:", error);
-			// 오류 처리 로직 추가
-		}
+		await pb
+			.collection("users")
+			.create({ ...formState, emailVisibility: true });
 
-		//console.log(pb.authStore);
-		//console.log("pb.authStore.id=", pb.authStore.model.id);
-		//console.log("pb.authStore.email=", pb.authStore.model.email);
-		//console.log("pb.authStore.password=", pb.authStore.model.password);
-		//console.log("pb.auStore.token=", pb.authStore.token);
-		//console.log("pb.auStore.fovaoriteMovie=", pb.authStore.model.favoriteMovie);
+		console.log(pb.authStore);
+		alert("회원가입이 완료되었습니다 ❤ 가입된 정보로 로그인을 해주세요");
 		navigate("/signin");
 	};
 
@@ -175,26 +157,21 @@ function SignUp() {
 			<Helmet>
 				<title>SignUp - Taing</title>
 			</Helmet>
-			<div className="bg-black h-screen z-50">
-				<div className="wrapper pt-[70px] text-white login-title leading-10 container w-1/3 mx-auto align-middle">
-					<h3 className="text-white pb-[30px] font-semibold text-4xl flex justify-center">
-						티빙 회원가입
-					</h3>
-					<p className="text-gray300 font-bold text-xl text-center pb-10">
+			<div className={S.screen}>
+				<div className={S.contentWrapper}>
+					<h1 className={S.signup}>티빙 회원가입</h1>
+					<p className={S.subtitle}>
 						아이디와 이메일로 간편하게 티빙을 시작하세요!
 					</p>
 					<form onSubmit={handleRegister}>
+						{/* //@ 아이디 */}
 						<span className="relative">
-							{/* //@ 아이디 */}
-							<input
-								type="text"
+							<FormInput
 								label="아이디"
 								name="username"
-								id="username"
 								defaultValue={formState.username}
-								className="text-white h-16 bg-gray800 placeholder-slate-600 login-form px-4 w-full rounded-sm"
-								placeholder="아이디"
 								onChange={handleDebounceInput}
+								placeholder="아이디"
 							/>
 							<img
 								src={clearButton}
@@ -211,36 +188,35 @@ function SignUp() {
 								영문 소문자 또는 영문 소문자, 숫자 조합 6~12자리로 입력해주세요
 							</p>
 						) : (
-							<p className="text-gray500">
+							<p className={S.idValidation}>
 								영문 소문자 또는 영문 소문자, 숫자 조합 6~12자리
 							</p>
 						)}
 						{/*//@비밀번호*/}
 						{/* //@ 비밀번호 유효성 검사, 일치 여부 확인 */}
-						<label className="relative">
-							<input
+						<span className="relative">
+							<FormInput
 								type={isPasswordHidden ? "password" : "text"}
 								label="비밀번호"
 								name="password"
-								id="password"
 								defaultValue={formState.password}
-								onChange={handleInput}
+								onChange={handleDebounceInput}
 								className={` ${
 									validationErrors.password
 										? "border-red-500"
 										: !validationErrors.password && formState.password !== ""
 										? "border-slate-300"
 										: "border-slate-300"
-								} text-white h-16 mt-3 bg-gray800 placeholder-slate-600 login-form px-4 w-full rounded-sm`}
+								} text-white h-16 mt-3 bg-gray800 placeholder-slate-600 px-4 w-full rounded-sm`}
 								placeholder="비밀번호"
 							/>
 							<img
 								src={isPasswordHidden ? hidePasswordIcon : showPasswordIcon}
 								alt="비밀번호 숨김/표시 아이콘"
 								onClick={togglePasswordHidden}
-								className="cursor-pointer absolute right-[24px] top-3 first-line:transform -translate-y-1/2"
+								className={S.hidePasswordButton}
 							/>
-						</label>
+						</span>
 						{validationErrors.password && (
 							<span className="text-red-500 text-base">
 								비밀번호는 영문, 숫자를 포함하여 8~16자로 입력해주세요.
@@ -249,23 +225,20 @@ function SignUp() {
 
 						{/*//@ 비밀번호 확인 */}
 						<label className="relative">
-							<input
-								type={isConfirmPasswordHidden ? "password" : "text"}
+							<FormInput
+								type={isPasswordHidden ? "password" : "text"}
 								label="비밀번호 확인"
 								name="passwordConfirm"
-								id="passwordConfirm"
 								defaultValue={formState.passwordConfirm}
 								placeholder="비밀번호 확인"
-								onChange={handleInput}
-								className={`${
+								className={` ${
 									validationErrors.passwordConfirm
 										? "border-red-500"
 										: !validationErrors.passwordConfirm &&
 										  formState.passwordConfirm !== ""
 										? "border-green-600"
 										: "border-slate-400"
-								}
-									text-white h-16 mt-3 bg-gray800 placeholder-slate-600 login-form px-4 w-full rounded-sm`}
+								} ${S.basicForm}`}
 							/>
 							<img
 								src={
@@ -273,7 +246,7 @@ function SignUp() {
 								}
 								alt="비밀번호 숨김/표시 아이콘"
 								onClick={toggleConfirmPasswordHidden}
-								className="cursor-pointer absolute right-[24px] top-3 first-line:transform -translate-y-1/2"
+								className={S.hidePasswordButton}
 							/>
 						</label>
 						{validationErrors.passwordConfirm ? (
@@ -285,17 +258,13 @@ function SignUp() {
 								영문, 숫자, 특수문자(~!@#$%^&*) 조합 8~15 자리{" "}
 							</span>
 						)}
-
-						{/* {validationErrors.passwordConfirm && <></>} */}
-						<input
+						<FormInput
 							type="email"
 							label="이메일"
 							name="email"
-							id="email"
 							defaultValue={formState.email}
-							className="text-white h-16 mt-3 bg-gray800 placeholder-slate-600 login-form px-4 w-full rounded-sm"
 							placeholder="이메일"
-							onChange={handleInput}
+							onChange={handleDebounceInput}
 						/>
 						{validationErrors.email && (
 							<span className="text-red-500 text-base">
@@ -330,7 +299,7 @@ function SignUp() {
 									src={isAgreeChecked ? redCheck : grayCheck}
 									alt="약관동의 체크"
 									onClick={handleAgreeChecked}
-									className="right-1/5 pr-3 cursor-pointer"
+									className={S.checkAgree}
 								/>
 								<p>[필수] 서비스 이용약관 동의</p>
 							</span>
@@ -339,7 +308,7 @@ function SignUp() {
 									src={isAgreeChecked ? redCheck : grayCheck}
 									alt="약관동의 체크"
 									onClick={handleAgreeChecked}
-									className="right-1/5 pr-3 cursor-pointer"
+									className={S.checkAgree}
 								/>
 								<p>[필수] 개인정보 수집 및 이용 동의</p>
 							</span>
@@ -348,7 +317,7 @@ function SignUp() {
 									src={isAgreeChecked ? redCheck : grayCheck}
 									alt="약관동의 체크"
 									onClick={handleAgreeChecked}
-									className="right-1/5 pr-3 cursor-pointer"
+									className={S.checkAgree}
 								/>
 								[선택] 개인정보 수집 및 이용 동의
 							</p>
@@ -357,7 +326,7 @@ function SignUp() {
 									src={isAgreeChecked ? redCheck : grayCheck}
 									alt="마케팅 정보 수신 동의"
 									onClick={handleAgreeChecked}
-									className="right-1/5 pr-3 cursor-pointer"
+									className={S.checkAgree}
 								/>
 								[선택] 마케팅 정보 수신 동의
 							</p>
@@ -400,7 +369,6 @@ function SignUp() {
 								? "bg-gray700 dark:hover:bg-[#cc1030] cursor-pointer"
 								: "bg-gray700 cursor-not-allowd"
 						}`}
-							//className="h-16 bg-gray700 font-bold dark:hover:bg-[#cc1030] text-white login-button w-full rounded-sm" ->원본 복구용
 						>
 							가입하기
 						</button>
