@@ -27,3 +27,18 @@
   @apply h-full w-full object-cover;
   @apply max-md:w-4/5 cursor-pointer;
 }
+
+.logoutWrapper {
+  @apply absolute top-[calc(50vh_-_100px)] left-[calc(50vw_-_200px)] bg-[#212121] flex justify-center items-center w-[25rem] h-[9.375rem] rounded flex-col;
+}
+.profileModal {
+  @apply fixed min-w-[15rem] box-border shadow-[0px_5px_10px_0_rgba(0,0,0,0.5)] bg-[#212121] translate-x-0 -translate-y-2.5 -mt-0.5 pt-6 pb-[1.167rem] px-0 rounded-sm border-solid border-[#4d4d4d] border right-[3.5rem] top-[5.833rem] z-50;
+  @apply leading-[1.15] text-base text-white;
+  @apply transition-all;
+}
+
+.profileModalList {
+  @apply inline-block w-full px-[1.667rem] py-2 cursor-pointer;
+  @apply text-lg leading-normal text-neutral-400;
+  @apply hover:text-white hover:bg-[#2e2e2e] transition-[color] duration-[0.1s];
+}

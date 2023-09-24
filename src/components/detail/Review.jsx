@@ -55,6 +55,10 @@ export default function ReviewSection({ id, contentType }) {
 			localStorage.getItem("pocketbase_auth") || "{}"
 		);
 		const userId = userFromLocalStorage?.model?.id;
+		if (stars === 0) {
+			alert("별점을 설정해주세요.");
+			return;
+		}
 
 		if ((reviewText !== "" || editedComment !== "") && stars !== null) {
 			try {

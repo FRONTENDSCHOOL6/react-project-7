@@ -1,6 +1,4 @@
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
-import React, { useRef, useEffect, useState } from "react";
 import MovieNav from "./../components/category/MovieNav";
 import MovieContent from "./../components/category/MovieContent";
 
@@ -16,7 +14,10 @@ export default function Movie() {
 				<meta property="og:type" content="website" />
 				<meta property="og:title" content="타잉 카테고리별 영화" />
 				<meta property="og:description" content="프로젝트 타잉 영화 페이지" />
-				<meta property="og:image" content="@/assets/metaImgMovie.png" />
+				<meta
+					property="og:image"
+					content="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/116864776/d9d8f412-6eeb-4437-9f26-4db6a19f39be"
+				/>
 				<meta
 					property="og:url"
 					content="http://localhost:5173/react-project-7/#/movie"
