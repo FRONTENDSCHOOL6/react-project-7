@@ -1,0 +1,1 @@
+import{j as i}from"./index-dd88ebde.js";import"./react-7b82c02c.js";import"./reactRouter-08e27dd4.js";import"./extra-3c07f53d.js";function m(){return i.jsx("div",{children:"Live"})}export{m as default};
