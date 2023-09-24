@@ -52,12 +52,21 @@ function SignIn() {
 				await useAuthStore.setState({ authState: updatedStorageData });
 				console.log(useAuthStore.getState().authState);
 				console.log(updatedStorageData);
-				navigate(`/profile/${updatedStorageData?.user?.id}`);
-				console.log("Authentication successful.");
+
+				if (!updatedStorageData.isAuth){
+					alert(
+						"로그인에 실패하였습니다😓 아이디와 비밀번호를 다시 확인해주세요."
+					);
+				}else {
+					navigate(`/profile/${updatedStorageData?.user?.id}`);
+					console.log("Authentication successful.");
+				}
+				
 			} else {
 				// Authentication failed
 				alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
 				console.log("Authentication failed.");
+				
 			}
 		} catch (error) {
 			console.error("Error during authentication:", error);
@@ -169,7 +178,7 @@ function SignIn() {
 					<div className={S.title}>TVING ID 로그인</div>
 					<form onSubmit={handleSignIn} className={S.formWrapper}>
 						<InputForm
-							type="text"
+							type="username"
 							name="id"
 							onChange={handleDebounceInput}
 							placeholder="아이디"
