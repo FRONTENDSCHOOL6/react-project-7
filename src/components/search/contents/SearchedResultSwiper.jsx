@@ -1,5 +1,5 @@
 import { getPbImageURL } from "@/utils/getPbImageURL";
-import { arrayOf, bool, func, number, shape, string } from "prop-types";
+import { arrayOf, bool, func, shape, string } from "prop-types";
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Navigation, Pagination } from "swiper/modules";
@@ -13,7 +13,7 @@ import { useEffect } from "react";
 
 export default function SearchedResultSwiper({
 	contentCategory,
-	setIsFullView, // isFullView를 전달받음
+	setIsFullView,
 	setCurrentCategory,
 	isFullView,
 	currentCategory,

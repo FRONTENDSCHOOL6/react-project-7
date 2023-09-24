@@ -5,7 +5,6 @@ import S from "./../Search.module.css";
 import SearchedResultSwiper from "./SearchedResultSwiper";
 import SearchingResultSwiper from "./SearchingResultSwiper";
 
-//@ 검색 결과 컴포넌트
 export default function SearchResult() {
 	const {
 		contents,
@@ -18,9 +17,8 @@ export default function SearchResult() {
 		addRecentSearch,
 	} = useSearchStore();
 
-	//@ 현재 카테고리
 	const [currentCategory, setCurrentCategory] = useState(null);
-	//@ 전체보기 여부
+
 	const [isFullView, setIsFullView] = useState(false);
 	const handleSearchData = async (content) => {
 		if (!content.title) return;
