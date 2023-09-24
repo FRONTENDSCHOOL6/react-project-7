@@ -14,18 +14,14 @@ function Home() {
 	return (
 		<>
 			<Helmet>
-				<title>TAING</title>
+				<title>TAING - 메인 페이지</title>
+				<meta property="title" content="타잉 메인페이지" />
 				<meta
 					name="description"
 					content="멋쟁이 사자처럼 6기 7조의 파이널 프로젝트 - 티빙 클론코딩 타잉 메인페이지"
 				/>
-				<meta property="og:type" content="website" />
 				<meta property="og:title" content="타잉 메인페이지" />
 				<meta property="og:description" content="프로젝트 타잉 메인페이지" />
-				<meta
-					property="og:image"
-					content="https://user-images.githubusercontent.com/116864776/270171794-e2d4b9aa-0d08-4a20-9845-791ac41b6506.png"
-				/>
 				<meta
 					property="og:url"
 					content="https://frontendschool6.github.io/react-project-7/"

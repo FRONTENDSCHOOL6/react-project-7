@@ -10,10 +10,11 @@
   - [팀원 소개 👨‍👩‍👧‍👦](#팀원-소개-)
   - [역할 분담 🤙](#역할-분담-)
   - [기술 스택 🛠️](#기술-스택-️)
+    - [언어 및 라이브러리](#언어-및-라이브러리)
+    - [개발 환경](#개발-환경)
+    - [협업](#협업)
   - [스케폴딩 📑](#스케폴딩-)
   - [기능 설명(시연영상 포함) 📢 🎥](#기능-설명시연영상-포함--)
-  - [접근성 🚇](#접근성-)
-  - [성능  🏎️](#성능--️)
     - [이미지 압축 라이브러리](#이미지-압축-라이브러리)
   - [프로젝트 회고 👀](#프로젝트-회고-)
   - [실행 방법 ⚙️](#실행-방법-️)
@@ -53,9 +54,21 @@
 
 ## 기술 스택 🛠️
 
-<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"><img src="https://img.shields.io/badge/Tailwind-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/rome-27272A?style=for-the-badge&logo=rome&logoColor=white"> <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white"> <img src="https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=react-query&logoColor=white"> <img src="https://img.shields.io/badge/zustand-593D88?style=for-the-badge&logo=zustand&logoColor=white"> <img src="https://img.shields.io/badge/pocketbase-FFCA28?style=for-the-badge&logo=pocketbase&logoColor=white"> <img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white"> <img src="https://img.shields.io/badge/Visual_Studio-5C2D91?style=for-the-badge&logo=visual%20studio&logoColor=white"> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
+
+### 언어 및 라이브러리
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"><img src="https://img.shields.io/badge/Tailwind-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"><img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> </br> <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white"> <img src="https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=react-query&logoColor=white"> <img src="https://img.shields.io/badge/zustand-593D88?style=for-the-badge&logo=zustand&logoColor=white">  
+<br/>
+### 개발 환경
+<img src="https://img.shields.io/badge/Visual_Studio-5C2D91?style=for-the-badge&logo=visual%20studio&logoColor=white"> <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white"><img src="https://img.shields.io/badge/rome-27272A?style=for-the-badge&logo=rome&logoColor=white">
+<img src="https://img.shields.io/badge/pocketbase-FFCA28?style=for-the-badge&logo=pocketbase&logoColor=white"> <img src="https://img.shields.io/badge/pnpm-F69220?style=for-the-badge&logo=pnpm&logoColor=white">
+<br/><br/>
+### 협업
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white">
+<br/><br/>
 
 ## 스케폴딩 📑
+<details ><summary> 스케폴딩 구조 </summary>
+
 ```
 src 📂
 ├── App.jsx
@@ -215,6 +228,11 @@ src 📂
     ├── removeQuotes.js
     └── separateComma.js
 ```
+
+
+
+</details></br></br></br>
+
 ## 기능 설명(시연영상 포함) 📢 🎥
 
 <table>
@@ -252,11 +270,65 @@ src 📂
 
 - 프로필 편집(useranme, avatr) 기능을 구현하였습니다.
 
-## 접근성 🚇
+<br>
+<table>
+    <th>랜딩 페이지</th>
+     <td> 스와이퍼(infinite-loop)/아코디언 메뉴 </td>
+      </tr>
+</table>
+
+![onboarding](https://github.com/FRONTENDSCHOOL6/react-project-7/assets/116864776/731c2be1-c384-4f7f-b104-1ae2b81e0265)
+
+- 무한루프의 스와이퍼를 구현하였습니다.
+- 랜덤으로 지정된 이미지가 나오는 기능을 구현하였습니다.
+- 아코디언 메뉴 기능이 있습니다.
+<br>
+<table>
+    <th>메인 페이지</th>
+     <td> 스와이퍼 </td>
+      </tr>
+</table>
+
+![main](https://github.com/FRONTENDSCHOOL6/react-project-7/assets/116864776/e164cf77-f515-4f2f-b920-77ed924ae2f1)
+
+- 스와이퍼로 대부분의 레이아웃을 구성하였습니다.
+- pocketbase에서 콘텐츠를 불러와 렌더링하는 기능을 구현하였습니다.
+<br>
+<table>
+    <th>카테고리별 페이지(영화, 드라마)</th>
+     <td> 전역상태관리/스와이퍼 </td>
+      </tr>
+</table>
+
+![program](https://github.com/FRONTENDSCHOOL6/react-project-7/assets/116864776/1df11f60-c218-4a65-a49b-81226b52d7df)
+
+- 버튼의 클릭된 상태를 위해 zustand를 사용하였습니다.
+- 카테고리 버튼 리스트를 스와이퍼로 구현하였습니다.
+- pocketbase에서 콘텐츠를 불러와 렌더링하는 기능을 구현하였습니다.
+
+<br>
+<table>
+    <th>상세 페이지</th>
+     <td> 스와이퍼/ 전역상태관리/리뷰기능 </td>
+      </tr>
+</table>
+
+![detail](https://github.com/FRONTENDSCHOOL6/react-project-7/assets/128447711/648de2aa-d17f-4f64-93bf-0d1284ce11e9)
+
+- 스와이퍼 (네비게이션, 페이지네이션) 기능을 구현하였습니다.
+- pocketbase에서 회차 정보, 태그, 비슷한 프로그램 데이터를 불러와 렌더링하였습니다.
+- 에피소드 정렬 기능을 구현하였습니다.
+- 공유 기능을(링크 복사, 페이스북, 트위터 ) 구현하였습니다.
+- 리뷰를 작성, 수정, 삭제할 수 있는 기능을 구현하였습니다. 
+
+<br>
+<table>
+    <th>내가 찜한 콘텐츠</th>
+     <td> 스와이퍼/ 전역상태관리 </td>
+      </tr>
+</table>
 
 
-## 성능  🏎️ 
-추후 작성(Lighthouse / Performance 탭 등)
 ### 이미지 압축 라이브러리
 
 
@@ -266,7 +338,7 @@ src 📂
 <table>
   <tr>
     <th>김경아</th>
-    <td> </td>
+    <td> 리액트에 부족함을 느끼고 프로젝트 진행을 할 수 있을지 자신이 없었지만 어려움이 생기면 언제든지 같이 고민해주시는 조원 분들과 함께  머리를 맞대고 고민해보고 해결하면서 결국 끝맺을 수 있었습니다. 한달 동안 지난 3달 간 배운 것들을 다시 익히고 활용해보는 습의 시간이었습니다. 프로젝트를 하며 깨달은 여러 부족한 부분들을 앞으로도 부지런히 공부하며 채워나가고 싶습니다.   </td>
   </tr>
   <tr>
     <th>노치현</th>
@@ -274,11 +346,11 @@ src 📂
     </tr>
       <tr>
     <th>양시연</th>
-     <td></td>
+     <td>부족한 점들을 마주할 수 있는 기회가 되었습니다. 그래도 이전에 배운 것들을 활용할 수 있는 기회가 되었고, 아는 것과 활용하는 것이 확실히 다르다는 것을 느낄 수 있었습니다. 이후 리팩토링을 꼭 해보고 싶고, 좋은 조원들 덕분에 부족한 점들을 보완할 수 있었던 것 같습니다.</td>
       </tr>
    <tr>
     <th>이예나</th>
-     <td></td>
+     <td>열심히 적극적으로 참여한 모든 팀원들 덕분에 프로젝트를 잘 마무리할 수 있어 기쁩니다. 4개월의 시간이 너무 빠르게 흘러 아쉬운 마음이 가득이지만 한편으론 앞으로의   개발자를 향한 길이 기대가 되기도 합니다! 그동안 모두 감사했습니다</td>
       </tr>
   </table>
 <br>

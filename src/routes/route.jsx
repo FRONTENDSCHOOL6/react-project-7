@@ -18,7 +18,6 @@ import SuccessFindId from "../pages/SuccessFindId";
 const FindPassword = lazy(() => import("../pages/FindPassword"));
 const Contents = lazy(() => import("../pages/Contents"));
 const Favorite = lazy(() => import("../pages/Favorite"));
-const Live = lazy(() => import("../pages/Live"));
 const Membership = lazy(() => import("../pages/Membership"));
 const OnBoarding = lazy(() => import("../pages/OnBoarding"));
 const Profile = lazy(() => import("../pages/Profile"));
@@ -65,14 +64,7 @@ const router = createHashRouter(
 					</ProtectRoute>
 				}
 			/>
-			<Route
-				path="/live"
-				element={
-					<ProtectRoute>
-						<Live />
-					</ProtectRoute>
-				}
-			/>
+
 			<Route
 				path="/search"
 				element={

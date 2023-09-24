@@ -24,10 +24,6 @@ function Search() {
 					property="og:image"
 					content="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/f44b38e2-04e6-4828-9ce5-41c009b5dfca"
 				/>
-				<meta
-					property="og:url"
-					content="https://frontendschool6.github.io/react-project-7/#/search"
-				/>
 			</Helmet>
 
 			<div className={`${S.container}`}>
