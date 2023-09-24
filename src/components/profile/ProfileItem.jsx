@@ -3,7 +3,6 @@ import { func, shape, string } from "prop-types";
 import S from "./Profile.module.css";
 import DefaultProfile from "/assets/default-profile.png";
 function ProfileItem({ profile, onClick }) {
-	console.log(profile);
 	return (
 		<li key={profile?.username} className={S.listWrapper}>
 			<button type="button" className={S.profileButton} onClick={onClick}>

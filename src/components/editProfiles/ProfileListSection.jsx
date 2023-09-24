@@ -7,7 +7,7 @@ function ProfileListSection({ isLoading, profileData, handleProfileClick }) {
 		<div className={S.profileListSection}>
 			<ul className="flex items-center justify-center gap-7 w-2/3">
 				{isLoading ? (
-					<p>Loading...</p> // You can replace this with your loading indicator
+					<p>Loading...</p>
 				) : (
 					<ProfileList
 						profiles={profileData}

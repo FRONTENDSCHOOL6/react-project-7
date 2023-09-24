@@ -10,14 +10,14 @@ function ProfileList({ profiles, onSelect }) {
 					<ProfileItem
 						key={profile?.username}
 						profile={profile}
-						onClick={onSelect(profile)} // onClick으로 onSelect 함수를 전달합니다.
+						onClick={onSelect(profile)}
 					/>
 				))
 			) : (
 				<ProfileItem
 					key={profiles?.username}
 					profile={profiles}
-					onClick={onSelect(profiles)} // onClick으로 onSelect 함수를 전달합니다.
+					onClick={onSelect(profiles)}
 				/>
 			)}
 		</ul>

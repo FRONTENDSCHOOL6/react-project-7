@@ -2,7 +2,6 @@ import { arrayOf, func, shape, string } from "prop-types";
 import S from "./EditProfiles.module.css";
 import ProfileItem from "./ProfileItem";
 export default function ProfileList({ profiles, onProfileClick }) {
-	console.log(profiles);
 	return (
 		<ul className={S.profileListWrapper}>
 			{profiles?.expand ? (

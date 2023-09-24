@@ -10,7 +10,6 @@ export default function EditProfileSection({
 	handlePosterChange,
 	handleNameChange,
 }) {
-	console.log(profileData);
 	return (
 		<div className={S.editProfileSection}>
 			<button type="button" className={`${S.editButton} `}>
