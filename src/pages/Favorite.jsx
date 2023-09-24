@@ -1,4 +1,4 @@
-import S from "../pages/Favorite.module.css";
+import S from "../components/favorite/Favorite.module.css";
 import { Helmet } from "react-helmet-async";
 import React, { useRef, useState, useEffect } from "react";
 import { Navigation, Pagination } from "swiper/modules";
