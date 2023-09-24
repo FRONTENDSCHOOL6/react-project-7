@@ -4,7 +4,6 @@ import S from "./EditProfiles.module.css";
 import DefaultProfile from "/assets/default-profile.png";
 
 export default function ProfileItem({ profile, onClick }) {
-	console.log(profile);
 	return (
 		<li className="flex flex-col justify-center items-center w-full">
 			<button type="button" className={`${S.editButton}`} onClick={onClick}>
