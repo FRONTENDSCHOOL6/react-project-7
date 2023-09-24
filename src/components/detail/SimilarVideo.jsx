@@ -6,19 +6,16 @@ import S from "../detail/Contents.module.css";
 import SwiperButton from "../../components/common/SwiperButton";
 
 export default function SimilarSection({ similar }) {
-	//@ 스와이퍼 상태 설정
 	const [isBeginning, setIsBeginning] = useState(true);
 	const [isEnd, setIsEnd] = useState(false);
 	const prevRef = useRef(null);
 	const nextRef = useRef(null);
 
-	//@ 스와이퍼 변경 핸들러
 	const handleSlideChange = (swiper) => {
 		setIsBeginning(swiper.isBeginning);
 		setIsEnd(swiper.isEnd);
 	};
 
-	//@ 영화 스와이퍼 활성화 처리
 	useEffect(() => {
 		if (prevRef.current || nextRef.current) {
 			if (isBeginning) {
