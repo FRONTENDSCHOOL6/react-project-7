@@ -1,6 +1,5 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import pb from "@/api/pocketbase";
-import PocketBase from "pocketbase";
 import { string } from "prop-types";
 import S from "../detail/Contents.module.css";
 import ReviewItem from "../detail/EditReview";

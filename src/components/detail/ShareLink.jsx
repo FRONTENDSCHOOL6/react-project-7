@@ -1,4 +1,3 @@
-import React, { useRef, useState, useEffect } from "react";
 import { string } from "prop-types";
 import S from "../detail/Contents.module.css";
 
