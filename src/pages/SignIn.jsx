@@ -9,6 +9,7 @@ import AutoLogin from "/assets/red-check.svg";
 import unAutoLogin from "/assets/unactive-check.svg";
 import InputForm from "./../components/findid/InputForm";
 import SubmitButton from "./../components/signin/SubmitButton";
+import useProfileStore from "@/store/useProfileStore";
 import S from "./SignIn.module.css";
 
 function SignIn() {
@@ -35,12 +36,11 @@ function SignIn() {
 
 		try {
 			const response = await signIn(id, password);
-			console.log(response);
+			console.log("response:", response);
 			if (response) {
 				// 인증에 성공한 경우
-				console.log(response);
+				console.log("인증에 성공했습니다.:", response);
 				const { token, record } = response;
-
 				// localStorage에 업데이트된 데이터를 저장합니다.
 				const updatedStorageData = {
 					isAuth: !!record,
@@ -51,12 +51,12 @@ function SignIn() {
 				// Zustand 상태를 업데이트합니다.
 				await useAuthStore.setState({ authState: updatedStorageData });
 				console.log(useAuthStore.getState().authState);
-				// Authentication successful
 				console.log(updatedStorageData);
 				navigate(`/profile/${updatedStorageData?.user?.id}`);
 				console.log("Authentication successful.");
 			} else {
 				// Authentication failed
+				alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
 				console.log("Authentication failed.");
 			}
 		} catch (error) {
