@@ -7,6 +7,7 @@ import ButtonSection from "../components/editProfile/ButtonSection";
 import EditProfileSection from "../components/editProfile/EditProfileSection";
 import TitleSection from "../components/editProfile/TitleSection";
 import DefaultProfile from "/assets/default-profile.png";
+import { Helmet } from "react-helmet-async";
 
 function EditProfile() {
 	const navigate = useNavigate();
@@ -125,22 +126,45 @@ function EditProfile() {
 		}
 	};
 	return (
-		<section className="bg-black w-screen h-screen flex items-center justify-center text-white my-auto relative pt-[2rem] lg:pt-[1.5rem] md:pt-[1rem]">
-			<div className="flex flex-col justify-center items-center min-h-full gap-10 w-2/3">
-				<TitleSection />
-				<EditProfileSection
-					isLoading={isLoading}
-					updatedUser={updatedUser}
-					profileData={profileData}
-					handlePosterChange={handlePosterChange}
-					handleNameChange={handleNameChange}
+		<>
+			<Helmet>
+				<title>타잉 7조 - 프로필 편집 페이지</title>
+				<meta
+					name="description"
+					content="멋쟁이 사자처럼 6기 7조의 파이널 프로젝트 - 티빙 클론코딩 프로필 편집 페이지"
 				/>
-				<ButtonSection
-					handleSaveProfile={handleSaveProfile}
-					handleCancel={handleCancel}
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="타잉 프로필 편집 페이지" />
+				<meta
+					property="og:description"
+					content="프로젝트 타잉 프로필 편집 페이지"
 				/>
-			</div>
-		</section>
+				<meta
+					property="og:image"
+					content="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/1eb89fd9-eb47-4be6-be3d-a5746fb33abd"
+				/>
+				<meta
+					property="og:url"
+					content="https://frontendschool6.github.io/react-project-7/#/editprofile/:id/:id"
+				/>
+			</Helmet>
+			<section className="bg-black w-screen h-screen flex items-center justify-center text-white my-auto relative pt-[2rem] lg:pt-[1.5rem] md:pt-[1rem]">
+				<div className="flex flex-col justify-center items-center min-h-full gap-10 w-2/3">
+					<TitleSection />
+					<EditProfileSection
+						isLoading={isLoading}
+						updatedUser={updatedUser}
+						profileData={profileData}
+						handlePosterChange={handlePosterChange}
+						handleNameChange={handleNameChange}
+					/>
+					<ButtonSection
+						handleSaveProfile={handleSaveProfile}
+						handleCancel={handleCancel}
+					/>
+				</div>
+			</section>
+		</>
 	);
 }
 

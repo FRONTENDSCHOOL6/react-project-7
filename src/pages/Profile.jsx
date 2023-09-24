@@ -8,6 +8,7 @@ import useProfileStore from "@/store/useProfileStore";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import S from "./../components/profile/Profile.module.css";
+import { Helmet } from "react-helmet-async";
 function Profile() {
 	const navigate = useNavigate();
 	const { setProfileData } = useProfileStore();
@@ -49,16 +50,36 @@ function Profile() {
 	}
 
 	return (
-		<section className={S.pageWrapper}>
-			<div className={S.contentsWrapper}>
-				<ProfileTitle />
-				<ProfileList
-					profiles={profilesData ? profilesData : storageData}
-					onSelect={handleProfileSelect}
+		<>
+			<Helmet>
+				<title>타잉 7조 - 프로필 페이지</title>
+				<meta
+					name="description"
+					content="멋쟁이 사자처럼 6기 7조의 파이널 프로젝트 - 티빙 클론코딩 프로필 페이지"
 				/>
-				<ProfileEditButton />
-			</div>
-		</section>
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="타잉 프로필 페이지" />
+				<meta property="og:description" content="프로젝트 타잉 프로필 페이지" />
+				<meta
+					property="og:image"
+					content="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/b7f4b1cf-2d2a-42fd-a44d-0e3cbf06ef46"
+				/>
+				<meta
+					property="og:url"
+					content="https://frontendschool6.github.io/react-project-7/#/profile/:id"
+				/>
+			</Helmet>
+			<section className={S.pageWrapper}>
+				<div className={S.contentsWrapper}>
+					<ProfileTitle />
+					<ProfileList
+						profiles={profilesData ? profilesData : storageData}
+						onSelect={handleProfileSelect}
+					/>
+					<ProfileEditButton />
+				</div>
+			</section>
+		</>
 	);
 }
 
