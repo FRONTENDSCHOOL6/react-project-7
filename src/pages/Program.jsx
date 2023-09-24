@@ -23,7 +23,7 @@ export default function Movie() {
 				/>
 				<meta
 					property="og:url"
-					content="http://localhost:5173/react-project-7/#/program"
+					content="https://frontendschool6.github.io/react-project-7/#/program"
 				/>
 			</Helmet>
 			<div className="bg-black pt-32 px-[5%]">
