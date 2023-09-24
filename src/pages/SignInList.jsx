@@ -1,7 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import S from "./SignInList.module.css";
-import React, { useState, useEffect } from "react";
 import "swiper/css";
 import pb from "@/api/pocketbase";
 import mainImg from "/assets/main.webp";
@@ -15,15 +14,13 @@ import cjLogo from "/assets/cjone-login.png";
 import SnsLoginButton from "./../components/snslogin/SnsLogin";
 
 function SignInList() {
-	//@ 버튼 클릭 시 로그인 페이지로 이동
+	
 	const navigate = useNavigate();
 	const navigateToLogin = () => {
 		navigate("/signin");
 	};
-	//@카카오 연동 로그인
 	const handleKakaoLogin = async () => {
 		try {
-			//@카카오 로그인
 			const user = await pb.collection("users").authWithOAuth2({
 				provider: "kakao",
 			});
@@ -37,7 +34,6 @@ function SignInList() {
 				nickname,
 			};
 
-			//@update=create
 			const response = await pb
 				.collection("users")
 				.update(user.record.id, updateUser);
@@ -49,7 +45,7 @@ function SignInList() {
 				user: record,
 				token: token,
 			};
-
+			alert("카카오 계정으로 회원가입이 완료되었습니다 💛 ");
 			navigate(`/profile/${updatedStorageData?.user?.id}`);
 			console.log("Authentication successful.");
 			return;

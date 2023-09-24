@@ -1,14 +1,11 @@
-import { useId } from "react";
 import { oneOf, string } from "prop-types";
 import S from "./FormInput.module.css";
 
-export function FormInput({ type = "text", name = null, label, ...restProps }) {
-	const id =useId();
+export function FormInput({ type = "text", name, id, ...restProps }) {
 
 	return (
 		<div className={S.Wrapper}>
-			<label htmlFor="id" className={S.label}>
-			</label>
+			<label htmlFor={id} className={S.label}></label>
 			<input
 				type={type}
 				name={name}
@@ -21,8 +18,8 @@ export function FormInput({ type = "text", name = null, label, ...restProps }) {
 }
 
 FormInput.propTypes = {
-    type: oneOf(["text", "password", "email", "username"]),
-    name: string.isRequired,
-    label: string.isRequired,
-
+	type: oneOf(["text", "password", "email", "username"]),
+	id: string.isRequired,
+	name: string.isRequired,
+	label: string.isRequired,
 };

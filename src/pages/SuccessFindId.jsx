@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
-import pb from "@/api/pocketbase";
 import bigcheck from "/assets/big-check.svg";
 import S from "./SuccessFindId.module.css";
 import idStore from "../store/idStore";
@@ -20,7 +18,7 @@ function SuccessFindId() {
 	return (
 		<>
 			<Helmet>
-				<title>타잉 7조 - S아이디 찾기 성공 페이지</title>
+				<title>타잉 7조 - 아이디 찾기 성공 페이지</title>
 				<meta
 					name="description"
 					content="멋쟁이 사자처럼 6기 7조의 파이널 프로젝트 - 티빙 클론코딩 아이디 찾기 성공 페이지"
@@ -68,11 +66,6 @@ function SuccessFindId() {
 							}}
 						>
 							<span className="flex">
-								{/* <p
-									className=""
-								>
-									TVING ID
-								</p> */}
 								{idState.id}
 							</span>
 						</div>
