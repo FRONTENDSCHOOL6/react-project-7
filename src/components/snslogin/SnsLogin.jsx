@@ -9,6 +9,7 @@ function SnsLogin({ type = "text", onClick, text, bgImgSrc}) {
 			style={{
 				backgroundImage: `url(${bgImgSrc})`,
 				backgroundPosition: 30,
+				backgroundSize: 20,
 			}}
 			className={S.SnsLoginButton}
 			onClick={onClick}
