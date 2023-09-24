@@ -13,18 +13,16 @@ export default function EpisodeSection({
 	episodeThumbs,
 	sortKey,
 }) {
-	//@ 스와이퍼 상태 설정
 	const [isBeginning, setIsBeginning] = useState(true);
 	const [isEnd, setIsEnd] = useState(false);
 	const prevRef = useRef(null);
 	const nextRef = useRef(null);
 
-	//@ 스와이퍼 변경 핸들러
 	const handleSlideChange = (swiper) => {
 		setIsBeginning(swiper.isBeginning);
 		setIsEnd(swiper.isEnd);
 	};
-	//@ 영화 스와이퍼 활성화 처리
+
 	useEffect(() => {
 		if (prevRef.current || nextRef.current) {
 			if (isBeginning) {
@@ -48,9 +46,7 @@ export default function EpisodeSection({
 		setIsToggled(!isToggled);
 	};
 
-	//@ 회차 정렬 핸들러
 	const handleSortAsc = () => {
-		//? 오름차순
 		const sortedEpisodes = [...state.episodes].sort((a, b) => {
 			const titleA = parseInt(a.title.split(",")[0]);
 			const titleB = parseInt(b.title.split(",")[0]);
@@ -66,7 +62,6 @@ export default function EpisodeSection({
 	};
 
 	const handleSortDesc = () => {
-		//? 내림차순
 		const sortedEpisodes = [...state.episodes].sort((a, b) => {
 			const titleA = parseInt(a.title.split(",")[0]);
 			const titleB = parseInt(b.title.split(",")[0]);

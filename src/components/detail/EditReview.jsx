@@ -10,11 +10,9 @@ export default function ReviewItem({
 	commentId,
 	writerId,
 }) {
-	//@ 수정 상태 설정
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [isRemoved, setIsRemoved] = useState(false);
 
-	//@ 코멘트 상태 설정
 	const [editedComment, setEditedComment] = useState(comment);
 	const [realComment, setRealComment] = useState(comment);
 
@@ -23,7 +21,6 @@ export default function ReviewItem({
 	);
 	const currentUserId = userFromLocalStorage?.model?.id;
 
-	//@ 리뷰 삭제 핸들러
 	const handleDeleteClick = async () => {
 		console.log(currentUserId, writerId);
 		if (currentUserId !== writerId) {
@@ -39,7 +36,6 @@ export default function ReviewItem({
 		}
 	};
 
-	//@ 리뷰 수정 핸들러
 	const handleEditClick = () => {
 		if (currentUserId !== writerId) {
 			alert("본인의 리뷰만 수정할 수 있습니다.");
@@ -48,7 +44,7 @@ export default function ReviewItem({
 
 		setIsEditMode(true);
 	};
-	//@ 리뷰 저장 핸들러
+
 	const handleSave = async (commentId) => {
 		if (!isEditMode) return;
 

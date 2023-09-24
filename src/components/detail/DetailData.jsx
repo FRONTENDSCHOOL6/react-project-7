@@ -17,11 +17,9 @@ export default function DetailArticle({
 	contentType,
 	id,
 }) {
-	//@ 상태 관리
 	const [isChanged, setChanged] = useState(false); //? 찜 버튼 상태
 	const [userId, setUserId] = useState(null);
 
-	//@ 로컬 스토리지 정보
 	useEffect(() => {
 		const userFromLocalStorage = JSON.parse(
 			localStorage.getItem("pocketbase_auth") || "{}"
@@ -33,13 +31,11 @@ export default function DetailArticle({
 		}
 	}, []);
 
-	//@ 찜 상태 관리
 	const [favorites, setFavorites] = useState({
 		favoriteProgram: [],
 		favoriteMovie: [],
 	});
 
-	//@ 찜 버튼 핸들러
 	const handleHeart = async () => {
 		let newFavorites;
 

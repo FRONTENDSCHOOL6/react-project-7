@@ -1,4 +1,4 @@
-import S from "../pages/Favorite.module.css";
+import S from "../components/favorite/Favorite.module.css";
 import { Helmet } from "react-helmet-async";
 import React, { useRef, useState, useEffect } from "react";
 import { Navigation, Pagination } from "swiper/modules";
@@ -9,7 +9,6 @@ import SwiperButton from "../components/common/SwiperButton";
 import pb from "@/api/pocketbase";
 
 export default function Favorites() {
-	//@ 스와이퍼 상태 설정
 	const [isBeginningM, setIsBeginningM] = useState(true);
 	const [isEndM, setIsEndM] = useState(false);
 	const prevRefM = useRef(null);
@@ -20,13 +19,11 @@ export default function Favorites() {
 	const prevRefP = useRef(null);
 	const nextRefP = useRef(null);
 
-	//@ 스와이퍼 변경 핸들러
 	const handleSlideChange = (swiper, setIsBeginningFunc, setIsEndFunc) => {
-		setIsBeginningFunc(swiper.isBeginning); //? 스와이퍼 시작인지 확인, 상태 업데이트
-		setIsEndFunc(swiper.isEnd); //? 스와이퍼 마지막인지 확인, 상태
+		setIsBeginningFunc(swiper.isBeginning);
+		setIsEndFunc(swiper.isEnd);
 	};
 
-	//@ 영화 스와이퍼 활성화 처리
 	useEffect(() => {
 		if (prevRefM.current || nextRefM.current) {
 			if (isBeginningM) {
@@ -43,7 +40,6 @@ export default function Favorites() {
 		}
 	}, [isBeginningM, isEndM]);
 
-	//@ 프로그램 스와이퍼 활성화 처리
 	useEffect(() => {
 		if (prevRefP.current || nextRefP.current) {
 			if (isBeginningP) {
@@ -60,7 +56,6 @@ export default function Favorites() {
 		}
 	}, [isBeginningP, isEndP]);
 
-	//@ 로컬스토리지 정보
 	const userFromLocalStorage = JSON.parse(
 		localStorage.getItem("pocketbase_auth") || "{}"
 	);
@@ -72,7 +67,6 @@ export default function Favorites() {
 		favoriteMovie: [],
 	});
 
-	// @ 사용자 정보
 	useEffect(() => {
 		const handleData = async (users) => {
 			try {
