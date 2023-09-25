@@ -1,0 +1,42 @@
+.contentWrapper {
+    @apply bg-black h-screen z-50
+}
+
+.container {
+    @apply pt-[130px] leading-10 w-1/3 mx-auto align-middle
+}
+
+.imgSection {
+    @apply flex pb-[60px] justify-center
+}
+
+.img {
+    @apply h-[60px]
+}
+
+.title {
+    @apply pb-5 text-center;
+    @apply text-white font-extrabold text-3xl;
+    @apply md:text-2xl
+}
+
+.textSection {
+    @apply text-center pb-14;
+    @apply text-gray400 font-medium
+}
+
+.description {
+    @apply whitespace-pre-line h-8;
+    @apply text-xl
+}
+
+.description2 {
+    @apply whitespace-pre-line pb-[50px];
+    @apply text-xl
+}
+
+.button {
+    @apply h-16 bg-gray100 w-full rounded-sm;
+    @apply text-black font-extrabold;
+    @apply dark:hover:bg-zinc-100;
+}

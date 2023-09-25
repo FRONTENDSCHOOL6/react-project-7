@@ -1,0 +1,44 @@
+.header {
+  @apply bg-gradient-to-b from-gray800/95 w-full h-[5.5rem] px-[60px] flex flex-row items-center fixed duration-300 z-50;
+  @apply text-gray-200;
+  @apply max-lg:px-7 max-lg:text-lg max-lg:h-[5rem] max-md:px-5 max-md:h-[4.5rem];
+}
+
+.content {
+  @apply flex flex-row justify-between gap-x-14;
+  @apply text-xl;
+  @apply md:max-xl:gap-x-10 max-lg:ml-7 max-md:ml-4 ml-11 max-md:gap-x-4 max-md:text-base max-sm:ml-0;
+}
+
+.contentList {
+  @apply hover:text-white duration-300;
+}
+
+.home {
+  @apply max-sm:hidden;
+}
+
+.profile {
+  @apply flex flex-row justify-end gap-10 ml-auto h-[60%] items-center;
+  @apply max-md:gap-x-4 max-md:h-[80%];
+}
+
+.profileImg {
+  @apply h-[3.5rem] w-[3.5rem] object-cover;
+  @apply max-lg:h-[3rem] max-lg:w-[3rem] cursor-pointer;
+}
+
+.logoutWrapper {
+  @apply absolute top-[calc(50vh_-_100px)] left-[calc(50vw_-_200px)] bg-[#212121] flex justify-center items-center w-[25rem] h-[9.375rem] rounded flex-col;
+}
+.profileModal {
+  @apply fixed min-w-[15rem] box-border shadow-[0px_5px_10px_0_rgba(0,0,0,0.5)] bg-[#212121] translate-x-0 -translate-y-2.5 -mt-0.5 pt-6 pb-[1.167rem] px-0 rounded-sm border-solid border-[#4d4d4d] border right-[3.5rem] top-[5.833rem] z-50;
+  @apply leading-[1.15] text-base text-white;
+  @apply transition-all;
+}
+
+.profileModalList {
+  @apply inline-block w-full px-[1.667rem] py-2 cursor-pointer;
+  @apply text-lg leading-normal text-neutral-400;
+  @apply hover:text-white hover:bg-[#2e2e2e] transition-[color] duration-[0.1s];
+}

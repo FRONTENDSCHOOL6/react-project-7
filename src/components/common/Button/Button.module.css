@@ -1,0 +1,18 @@
+/* Button.module.css */
+.button {
+  @apply w-[2/5] border  grow mt-0.5 p-0 rounded-[3px] border-solid border-transparent;
+  @apply font-bold text-center;
+  @apply duration-300 transition-all;
+}
+
+.primary {
+  @apply block box-border border  mt-2 px-0 py-3 border-solid rounded bg-[#dedede]  border-[#dedede] flex-grow;
+  @apply font-bold text-center text-black;
+  @apply hover:border-white hover:bg-white;
+}
+
+.secondary {
+  @apply block box-border border  mt-2 px-0 py-3 border-solid rounded bg-black  border-[#4e4e4e]  flex-grow;
+  @apply font-bold text-center text-neutral-400;
+  @apply hover:border-[#a3a3a3] hover:text-[#dedede];
+}

@@ -1,0 +1,103 @@
+.join {
+  @apply relative pb-[calc(28%+20rem)] w-full h-0 text-center;
+}
+
+.joinGradient {
+  @apply absolute bg-black/70 brightness-50 w-full h-full bg-gradient-to-b from-transparent to-black;
+}
+
+.joinContentWrapper {
+  @apply absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex flex-col gap-3 text-center;
+}
+
+.joinContent {
+  @apply text-white text-[2.75rem] font-semibold leading-[140%] tracking-wide;
+}
+
+.joinSubContent {
+  @apply text-gray400 text-2xl font-normal;
+}
+
+.joinButton {
+  @apply relative left-1/2 -translate-x-1/2 top-5 bg-primary w-[30%] py-5 rounded;
+  @apply text-white text-2xl font-semibold;
+  @apply before:bg-[url('/assets/tving-symbol.svg')] before:bg-no-repeat before:bg-contain before:absolute before:top-0 before:left-0 before:w-20 before:h-full max-md:w-[50%] max-lg:w-[40%];
+}
+
+.onlyTaing {
+  @apply w-full bg-black text-center text-white pb-36;
+}
+
+.onlyContentWrapper {
+  @apply flex flex-col gap-1 mb-14;
+}
+
+.fun {
+  @apply relative w-full bg-black text-center text-white pb-36;
+}
+
+.textBig {
+  @apply text-[3.3rem] font-semibold mb-2;
+}
+
+.textMedium {
+  @apply text-3xl text-gray-200;
+}
+
+.textSmall {
+  @apply text-gray400 text-[1.4rem];
+}
+
+.onlyFig {
+  @apply relative w-screen flex flex-row justify-evenly;
+}
+
+.darkImg {
+  @apply absolute top-1/2 -translate-y-1/2 w-[36%] brightness-[40%];
+}
+
+.videoWrapper {
+  @apply relative pb-[56.25%] pt-[25px] h-0;
+}
+
+.videoItem {
+  @apply absolute top-[15%] left-1/2 -translate-x-1/2 w-[60%] h-[60%];
+}
+
+.vodImg {
+  @apply absolute w-[38%] bottom-[-5%] left-1/2 -translate-x-1/2;
+}
+
+.num {
+  @apply relative w-full bg-black text-center text-white pb-[calc(10%+20rem)];
+}
+
+.numWrapper {
+  @apply absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-[1rem]  max-sm:w-1/2;
+}
+
+.numButton {
+  @apply relative left-1/2 -translate-x-1/2 top-5 bg-primary w-full py-5 rounded;
+  @apply text-white text-2xl font-semibold;
+  @apply before:bg-[url('/assets/tving-symbol.svg')] before:bg-no-repeat before:bg-left-top before:absolute before:top-0 before:left-0 before:w-full before:bg-contain before:h-full;
+}
+
+.qna {
+  @apply w-full bg-black text-gray300 px-[3%];
+}
+
+.qnaTitle {
+  @apply text-white text-[3rem] font-semibold tracking-wide text-center;
+}
+
+.qnaItem {
+  @apply border border-0 border-b border-gray800 py-7;
+}
+
+.question {
+  @apply flex flex-row px-2 justify-between cursor-pointer text-2xl;
+}
+
+.answer {
+  @apply px-4 pt-4 overflow-hidden text-lg leading-6;
+}

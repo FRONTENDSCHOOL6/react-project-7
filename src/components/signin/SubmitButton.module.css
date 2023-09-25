@@ -1,0 +1,6 @@
+button.SubmitButton {
+    @apply h-14 bg-[#FF153C] w-full rounded-sm;
+    @apply text-white font-bold;
+    @apply dark:hover:bg-[#cc1030]
+}
+

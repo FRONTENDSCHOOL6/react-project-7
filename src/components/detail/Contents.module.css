@@ -1,0 +1,161 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+.main {
+  @apply w-full bg-[black] flex flex-col h-full;
+  @apply pt-[5.5rem] lg:pt-[5rem] md:pt-[4.5rem];
+}
+
+/* article */
+.article {
+  @apply relative bg-cover pl-[4.1875rem] pr-[6.25rem] pt-5 pb-[3.125rem];
+}
+.articleBg {
+  @apply relative z-10 flex flex-row justify-between h-full;
+}
+.articleTitle {
+  @apply mb-[1.25rem] text-5xl font-bold text-white;
+}
+.gradation {
+  @apply w-screen h-[45vw] absolute left-2/4 top-1/3 inset-0;
+}
+.sharePopup {
+  @apply w-[220%] h-[55%] bg-[rgba(0,0,0,0.2)] absolute top-[-35px] -translate-x-2/4 px-[5%] left-2/4;
+}
+.tag {
+  @apply text-center font-semibold text-[hsla(0,0%,100%,0.7)] mr-1.5 mt-1.5 pb-[0.0437rem] px-[0.4375rem] rounded-[0.2rem] border-solid border-[1px];
+}
+.titleInfo {
+  @apply mr-[0.9375rem] whitespace-nowrap font-semibold;
+}
+.truncate {
+  @apply whitespace-nowrap overflow-hidden text-ellipsis;
+}
+.imgBtn {
+  @apply m-auto w-[2rem] h-[2rem] mt-[0.5625rem] mb-[0.3125rem];
+}
+.shareImg {
+  @apply w-[25%] h-[65%] cursor-pointer;
+}
+.facebookIcon {
+  @apply w-[30px];
+}
+.twitterIcon {
+  @apply w-[30px];
+}
+.linkIcon {
+  @apply w-[30px];
+}
+.poster {
+  @apply h-full w-full bg-cover bg-center bg-no-repeat blur-[100px] brightness-[50%];
+}
+.moreInfo {
+  @apply flex-wrap font-semibold mt-[0.6875rem];
+}
+.playBtn {
+  @apply w-[15.625rem] h-[4.0625rem] rounded text-lg leading-7 font-bold bg-white text-[black] mr-4 mt-[1.5625rem];
+}
+.likeBtn {
+  @apply w-[4.1328rem] h-[4.1328rem] font-semibold mt-6 mb-[0.3125rem];
+}
+.heartBtn {
+  @apply w-8 h-8 content-[url("/assets/heart.svg")] mt-[0.5625rem] mb-[0.3125rem] m-auto;
+}
+.fullHeartBtn {
+  @apply content-[url("/assets/heart.svg")];
+}
+.shareBtn {
+  @apply w-8 h-8 content-[url("/assets/share.svg")] mt-[0.5625rem] mb-[0.3125rem] m-auto;
+}
+
+/* section */
+.section {
+  @apply flex flex-col mb-8;
+}
+.sectionTitle {
+  @apply text-xl leading-7 font-semibold text-[white] px-12;
+}
+.programFont {
+  @apply flex justify-between w-full font-semibold;
+}
+.sortBtn {
+  @apply pr-[1rem] flex justify-end font-semibold;
+}
+.sectionDiv {
+  @apply flex justify-between mt-[1.9375rem] mb-[1.125rem];
+}
+.toggleBtn {
+  @apply w-[1.875rem] h-[0.9375rem] relative cursor-pointer items-center mt-0 rounded-[15px];
+}
+.toggleBtn .circle {
+  @apply w-[0.8125rem] h-[0.8125rem] absolute bg-white transition-all duration-[ease-in-out] delay-[0.3s] rounded-[50%] left-px top-px;
+}
+.toggleBtn.off {
+  @apply bg-[#ccc];
+}
+.toggleBtn.off .circle {
+  @apply translate-x-0;
+}
+.toggleBtn.on {
+  @apply bg-[red];
+}
+.toggleBtn.on .circle {
+  @apply translate-x-[15px];
+}
+.playOn {
+  @apply text-[white];
+}
+.playOff {
+  @apply text-[gray];
+}
+.asc {
+  @apply text-[white];
+}
+.desc {
+  @apply text-[gray];
+}
+
+/* review */
+.reviewSection {
+  @apply flex flex-col mb-[3.8125rem];
+}
+.starIcon {
+  @apply text-[2rem] text-[#ccc];
+}
+.starIcon.active {
+  @apply text-[#ffd400];
+}
+.star {
+  @apply text-xl cursor-pointer;
+}
+.figureHoverEffect {
+  @apply transition-transform duration-[0.5s] ease-[cubic-bezier(0.165,0.84,0.44,1)] cursor-pointer hover:-translate-y-2.5 hover:text-[white];
+}
+.reviewForm {
+  @apply flex justify-between mt-[0.625rem] w-[92%];
+}
+.reviewInput {
+  @apply text-[black] w-[88%] h-full shadow-[rgba(0,0,0,0.1)_0px_0.1rem_0.5rem] text-[1.25em] bg-[#565656] mx-2.5 p-2 rounded-lg border-[none];
+}
+.reviewButton {
+  @apply w-[10%] bg-[#2b2b2b] text-[white] cursor-pointer text-[0.875em] transition-[0.3s] duration-[ease] ease-[all] mt-2 px-3 py-1 rounded-[5em] border-[none] hover:bg-[red];
+}
+.reviewBox {
+  @apply flex flex-row pl-[3rem] justify-between;
+}
+.editItem {
+  @apply text-white  w-[50%] rounded-[0.3em] border-solid pl-[1rem] pt-[0.625rem] mt-[0.625rem] ml-[3rem];
+}
+
+.reviewItem {
+  @apply ml-12;
+}
+.deleteBtn {
+  @apply cursor-pointer text-sm ml-[0.3125rem] mt-[0.2em] rounded-[0.3em];
+}
+.editBtn {
+  @apply text-[white] ml-[0.3125rem] mt-[0.5em] p-px rounded-[0.3em] border-[solid] border-[none] hover:bg-[gray];
+}
+.editInput[type="text"] {
+  @apply block w-full p-[0.5em] rounded-[0.3em];
+}

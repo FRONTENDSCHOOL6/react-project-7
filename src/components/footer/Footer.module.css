@@ -1,0 +1,92 @@
+.footer {
+  @apply w-full pt-[70px] px-10 pb-24 flex flex-col gap-6 bg-black;
+  @apply text-xl text-gray500;
+  @apply md:max-lg:text-lg sm:max-md:gap-4;
+}
+
+.notice {
+  @apply flex flex-row justify-between;
+  @apply max-sm:text-lg;
+}
+
+.noticeContent {
+  @apply ml-5 duration-200;
+  @apply xl:hover:text-gray200;
+  @apply md:max-lg:ml-2 sm:max-md:text-gray200 max-sm:text-gray200;
+}
+
+.buttons {
+  @apply flex flex-row gap-7 items-center;
+  @apply md:max-lg:gap-2 max-md:hidden;
+}
+
+.goToButton {
+  @apply flex flex-row gap-3 duration-200;
+  @apply xl:hover:text-gray200;
+  @apply md:max-lg:gap-2;
+}
+
+.noticeVerticalBar {
+  @apply w-[1px] h-3/4 bg-gray500;
+}
+
+.horizontalBar {
+  @apply border-[#212121] my-6;
+}
+
+.service {
+  @apply flex flex-row gap-9;
+  @apply text-gray400;
+  @apply md:max-lg:text-lg md:max-lg:gap-6 max-md:flex-col max-md:gap-1 max-sm:text-gray200;
+}
+
+.serviceItem {
+  @apply duration-200;
+  @apply xl:hover:text-gray200 sm:max-md:text-gray200;
+}
+
+.serviceItemBold {
+  @apply duration-200;
+  @apply font-extrabold;
+  @apply xl:hover:text-gray200 sm:max-md:text-gray200;
+}
+
+.description {
+  @apply flex flex-col;
+  @apply text-lg;
+  @apply md:max-lg:text-sm max-md:hidden;
+}
+
+.descriptionItem {
+  @apply flex flex-row gap-2 items-center;
+}
+
+.descriptionVerticalBar {
+  @apply w-[1px] bg-gray700 h-[16px];
+}
+
+.line {
+  @apply underline;
+}
+
+.sns {
+  @apply flex flex-row gap-5 h-11 items-center;
+}
+
+.snsItem {
+  @apply bg-gray300/20 h-12 w-12 rounded-full text-center flex items-center justify-evenly duration-200;
+  @apply max-md:h-10 max-md:w-10 xl:hover:bg-gray-300/70;
+}
+
+.snsImg {
+  @apply max-md:w-3/5 max-md:h-3/5;
+}
+
+.facebookImg {
+  @apply max-md:w-auto max-md:h-3/5;
+}
+
+.copyright {
+  @apply text-lg;
+  @apply md:max-lg:text-sm
+}

@@ -3,16 +3,19 @@
 	"organizeImports": {
 		"enabled": true
 	},
-  "javascript": {
-    "formatter": {
-      "semicolons": "asNeeded",
-			"quoteStyle": "single",
-			"trailingComma":"es5",
-			"arrowParentheses":"always",
-			"jsxQuoteStyle":"double",
-			"quoteProperties":"asNeeded"
-    }
-  },
+	"linter": {
+		"enabled": false
+	},
+	"javascript": {
+		"formatter": {
+			"semicolons": "always",
+			"quoteStyle": "double",
+			"trailingComma": "es5",
+			"arrowParentheses": "always",
+			"jsxQuoteStyle": "double",
+			"quoteProperties": "asNeeded"
+		}
+	},
 	"formatter": {
 		"enabled": true,
 		"formatWithErrors": true,
