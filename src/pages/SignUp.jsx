@@ -6,14 +6,10 @@ import clearButton from "/assets/clear-all.svg";
 import showPasswordIcon from "/assets/eye.svg";
 import hidePasswordIcon from "/assets/hide-password.svg";
 import AutoLogin from "/assets/red-check.svg";
+import unAutoLogin from "/assets/gray-check1.svg";
+import redCheck from "/assets/small-red-check.svg";
 import grayCheck from "/assets/small-gray-check.svg";
-import popUp from "/assets/popup-menu.svg";
-import clearButton from "/assets/clear-all.svg";
-import { LocalAuthStore } from "pocketbase";
 import { FormInput } from "./../components/Form/FormInput";
-// import { FormTitle } from "./../components/Form/FormTitle";
-
-// import { Alert } from "react-native";
 import S from "./Signup.module.css";
 
 function SignUp() {
@@ -31,9 +27,11 @@ function SignUp() {
 
 	const handleAgreeConfirm = () => {
 		if (isAgreeClicked) {
+			setIsAgreeChecked(!isAgreeChecked);
 			setImageSrc(unAutoLogin);
 			setIsAgreeClicked(false); // 초기 상태 false 일 땐 초기 상태 이미지 src
 		} else {
+			setIsAgreeChecked(!isAgreeChecked);
 			setImageSrc(AutoLogin);
 			setIsAgreeClicked(true); // true일 땐 변경될 이미지 src
 		}
@@ -194,7 +192,7 @@ function SignUp() {
 						)}
 						{/*//@비밀번호*/}
 						{/* //@ 비밀번호 유효성 검사, 일치 여부 확인 */}
-						<span className="relative">
+						<div className="relative">
 							<FormInput
 								type={isPasswordHidden ? "password" : "text"}
 								label="비밀번호"
@@ -216,7 +214,7 @@ function SignUp() {
 								onClick={togglePasswordHidden}
 								className={S.hidePasswordButton}
 							/>
-						</span>
+						</div>
 						{validationErrors.password && (
 							<span className="text-red-500 text-base">
 								비밀번호는 영문, 숫자를 포함하여 8~16자로 입력해주세요.
@@ -224,7 +222,7 @@ function SignUp() {
 						)}
 
 						{/*//@ 비밀번호 확인 */}
-						<label className="relative">
+						<div className="relative">
 							<FormInput
 								type={isPasswordHidden ? "password" : "text"}
 								label="비밀번호 확인"
@@ -248,7 +246,7 @@ function SignUp() {
 								onClick={toggleConfirmPasswordHidden}
 								className={S.hidePasswordButton}
 							/>
-						</label>
+						</div>
 						{validationErrors.passwordConfirm ? (
 							<span className="text-red-500 text-base">
 								비밀번호가 일치하지 않습니다. 다시 확인해주세요.
